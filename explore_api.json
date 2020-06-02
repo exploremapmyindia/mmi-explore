@@ -1,0 +1,322 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MapmyIndia Explore APIs",
+    "description": "<h2>Security Type</h2> <p>This APIs follow OAuth2 based security. <b>To know more on how to create your authorization tokens, please click the `Authorize` button below. More details available <a href=\"https://www.mapmyindia.com/api/advanced-maps/doc/authentication-api.php\">here</a></b> </br><li><a href=\"https://www.mapmyindia.com/api/login\">Login/Sing Up</a> for API key and other access.<p></br>",
+    "termsOfService": "https://www.mapmyindia.com/api/terms-&-conditions",
+    "contact": {
+      "name": "MapmyIndia API Support",
+      "url": "https://www.mapmyindia.com/api/#f_cont",
+      "email": "apisupport@mapmyindia.com"
+    },
+    "version": "2.1.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about MapmyIndia APIs",
+    "url": "https://www.mapmyindia.com/api/advanced-maps/doc/interactive-map-api"
+  },
+  "servers": [
+    {
+      "url": "http://exp.mapmyindia.in/api/v2.1.0.0/",
+      "description": "PreProd"
+    },
+    {
+      "url": "https://explore.mapmyindia.com/api/v2.1.0.0/",
+      "description": "Prod"
+    },
+    {
+      "url": "http://explore-uat.mapmyindia.in/api/v2.0.0.17/",
+      "description": "UAT"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Checkins"
+    },
+    {
+      "name": "Claim a Business"
+    },
+    {
+      "name": "Events"
+    },
+    {
+      "name": "Image"
+    },
+    {
+      "name": "List"
+    },
+    {
+      "name": "Place"
+    },
+    {
+      "name": "Report"
+    },
+    {
+      "name": "Review"
+    },
+    {
+      "name": "Route"
+    },
+    {
+      "name": "Route Report Summary"
+    },
+    {
+      "name": "User"
+    }
+  ],
+  "paths": {
+    "/places/checkin/{checkinId}": {
+      "get": {
+        "tags": [
+          "Checkins"
+        ],
+        "summary": "Checkin details",
+        "description": "Get checkin details",
+        "operationId": "getCheckinDetail",
+        "parameters": [
+          {
+            "name": "checkinId",
+            "in": "path",
+            "description": "Checkin ID to get details of",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Text_Search_Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/places/{eloc}/checkin": {
+      "get": {
+        "tags": [
+          "Checkins"
+        ],
+        "summary": "All Checkin at a place",
+        "description": "Get checkin details",
+        "operationId": "getAllCheckin",
+        "parameters": [
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "Eloc",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Text_Search_Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "query": {
+        "title": "query",
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "example": "FODCOF, Shoes, Coffee, Versace"
+          }
+        },
+        "description": "This category search placed like Gucci, H&M, Adidas,                  Starbucks"
+      },
+      "location": {
+        "title": "location",
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number",
+            "description": "Latitude",
+            "format": "double",
+            "example": 28.63146
+          },
+          "lng": {
+            "type": "number",
+            "description": "Longitude",
+            "format": "double",
+            "example": 77.217423
+          }
+        },
+        "description": "Georgraphic coordinate in decimal latitude/longitude format"
+      },
+      "filter": {
+        "title": "filter",
+        "type": "object",
+        "properties": {
+          "pin": {
+            "type": "number",
+            "description": "Pincode or Postal Code",
+            "format": "integer",
+            "example": 110055
+          }
+        },
+        "description": "It helps you restrict the result by mentioning Pincode."
+      },
+      "Text_Search_Response": {
+        "title": "Text Search Response",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "POI",
+            "description": "Type of location POI or Country or City"
+          },
+          "typeX": {
+            "type": "integer",
+            "example": 7,
+            "description": "For integer use only"
+          },
+          "placeAddress": {
+            "type": "string",
+            "example": "Block F, Okhla Industrial Estate Phase 1, New Delhi, Delhi, 110020",
+            "description": "Address of the location"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": 28.515356,
+            "description": "Latitude of the location"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": 77.281273,
+            "description": "Longitude of the location"
+          },
+          "eLoc": {
+            "type": "string",
+            "example": "F2D814",
+            "description": "Place Id of the location 6-char alphanumeric"
+          },
+          "entryLatitude": {
+            "type": "number",
+            "format": "double",
+            "example": 28.515296,
+            "description": "Latitude of the entrance of the location"
+          },
+          "entryLongitude": {
+            "type": "number",
+            "format": "double",
+            "example": 77.281113,
+            "description": "Longitude of the entrance of the location"
+          },
+          "placeName": {
+            "type": "string",
+            "example": "Ronnies Hotel",
+            "description": "Name of the location"
+          },
+          "alternateName": {
+            "type": "string",
+            "example": "",
+            "description": "Alternate name of the location"
+          },
+          "keywords": {
+            "type": "string",
+            "example": "[HOTALL]",
+            "description": "Provides an array of matched keywords or codes"
+          },
+          "P": {
+            "type": "number",
+            "format": "long integer",
+            "example": 4487,
+            "description": "For internal use only"
+          },
+          "distance": {
+            "type": "integer",
+            "example": 0,
+            "description": "For internal use only"
+          },
+          "orderIndex": {
+            "type": "integer",
+            "example": 1,
+            "description": "The order where this result should be placed"
+          },
+          "score": {
+            "type": "number",
+            "format": "double",
+            "example": 0,
+            "description": "For internal use only"
+          },
+          "suggester": {
+            "type": "string",
+            "example": null,
+            "description": "For internal use only"
+          },
+          "addressTokens": {
+            "type": "string",
+            "example": {},
+            "description": "For internal use only"
+          },
+          "richinfo": {
+            "type": "string",
+            "example": {}
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "mmi_auth": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://outpost.mapmyindia.com/api/security/oauth/token",
+            "scopes": {
+              "Read": "read authorization for API"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
