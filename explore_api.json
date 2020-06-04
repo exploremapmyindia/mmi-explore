@@ -9,7 +9,7 @@
       "url": "https://www.mapmyindia.com/api/#f_cont",
       "email": "apisupport@mapmyindia.com"
     },
-    "version": "2.1.0"
+    "version": "2.1.0.0"
   },
   "externalDocs": {
     "description": "Find out more about MapmyIndia APIs",
@@ -17,15 +17,15 @@
   },
   "servers": [
     {
-      "url": "http://exp.mapmyindia.in/api/v2.1.0.0/",
+      "url": "http://exp.mapmyindia.in/api",
       "description": "PreProd"
     },
     {
-      "url": "https://explore.mapmyindia.com/api/v2.1.0.0/",
+      "url": "https://explore.mapmyindia.com/api",
       "description": "Prod"
     },
     {
-      "url": "http://explore-uat.mapmyindia.in/api/v2.0.0.17/",
+      "url": "http://explore-uat.mapmyindia.in/api",
       "description": "UAT"
     }
   ],
@@ -91,7 +91,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Text_Search_Response"
+                  "$ref": "#/components/schemas/placeDetailResponse"
                 }
               }
             }
@@ -135,7 +135,59 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Text_Search_Response"
+                  "$ref": "#/components/schemas/placeDetailResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/placedetails": {
+      "get": {
+        "tags": [
+          "Place"
+        ],
+        "summary": "Detail of a place",
+        "description": "This API gives the general details of that particular place id (eLoc) with keyinfo.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API. Current.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/placeDetailResponse"
                 }
               }
             }
@@ -155,147 +207,197 @@
   },
   "components": {
     "schemas": {
-      "query": {
-        "title": "query",
+      "placeDetailResponse": {
         "type": "object",
         "properties": {
-          "query": {
+          "baseURLObj": {
+            "type": "object",
+            "properties": {
+              "keyinfo": {
+                "type": "string",
+                "example": "https://mmi-explore-images.s3.ap-south-1.amazonaws.com/key_info/"
+              },
+              "review": {
+                "type": "string",
+                "example": "https://maps.mapmyindia.com/review/"
+              },
+              "place": {
+                "type": "string",
+                "example": "https://maps.mapmyindia.com/place/"
+              }
+            }
+          },
+          "generalDetails": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "1T182A"
+              },
+              "city": {
+                "type": "string",
+                "example": "New Delhi"
+              },
+              "similarPlaces": {
+                "type": "string",
+                "example": null
+              },
+              "latitude": {
+                "type": "number",
+                "format": "float",
+                "example": 28.62542
+              },
+              "houseNumber": {
+                "type": "string",
+                "example": ""
+              },
+              "placeID": {
+                "type": "string",
+                "example": "1T182A"
+              },
+              "poi": {
+                "type": "string",
+                "example": "India Gate"
+              },
+              "type": {
+                "type": "string",
+                "example": "POI"
+              },
+              "responseCode": {
+                "type": "integer",
+                "example": 200
+              },
+              "houseName": {
+                "type": "string",
+                "example": ""
+              },
+              "formatedAddress": {
+                "type": "string",
+                "example": "India Gate, Rajpath Marg, New Delhi, Delhi, 110001"
+              },
+              "eLat": {
+                "type": "number",
+                "format": "float",
+                "example": 28.6251256005
+              },
+              "popularName": {
+                "type": "string",
+                "example": "India Gate"
+              },
+              "street": {
+                "type": "string",
+                "example": "Rajpath Marg"
+              },
+              "state": {
+                "type": "string",
+                "example": "Delhi"
+              },
+              "village": {
+                "type": "string",
+                "example": ""
+              },
+              "email": {
+                "type": "string",
+                "example": ""
+              },
+              "longitude": {
+                "type": "number",
+                "format": "float",
+                "example": 77.123551
+              },
+              "pincode": {
+                "type": "string",
+                "example": 110001
+              },
+              "website": {
+                "type": "string",
+                "example": ""
+              },
+              "address": {
+                "type": "string",
+                "example": "India Gate, Rajpath Marg, New Delhi, Delhi, 110001"
+              },
+              "subLocality": {
+                "type": "string",
+                "example": ""
+              },
+              "locality": {
+                "type": "string",
+                "example": ""
+              },
+              "telephone": {
+                "type": "string",
+                "example": 911123365358
+              },
+              "eLng": {
+                "type": "number",
+                "format": "float",
+                "example": 77.1233000688
+              },
+              "subSubLocality": {
+                "type": "string",
+                "example": ""
+              },
+              "district": {
+                "type": "string",
+                "example": ""
+              },
+              "floorNo": {
+                "type": "string",
+                "example": ""
+              },
+              "doorNo": {
+                "type": "string",
+                "example": ""
+              },
+              "placeName": {
+                "type": "string",
+                "example": "India Gate"
+              },
+              "subDistrict": {
+                "type": "string",
+                "example": ""
+              }
+            }
+          },
+          "keyInfo": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "icon": {
+                        "type": "string",
+                        "example": "ic_timings.png"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Timings"
+                      },
+                      "value": {
+                        "type": "string",
+                        "example": "Morning to Night"
+                      }
+                    }
+                  }
+                },
+                "heading": {
+                  "type": "string",
+                  "example": "noheading"
+                },
+                "style": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "version": {
             "type": "string",
-            "example": "FODCOF, Shoes, Coffee, Versace"
-          }
-        },
-        "description": "This category search placed like Gucci, H&M, Adidas,                  Starbucks"
-      },
-      "location": {
-        "title": "location",
-        "type": "object",
-        "properties": {
-          "lat": {
-            "type": "number",
-            "description": "Latitude",
-            "format": "double",
-            "example": 28.63146
-          },
-          "lng": {
-            "type": "number",
-            "description": "Longitude",
-            "format": "double",
-            "example": 77.217423
-          }
-        },
-        "description": "Georgraphic coordinate in decimal latitude/longitude format"
-      },
-      "filter": {
-        "title": "filter",
-        "type": "object",
-        "properties": {
-          "pin": {
-            "type": "number",
-            "description": "Pincode or Postal Code",
-            "format": "integer",
-            "example": 110055
-          }
-        },
-        "description": "It helps you restrict the result by mentioning Pincode."
-      },
-      "Text_Search_Response": {
-        "title": "Text Search Response",
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "example": "POI",
-            "description": "Type of location POI or Country or City"
-          },
-          "typeX": {
-            "type": "integer",
-            "example": 7,
-            "description": "For integer use only"
-          },
-          "placeAddress": {
-            "type": "string",
-            "example": "Block F, Okhla Industrial Estate Phase 1, New Delhi, Delhi, 110020",
-            "description": "Address of the location"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double",
-            "example": 28.515356,
-            "description": "Latitude of the location"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double",
-            "example": 77.281273,
-            "description": "Longitude of the location"
-          },
-          "eLoc": {
-            "type": "string",
-            "example": "F2D814",
-            "description": "Place Id of the location 6-char alphanumeric"
-          },
-          "entryLatitude": {
-            "type": "number",
-            "format": "double",
-            "example": 28.515296,
-            "description": "Latitude of the entrance of the location"
-          },
-          "entryLongitude": {
-            "type": "number",
-            "format": "double",
-            "example": 77.281113,
-            "description": "Longitude of the entrance of the location"
-          },
-          "placeName": {
-            "type": "string",
-            "example": "Ronnies Hotel",
-            "description": "Name of the location"
-          },
-          "alternateName": {
-            "type": "string",
-            "example": "",
-            "description": "Alternate name of the location"
-          },
-          "keywords": {
-            "type": "string",
-            "example": "[HOTALL]",
-            "description": "Provides an array of matched keywords or codes"
-          },
-          "P": {
-            "type": "number",
-            "format": "long integer",
-            "example": 4487,
-            "description": "For internal use only"
-          },
-          "distance": {
-            "type": "integer",
-            "example": 0,
-            "description": "For internal use only"
-          },
-          "orderIndex": {
-            "type": "integer",
-            "example": 1,
-            "description": "The order where this result should be placed"
-          },
-          "score": {
-            "type": "number",
-            "format": "double",
-            "example": 0,
-            "description": "For internal use only"
-          },
-          "suggester": {
-            "type": "string",
-            "example": null,
-            "description": "For internal use only"
-          },
-          "addressTokens": {
-            "type": "string",
-            "example": {},
-            "description": "For internal use only"
-          },
-          "richinfo": {
-            "type": "string",
-            "example": {}
+            "example": 210.16
           }
         }
       }
