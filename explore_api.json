@@ -65,15 +65,23 @@
     }
   ],
   "paths": {
-    "/places/checkin/{checkinId}": {
+    "/{version}/places/checkin/{checkinId}": {
       "get": {
         "tags": [
           "Checkins"
         ],
         "summary": "Checkin details",
-        "description": "Get checkin details",
-        "operationId": "getCheckinDetail",
         "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API. Current.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "checkinId",
             "in": "path",
@@ -91,7 +99,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/placeDetailResponse"
+                  "$ref": "#/components/schemas/GET-CheckinDetail-Response"
                 }
               }
             }
@@ -109,23 +117,51 @@
         "deprecated": false
       }
     },
-    "/places/{eloc}/checkin": {
+    "/{version}/places/{eloc}/checkin": {
       "get": {
         "tags": [
           "Checkins"
         ],
         "summary": "All Checkin at a place",
-        "description": "Get checkin details",
-        "operationId": "getAllCheckin",
         "parameters": [
           {
-            "name": "eloc",
+            "name": "version",
             "in": "path",
-            "description": "Eloc",
+            "description": "version of the API.",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer"
             }
           }
         ],
@@ -135,7 +171,122 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/placeDetailResponse"
+                  "$ref": "#/components/schemas/GET-AllCheckinAtAPlace-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Checkins"
+        ],
+        "summary": "Create Checkin",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API. Current.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "body",
+            "in": "header",
+            "description": "Checkin request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/POST-CreateCheckin-Response"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/users/checkin": {
+      "get": {
+        "tags": [
+          "Checkins"
+        ],
+        "summary": "All checkins of a user",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-AllCheckinOfAUser-Response"
                 }
               }
             }
@@ -187,7 +338,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/placeDetailResponse"
+                  "$ref": "#/components/schemas/GET-PlaceDetail-Response"
                 }
               }
             }
@@ -207,7 +358,265 @@
   },
   "components": {
     "schemas": {
-      "placeDetailResponse": {
+      "GET-AllCheckinOfAUser-Response": {
+        "type": "object",
+        "properties": {
+          "checkins": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "createdOn": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "eventId": {
+                  "type": "string"
+                },
+                "flagCount": {
+                  "type": "integer"
+                },
+                "flagged": {
+                  "type": "boolean"
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "likeCount": {
+                  "type": "integer"
+                },
+                "liked": {
+                  "type": "boolean"
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "photo": {
+                  "type": "string"
+                },
+                "pictures": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "placeId": {
+                  "type": "string"
+                },
+                "placeName": {
+                  "type": "string"
+                },
+                "resourceLocation": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "userId": {
+                  "type": "string"
+                },
+                "videos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object"
+          }
+        }
+      },
+      "GET-AllCheckinAtAPlace-Response": {
+        "type": "object",
+        "properties": {
+          "checkins": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "createdOn": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "eventId": {
+                  "type": "string"
+                },
+                "flagCount": {
+                  "type": "integer"
+                },
+                "flagged": {
+                  "type": "boolean"
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "likeCount": {
+                  "type": "integer"
+                },
+                "liked": {
+                  "type": "boolean"
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "photo": {
+                  "type": "string"
+                },
+                "pictures": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "placeId": {
+                  "type": "string"
+                },
+                "placeName": {
+                  "type": "string"
+                },
+                "resourceLocation": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "userId": {
+                  "type": "string"
+                },
+                "videos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object"
+          }
+        }
+      },
+      "POST-CreateCheckin-Response": {
+        "type": "object",
+        "properties": {
+          "alt": {
+            "type": "integer"
+          },
+          "altAcc": {
+            "type": "integer"
+          },
+          "broadcast": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "latlngAcc": {
+            "type": "integer"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          }
+        }
+      },
+      "GET-CheckinDetail-Response": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "flagCount": {
+            "type": "integer"
+          },
+          "flagged": {
+            "type": "boolean"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "likeCount": {
+            "type": "integer"
+          },
+          "liked": {
+            "type": "boolean"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "name": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "pictures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "placeId": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "resourceLocation": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "videos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "GET-PlaceDetail-Response": {
         "type": "object",
         "properties": {
           "baseURLObj": {
