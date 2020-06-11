@@ -1378,6 +1378,168 @@
           }
         }
       }
+    },
+    "/{version}/places/image": {
+      "post": {
+        "tags": [
+          "Image"
+        ],
+        "summary": "Upload Image",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API. Current.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "[place,report,review,atlas,comment,claim,respond,enquiry]",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "query",
+            "description": "6 character unique place identifier.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pinId",
+            "in": "query",
+            "description": "Unique Pin ID.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "images",
+            "in": "query",
+            "description": "Images",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "description": "Platform",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/assets": {
+      "get": {
+        "tags": [
+          "Image"
+        ],
+        "summary": "Images at a Place",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-ImagesAtAPlace-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2562,6 +2724,69 @@
           },
           "pagination": {
             "type": "object"
+          }
+        }
+      },
+      "GET-ImagesAtAPlace-Response": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "assets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "addedByName": {
+                    "type": "string"
+                  },
+                  "addedByURL": {
+                    "type": "string"
+                  },
+                  "addedOn": {
+                    "type": "number",
+                    "format": "date"
+                  },
+                  "eloc": {
+                    "type": "string"
+                  },
+                  "imageObj": {
+                    "type": "string"
+                  },
+                  "imageOject": {
+                    "type": "object",
+                    "properties": {
+                      "original": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "currentPage": {
+                  "type": "integer"
+                },
+                "perPage": {
+                  "type": "integer"
+                },
+                "totalItem": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         }
       }
