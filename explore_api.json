@@ -1540,6 +1540,83 @@
           }
         }
       }
+    },
+    "/{version}/route/reports": {
+      "get": {
+        "tags": [
+          "Route Report Summary"
+        ],
+        "summary": "Route Report Summary",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rootId",
+            "in": "query",
+            "description": "Route ID",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rootIdx",
+            "in": "query",
+            "description": "Route Index",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nodeId",
+            "in": "query",
+            "description": "Node ID",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "Categories",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-RouteReportSummary-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2786,6 +2863,23 @@
                   "type": "integer"
                 }
               }
+            }
+          }
+        }
+      },
+      "GET-RouteReportSummary-Response": {
+        "type": "object",
+        "properties": {
+          "baseURLObj": {
+            "type": "object"
+          },
+          "routeId": {
+            "type": "string"
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "type": "object"
             }
           }
         }
