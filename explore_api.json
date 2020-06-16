@@ -1559,7 +1559,7 @@
             }
           },
           {
-            "name": "rootId",
+            "name": "routetId",
             "in": "query",
             "description": "Route ID",
             "required": false,
@@ -1568,7 +1568,7 @@
             }
           },
           {
-            "name": "rootIdx",
+            "name": "routeIdx",
             "in": "query",
             "description": "Route Index",
             "required": false,
