@@ -1562,7 +1562,8 @@
             "name": "routetId",
             "in": "query",
             "description": "Route ID",
-            "required": false,
+            "required": true,
+            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             }
@@ -1571,7 +1572,8 @@
             "name": "routeIdx",
             "in": "query",
             "description": "Route Index",
-            "required": false,
+            "required": true,
+            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             }
@@ -3124,16 +3126,89 @@
       "GET-RouteReportSummary-Response": {
         "type": "object",
         "properties": {
-          "baseURLObj": {
-            "type": "object"
-          },
           "routeId": {
-            "type": "string"
+            "type": "string",
+            "example": "67556c8a-af99-11ea-b47b-dd6c0a3c900e_1234"
           },
           "routes": {
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "parentCategories": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "parentCategory": {
+                        "type": "integer",
+                        "example": 5
+                      },
+                      "reports": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "tpinN1018009131C37T1572620462"
+                            },
+                            "childCategory": {
+                              "type": "integer",
+                              "example": 37
+                            },
+                            "placeName": {
+                              "type": "string",
+                              "example": "Delhi Gurgaon Expressway"
+                            },
+                            "latitude": {
+                              "type": "number",
+                              "format": "float",
+                              "example": 28.519693
+                            },
+                            "longitude": {
+                              "type": "number",
+                              "format": "float",
+                              "example": 77.097061
+                            },
+                            "usersCount": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "updateTime": {
+                              "type": "integer",
+                              "example": 1579173243
+                            },
+                            "expiry": {
+                              "type": "integer",
+                              "example": 1887980461
+                            },
+                            "addedBy": {
+                              "type": "string",
+                              "example": "prateek.mishra"
+                            },
+                            "addedByName": {
+                              "type": "string",
+                              "example": "Prateek"
+                            },
+                            "photo": {
+                              "type": "string",
+                              "example": "trafficcenter.png"
+                            },
+                            "status": {
+                              "type": "string",
+                              "example": "published"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
