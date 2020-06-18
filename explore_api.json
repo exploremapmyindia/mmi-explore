@@ -2107,10 +2107,942 @@
           }
         }
       }
+    },
+    "/{version}/places/event/{eventId}": {
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Delete Event",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "Unique Event ID.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Single Event Details",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "Unique Event ID.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events-GET-SingleEventDetails-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Update Event",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "Unique Event ID.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventRequest",
+            "in": "header",
+            "description": "Event Update Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Events-PATCH-UpdateEvent-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/event": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "All Event at a place",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "Starting date of event",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10112020,
+            "schema": {
+              "type": "integer",
+              "format": "long"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "Ending date of Event",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 12112020,
+            "schema": {
+              "type": "integer",
+              "format": "long"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting of results by date ascending or descending.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer",
+              "example": "date:desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events-GET-AllEventsAtAPlace-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Create Event",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventRequest",
+            "in": "header",
+            "description": "Event Update Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Events-post-CreateEvent-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/users/event": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "All Event at a place",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "Starting date of event",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10112020,
+            "schema": {
+              "type": "integer",
+              "format": "long"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "Ending date of Event",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 12112020,
+            "schema": {
+              "type": "integer",
+              "format": "long"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting of results by date ascending or descending.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer",
+              "example": "date:desc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Events-GET-AllEventsOfAUser-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Events-GET-AllEventsOfAUser-Response": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "eventName": {
+                  "type": "string",
+                  "example": "test event"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Singing event"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "locationEloc": {
+                  "type": "string",
+                  "example": "MMI000"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "expired"
+                },
+                "organization": {
+                  "type": "string",
+                  "example": "MapmyIndia"
+                },
+                "contactNumber": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": [
+                      "9934321856",
+                      "9582058100"
+                    ]
+                  }
+                },
+                "contactEmail": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": [
+                      "prateek@gmail.com",
+                      " azmiwilson@gmail.com"
+                    ]
+                  }
+                },
+                "genre": {
+                  "type": "string",
+                  "example": "comedy"
+                },
+                "startTime": {
+                  "type": "integer",
+                  "example": 1582534644
+                },
+                "endTime": {
+                  "type": "string",
+                  "example": 1582549044
+                },
+                "createdOn": {
+                  "type": "string",
+                  "example": 1582015570
+                },
+                "pictures": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "videos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 28.2
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 77.27
+                },
+                "userId": {
+                  "type": "string",
+                  "example": "usr15604269"
+                },
+                "resourceLocation": {
+                  "type": "string",
+                  "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/events/0e5495e6-1cd6-4193-90c0-bbe5f32af19d"
+                },
+                "banner": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Prateek Mishra"
+                },
+                "photo": {
+                  "type": "string",
+                  "example": "https://anchor.mapmyindia.com/api/users/prateek.mishra/avatar"
+                },
+                "liked": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "flagged": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "likeCount": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "flagCount": {
+                  "type": "integer",
+                  "example": 0
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItem": {
+                "type": "integer",
+                "example": 9
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 1
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "Events-post-CreateEvent-Request": {
+        "type": "object",
+        "properties": {
+          "attachVideos": {
+            "type": "boolean"
+          },
+          "broadcast": {
+            "type": "string"
+          },
+          "contactEmail": {
+            "type": "string"
+          },
+          "contactNumber": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "eventName": {
+            "type": "string"
+          },
+          "fromTime": {
+            "type": "integer"
+          },
+          "genre": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "toTime": {
+            "type": "integer"
+          }
+        }
+      },
+      "Events-GET-AllEventsAtAPlace-Response": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "eventName": {
+                  "type": "string",
+                  "example": "test event"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Singing event"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "locationEloc": {
+                  "type": "string",
+                  "example": "MMI000"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "expired"
+                },
+                "organization": {
+                  "type": "string",
+                  "example": "MapmyIndia"
+                },
+                "contactNumber": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": [
+                      "9934321856",
+                      "9582058100"
+                    ]
+                  }
+                },
+                "contactEmail": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": [
+                      "prateek@gmail.com",
+                      " azmiwilson@gmail.com"
+                    ]
+                  }
+                },
+                "genre": {
+                  "type": "string",
+                  "example": "comedy"
+                },
+                "startTime": {
+                  "type": "integer",
+                  "example": 1582534644
+                },
+                "endTime": {
+                  "type": "string",
+                  "example": 1582549044
+                },
+                "createdOn": {
+                  "type": "string",
+                  "example": 1582015570
+                },
+                "pictures": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "videos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 28.2
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "float",
+                  "example": 77.27
+                },
+                "userId": {
+                  "type": "string",
+                  "example": "usr15604269"
+                },
+                "resourceLocation": {
+                  "type": "string",
+                  "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/events/0e5495e6-1cd6-4193-90c0-bbe5f32af19d"
+                },
+                "banner": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Prateek Mishra"
+                },
+                "photo": {
+                  "type": "string",
+                  "example": "https://anchor.mapmyindia.com/api/users/prateek.mishra/avatar"
+                },
+                "liked": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "flagged": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "likeCount": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "flagCount": {
+                  "type": "integer",
+                  "example": 0
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItem": {
+                "type": "integer",
+                "example": 9
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 1
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "Events-PATCH-UpdateEvent-Request": {
+        "type": "object",
+        "properties": {
+          "attachVideos": {
+            "type": "boolean"
+          },
+          "broadcast": {
+            "type": "string"
+          },
+          "contactEmail": {
+            "type": "string"
+          },
+          "contactNumber": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "eventName": {
+            "type": "string"
+          },
+          "fromTime": {
+            "type": "integer"
+          },
+          "genre": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "toTime": {
+            "type": "integer"
+          }
+        }
+      },
+      "Events-GET-SingleEventDetails-Response": {
+        "type": "object",
+        "properties": {
+          "eventName": {
+            "type": "string",
+            "example": "test event"
+          },
+          "description": {
+            "type": "string",
+            "example": "Singing event"
+          },
+          "location": {
+            "type": "string",
+            "example": "test"
+          },
+          "locationEloc": {
+            "type": "string",
+            "example": "MMI000"
+          },
+          "status": {
+            "type": "string",
+            "example": "expired"
+          },
+          "organization": {
+            "type": "string",
+            "example": "MapmyIndia"
+          },
+          "contactNumber": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": [
+                "9934321856",
+                "9582058100"
+              ]
+            }
+          },
+          "contactEmail": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": [
+                "prateek@gmail.com",
+                " azmiwilson@gmail.com"
+              ]
+            }
+          },
+          "genre": {
+            "type": "string",
+            "example": "comedy"
+          },
+          "startTime": {
+            "type": "integer",
+            "example": 1582534644
+          },
+          "endTime": {
+            "type": "string",
+            "example": 1582549044
+          },
+          "createdOn": {
+            "type": "string",
+            "example": 1582015570
+          },
+          "pictures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "videos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float",
+            "example": 28.2
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float",
+            "example": 77.27
+          },
+          "userId": {
+            "type": "string",
+            "example": "usr15604269"
+          },
+          "resourceLocation": {
+            "type": "string",
+            "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/events/0e5495e6-1cd6-4193-90c0-bbe5f32af19d"
+          },
+          "banner": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "Prateek Mishra"
+          },
+          "photo": {
+            "type": "string",
+            "example": "https://anchor.mapmyindia.com/api/users/prateek.mishra/avatar"
+          },
+          "liked": {
+            "type": "boolean",
+            "example": false
+          },
+          "flagged": {
+            "type": "boolean",
+            "example": false
+          },
+          "likeCount": {
+            "type": "integer",
+            "example": 1
+          },
+          "flagCount": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
       "Review-GET-AllReviewOfAUser-Response": {
         "type": "object",
         "properties": {
