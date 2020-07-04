@@ -2511,10 +2511,274 @@
           }
         }
       }
+    },
+    "/{version}/places/add": {
+      "post": {
+        "tags": [
+          "Place"
+        ],
+        "summary": "Add a Place",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "placeRequest",
+            "in": "header",
+            "description": "Place Request Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Place-post-AddAPlace-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthtorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/edit": {
+      "patch": {
+        "tags": [
+          "Place"
+        ],
+        "summary": "Edit a Place",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier..",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "placeRequest",
+            "in": "header",
+            "description": "Place Request Body",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "$ref": "#/components/schemas/PATCH-AddAPlace-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "PATCH-AddAPlace-Request": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "doorNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "floorNumber": {
+            "type": "string"
+          },
+          "houseNumber": {
+            "type": "string"
+          },
+          "knownAs": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "locality": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "nearestLandmark": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "pincode": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "placeType": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "streetName": {
+            "type": "string"
+          },
+          "village": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          }
+        }
+      },
+      "Place-post-AddAPlace-Request": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "altitude": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "altitudeAccuracy": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "categoryCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "customField": {
+            "type": "object"
+          },
+          "description": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "doorNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "floorNumber": {
+            "type": "string"
+          },
+          "houseNumber": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "locality": {
+            "type": "string"
+          },
+          "locationAccuracy": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "nearestLandMark": {
+            "type": "string"
+          },
+          "openingHours": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "pincode": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "placeType": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "specialOpeningHours": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "state": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          }
+        }
+      },
       "Events-GET-AllEventsOfAUser-Response": {
         "type": "object",
         "properties": {
@@ -2597,12 +2861,12 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float",
+                  "format": "decimal",
                   "example": 28.2
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float",
+                  "format": "decimal",
                   "example": 77.27
                 },
                 "userId": {
@@ -2695,11 +2959,11 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "longitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "organization": {
             "type": "string"
@@ -2800,12 +3064,12 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float",
+                  "format": "decimal",
                   "example": 28.2
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float",
+                  "format": "decimal",
                   "example": 77.27
                 },
                 "userId": {
@@ -2898,11 +3162,11 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "longitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "organization": {
             "type": "string"
@@ -2998,12 +3262,12 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float",
+            "format": "decimal",
             "example": 28.2
           },
           "longitude": {
             "type": "number",
-            "format": "float",
+            "format": "decimal",
             "example": 77.27
           },
           "userId": {
@@ -3069,12 +3333,12 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float",
+                  "format": "decimal",
                   "example": 28.612964
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float",
+                  "format": "decimal",
                   "example": 77.229463
                 },
                 "status": {
@@ -3163,14 +3427,14 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "latlngAcc": {
             "type": "integer"
           },
           "longitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "placeName": {
             "type": "string"
@@ -3217,12 +3481,12 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float",
+            "format": "decimal",
             "example": 22.8423453456
           },
           "longitude": {
             "type": "number",
-            "format": "float",
+            "format": "decimal",
             "example": 75.65474567567
           },
           "status": {
@@ -3287,7 +3551,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -3297,7 +3561,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "name": {
                   "type": "string"
@@ -3364,7 +3628,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -3374,7 +3638,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "name": {
                   "type": "string"
@@ -3437,14 +3701,14 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "latlngAcc": {
             "type": "integer"
           },
           "longitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "placeName": {
             "type": "string"
@@ -3474,7 +3738,7 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "likeCount": {
             "type": "integer"
@@ -3484,7 +3748,7 @@
           },
           "longitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "name": {
             "type": "string"
@@ -3524,6 +3788,95 @@
       "GET-PlaceDetail-Response": {
         "type": "object",
         "properties": {
+          "images": {
+            "type": "object"
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "addedByURL": {
+                  "type": "string",
+                  "example": "https://maps.mapmyindia.com/babammi"
+                },
+                "addedByName": {
+                  "type": "string",
+                  "example": "Rakesh Sharma"
+                },
+                "sourceType": {
+                  "type": "string",
+                  "example": "MapmyIndia"
+                },
+                "origin": {
+                  "type": "number",
+                  "example": 1
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "place"
+                },
+                "originLogo": {
+                  "type": "string"
+                },
+                "addedOn": {
+                  "type": "integer",
+                  "example": 1556044016
+                },
+                "imageObject": {
+                  "type": "object",
+                  "properties": {
+                    "width": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string",
+                      "example": "https://maps.mapmyindia.com/place/1T182A_1556044015873_0.jpg"
+                    },
+                    "height": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItems": {
+                "type": "integer",
+                "example": 16
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 2
+              },
+              "currentPage": {
+                "type": "string",
+                "example": 1
+              }
+            }
+          },
+          "eloc": {
+            "type": "string",
+            "example": "1T182A"
+          },
+          "updatedOn": {
+            "type": "integer",
+            "example": 1560233495062
+          },
+          "createdOn": {
+            "type": "integer",
+            "example": 1560233495062
+          },
           "baseURLObj": {
             "type": "object",
             "properties": {
@@ -3541,31 +3894,98 @@
               }
             }
           },
+          "claimInfo": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "claimId": {
+                  "type": "string",
+                  "example": "2565a14c-64eb-4572-b510-2b0d48cc9f2e"
+                },
+                "level": {
+                  "type": "string",
+                  "example": "TestLevel"
+                },
+                "designation": {
+                  "type": "string",
+                  "example": "TestDesignation"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "TestDescription"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Adarsh Chaube"
+                },
+                "userName": {
+                  "type": "string",
+                  "example": "chaubeadarsh43"
+                },
+                "userPhoto": {
+                  "type": "string",
+                  "example": "https://anchor.mapmyindia.com/api/users/chaubeadarsh43/avatar"
+                },
+                "phoneNo": {
+                  "type": "string",
+                  "example": 901374568
+                },
+                "email": {
+                  "type": "string",
+                  "example": "abc@gmail.com"
+                },
+                "createdOn": {
+                  "type": "integer",
+                  "example": 1582102147
+                },
+                "updatedOn": {
+                  "type": "string",
+                  "example": 1582102147
+                },
+                "status": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "placeId": {
+                  "type": "string"
+                },
+                "placeName": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "decimal"
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "decimal"
+                }
+              }
+            }
+          },
           "generalDetails": {
             "type": "object",
             "properties": {
               "code": {
                 "type": "string",
-                "example": "1T182A"
+                "example": "HISMON"
               },
               "city": {
                 "type": "string",
                 "example": "New Delhi"
               },
               "similarPlaces": {
-                "type": "string",
-                "example": null
+                "type": "string"
               },
               "latitude": {
                 "type": "number",
-                "format": "float",
-                "example": 28.62542
+                "format": "decimal",
+                "example": 28.612964
               },
               "houseNumber": {
-                "type": "string",
-                "example": null
+                "type": "string"
               },
-              "placeID": {
+              "placeId": {
                 "type": "string",
                 "example": "1T182A"
               },
@@ -3582,87 +4002,82 @@
                 "example": 200
               },
               "houseName": {
-                "type": "string",
-                "example": null
+                "type": "string"
               },
-              "formatedAddress": {
+              "formattedAddress": {
                 "type": "string",
-                "example": "India Gate, Rajpath Marg, New Delhi, Delhi, 110001"
+                "example": "Rajpath Marg, New Delhi, Delhi, 110001"
               },
               "eLat": {
                 "type": "number",
-                "format": "float",
-                "example": 28.6251256005
+                "format": "decimal",
+                "example": 28.613058
               },
               "popularName": {
-                "type": "string",
-                "example": "India Gate"
+                "type": "string"
               },
               "street": {
                 "type": "string",
-                "example": "Rajpath Marg"
+                "example": "India Gate Circle"
               },
               "state": {
                 "type": "string",
                 "example": "Delhi"
               },
               "village": {
-                "type": "string",
-                "example": null
+                "type": "string"
               },
               "email": {
-                "type": "string",
-                "example": null
+                "type": "string"
               },
               "longitude": {
                 "type": "number",
-                "format": "float",
-                "example": 77.123551
+                "format": "decimal",
+                "example": 77.2294630000001
               },
               "pincode": {
-                "type": "string",
-                "example": 110001
+                "type": "integer",
+                "example": "110001"
               },
               "website": {
-                "type": "string",
-                "example": null
+                "type": "string"
               },
               "address": {
                 "type": "string",
-                "example": "India Gate, Rajpath Marg, New Delhi, Delhi, 110001"
+                "example": "Rajpath Marg, New Delhi, Delhi, 110001"
               },
               "subLocality": {
                 "type": "string",
-                "example": null
+                "example": ""
               },
               "locality": {
                 "type": "string",
-                "example": null
+                "example": ""
               },
               "telephone": {
                 "type": "string",
-                "example": 911123365358
+                "example": "+911123365358"
               },
               "eLng": {
                 "type": "number",
-                "format": "float",
-                "example": 77.1233000688
+                "format": "decimal",
+                "example": 77.227738
               },
               "subSubLocality": {
                 "type": "string",
-                "example": null
+                "example": ""
               },
               "district": {
                 "type": "string",
-                "example": null
+                "example": "New Delhi District"
               },
               "floorNo": {
-                "type": "string",
-                "example": null
+                "type": "integer",
+                "example": ""
               },
               "doorNo": {
-                "type": "string",
-                "example": null
+                "type": "integer",
+                "example": ""
               },
               "placeName": {
                 "type": "string",
@@ -3670,19 +4085,198 @@
               },
               "subDistrict": {
                 "type": "string",
+                "example": "Connaught Place"
+              }
+            }
+          },
+          "richData": {
+            "type": "object",
+            "properties": {
+              "countInfo": {
+                "type": "object",
+                "properties": {
+                  "starCount": {
+                    "type": "object",
+                    "properties": {
+                      "oneStar": {
+                        "type": "integer",
+                        "example": 61
+                      },
+                      "twoStar": {
+                        "type": "integer",
+                        "example": 220
+                      },
+                      "threeStar": {
+                        "type": "integer",
+                        "example": 1796
+                      },
+                      "fourStar": {
+                        "type": "integer",
+                        "example": 3386
+                      },
+                      "fiveStar": {
+                        "type": "integer",
+                        "example": 4354
+                      }
+                    }
+                  },
+                  "checkinCount": {
+                    "type": "integer",
+                    "example": 61
+                  },
+                  "favouriteCount": {
+                    "type": "integer",
+                    "example": 20
+                  },
+                  "reviewCount": {
+                    "type": "integer",
+                    "example": 9817
+                  },
+                  "avgRating": {
+                    "type": "integer",
+                    "example": 4
+                  },
+                  "reportCount": {
+                    "type": "integer",
+                    "example": 19
+                  }
+                }
+              },
+              "description": {
+                "type": "string",
+                "example": "The India Gate, built in 1931 and designed by Sir Edwin Lutyens, was inspired by the Arc de Triomphe. It commemorates India's war dead and houses an eternal flame."
+              },
+              "events": {
+                "type": "string",
                 "example": null
+              },
+              "reports": {
+                "type": "string",
+                "example": null
+              },
+              "origin": {
+                "type": "string",
+                "example": "tripadvisor"
+              },
+              "originLogUrl": {
+                "type": "string",
+                "example": "/logourl/"
+              },
+              "rankingData": {
+                "type": "string",
+                "example": null
+              },
+              "reviews": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "lang": {
+                      "type": "string",
+                      "example": "eng"
+                    },
+                    "eventId": {
+                      "type": "string",
+                      "example": null
+                    },
+                    "placeId": {
+                      "type": "string",
+                      "example": "1T182A"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "rating": {
+                      "type": "integer",
+                      "example": 5
+                    },
+                    "latitude": {
+                      "type": "number",
+                      "example": 28.612964
+                    },
+                    "longitude": {
+                      "type": "number",
+                      "example": 77.229463
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "published"
+                    },
+                    "userName": {
+                      "type": "string",
+                      "example": "cijabe_1565243606"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Cijabe2"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": null
+                    },
+                    "pictures": {
+                      "type": "string",
+                      "example": null
+                    },
+                    "videos": {
+                      "type": "string",
+                      "example": null
+                    },
+                    "createdOn": {
+                      "type": "integer",
+                      "example": 1570630567
+                    },
+                    "updatedOn": {
+                      "type": "integer",
+                      "example": null
+                    },
+                    "liked": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "flagged": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "likeCount": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "flagCount": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "resourceLocation": {
+                      "type": "string",
+                      "example": "/places/review/e66296075641bb6051a3103ad007c431"
+                    },
+                    "origin": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "tripType": {
+                      "type": "string",
+                      "example": "management"
+                    }
+                  }
+                }
+              },
+              "seeAllPhotos": {
+                "type": "object"
               }
             }
           },
           "keyInfo": {
             "type": "array",
             "items": {
-              "type": "object",
               "properties": {
                 "data": {
                   "type": "array",
                   "items": {
-                    "type": "object",
                     "properties": {
                       "icon": {
                         "type": "string",
@@ -3701,17 +4295,76 @@
                 },
                 "heading": {
                   "type": "string",
-                  "example": "noheading"
+                  "example": "Opening Hours"
                 },
                 "style": {
-                  "type": "string"
+                  "type": "string",
+                  "example": "icon_with_one_lines"
                 }
               }
             }
           },
           "version": {
             "type": "string",
-            "example": 210.16
+            "example": "211.16"
+          },
+          "originObj": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "displayName": {
+                  "type": "string",
+                  "example": "MapmyIndia"
+                },
+                "logo": {
+                  "type": "string",
+                  "example": "https://mmi-explore-images.s3.ap-south-1.amazonaws.com/key_info/ic_mmi.png"
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "02e1b597-2b20-42bd-9954-ff8ff82f9d1b"
+                },
+                "place_staus": {
+                  "type": "string",
+                  "example": "Test Status Another"
+                },
+                "pin_type": {
+                  "type": "string",
+                  "example": "status"
+                },
+                "platform": {
+                  "type": "integer",
+                  "example": 101
+                },
+                "place_id": {
+                  "type": "string",
+                  "example": "1T182A"
+                },
+                "pin_create_date": {
+                  "type": "string",
+                  "example": "2020-01-09 11:25:53"
+                },
+                "user_name": {
+                  "type": "string",
+                  "example": "sumeet0369"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Sumeet Sinha Ji"
+                },
+                "updated_on": {
+                  "type": "integer",
+                  "example": 1578549353198
+                }
+              }
+            }
           }
         }
       },
@@ -3765,7 +4418,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -3775,7 +4428,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "name": {
                   "type": "string"
@@ -3826,11 +4479,11 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "longitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "platform": {
             "type": "string"
@@ -3903,7 +4556,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -3913,7 +4566,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "parentCategory": {
                   "type": "string"
@@ -4004,7 +4657,7 @@
                   },
                   "latitude": {
                     "type": "number",
-                    "format": "float"
+                    "format": "decimal"
                   },
                   "likeCount": {
                     "type": "integer"
@@ -4014,7 +4667,7 @@
                   },
                   "longitude": {
                     "type": "number",
-                    "format": "float"
+                    "format": "decimal"
                   },
                   "name": {
                     "type": "string"
@@ -4078,7 +4731,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -4088,7 +4741,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "name": {
                   "type": "string"
@@ -4176,12 +4829,12 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float",
+                  "format": "decimal",
                   "example": 28.612964
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float",
+                  "format": "decimal",
                   "example": 77.229463
                 },
                 "status": {
@@ -4258,11 +4911,11 @@
           },
           "latitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "longitude": {
             "type": "number",
-            "format": "float"
+            "format": "decimal"
           },
           "platform": {
             "type": "string"
@@ -4385,7 +5038,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -4395,7 +5048,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "name": {
                   "type": "string"
@@ -4550,12 +5203,12 @@
                             },
                             "latitude": {
                               "type": "number",
-                              "format": "float",
+                              "format": "decimal",
                               "example": 28.519693
                             },
                             "longitude": {
                               "type": "number",
-                              "format": "float",
+                              "format": "decimal",
                               "example": 77.097061
                             },
                             "usersCount": {
@@ -4624,11 +5277,11 @@
                     "properties": {
                       "latitude": {
                         "type": "number",
-                        "format": "float"
+                        "format": "decimal"
                       },
                       "longitude": {
                         "type": "number",
-                        "format": "float"
+                        "format": "decimal"
                       },
                       "name": {
                         "type": "string"
@@ -4660,11 +5313,11 @@
               "properties": {
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "name": {
                   "type": "string"
@@ -4696,11 +5349,11 @@
               "properties": {
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "name": {
                   "type": "string"
@@ -4729,11 +5382,11 @@
               "properties": {
                 "latitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "float"
+                  "format": "decimal"
                 },
                 "name": {
                   "type": "string"
