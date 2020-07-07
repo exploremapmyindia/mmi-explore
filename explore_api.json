@@ -711,7 +711,8 @@
     "/{version}/places/{eloc}/relation": {
       "get": {
         "tags": [
-          "Claim a Business"
+          "Claim a Business",
+          "Place"
         ],
         "summary": "Relation with User",
         "parameters": [
@@ -2535,7 +2536,7 @@
             "description": "Place Request Body",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/Place-post-AddAPlace-Request"
+              "$ref": "#/components/schemas/Place-POST-AddAPlace-Request"
             }
           }
         ],
@@ -2592,7 +2593,7 @@
             "required": true,
             "allowEmptyValue": false,
             "schema": {
-              "$ref": "#/components/schemas/PATCH-AddAPlace-Request"
+              "$ref": "#/components/schemas/Place-PATCH-EditAPlace-Request"
             }
           }
         ],
@@ -2611,11 +2612,670 @@
           }
         }
       }
+    },
+    "/{version}/places/categories": {
+      "get": {
+        "tags": [
+          "Place"
+        ],
+        "summary": "Place Categories",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "catCode",
+            "in": "query",
+            "description": "Id's of Categories.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Place-GET-PlaceCategories-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/bulk": {
+      "get": {
+        "tags": [
+          "Place"
+        ],
+        "summary": "EV bulk Response",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Category.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "Since.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer",
+              "format": "long"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Place-GET-EVBulk-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/ev/filters": {
+      "get": {
+        "tags": [
+          "Place"
+        ],
+        "summary": "EV Filter",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "macType",
+            "in": "query",
+            "description": "MAC Type.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "plugsSuprted",
+            "in": "query",
+            "description": "Plug Support.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PlugsLvlType",
+            "in": "query",
+            "description": "PlugsLvlType.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Place-GET-EVFilter-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "PATCH-AddAPlace-Request": {
+      "Place-GET-EVFilter-Response": {
+        "type": "object"
+      },
+      "Place-GET-EVBulk-Response": {
+        "type": "object"
+      },
+      "Place-GET-PlaceCategories-Response": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "parentName": {
+              "type": "string",
+              "example": "Government,"
+            },
+            "parentCode": {
+              "type": "string",
+              "example": "COMGOV,"
+            },
+            "childCategories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "childCode": {
+                    "type": "string",
+                    "example": "GOVMJR"
+                  },
+                  "childName": {
+                    "type": "string",
+                    "example": "Government Office"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Place-POST-AddAPlace-Request": {
+        "type": "object",
+        "properties": {
+          "placeName": {
+            "type": "string",
+            "example": "Lal Qila"
+          },
+          "placeType": {
+            "type": "integer",
+            "example": 1
+          },
+          "placeCatCode": {
+            "type": "string",
+            "example": "HISFRT"
+          },
+          "knownAs": {
+            "type": "string",
+            "example": "Lal Qila"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "decimal",
+            "example": 26.9041
+          },
+          "longitude": {
+            "type": "number",
+            "format": "decimal",
+            "example": 77.1125
+          },
+          "address": {
+            "type": "string",
+            "example": "Netaji Subhash Road, Chandni Chowk, New Delhi, Delhi, 110006"
+          },
+          "houseNumber": {
+            "type": "string"
+          },
+          "doorNumber": {
+            "type": "string"
+          },
+          "floorNumber": {
+            "type": "string"
+          },
+          "streetName": {
+            "type": "string",
+            "format": "Netaji Subhash Road"
+          },
+          "village": {
+            "type": "string"
+          },
+          "locality": {
+            "type": "string",
+            "example": "Chandni Chowk"
+          },
+          "city": {
+            "type": "string",
+            "example": "Delhi"
+          },
+          "district": {
+            "type": "string",
+            "example": "North Delhi"
+          },
+          "state": {
+            "type": "string",
+            "example": "Delhi"
+          },
+          "pincode": {
+            "type": "string",
+            "example": 110006
+          },
+          "nearestLandmark": {
+            "type": "string",
+            "example": "Lal Qila Metro Station Gate No.- 1"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+911123277705,+911123277706"
+          },
+          "email": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "example": "www.asi.nic.in,"
+          },
+          "openingHours": {
+            "type": "object",
+            "properties": {
+              "specificInterval": {
+                "type": "string",
+                "example": "null, //0-Open Always, 1-During Day, 2-During Night, null-if days info provided"
+              },
+              "monday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "opens": {
+                      "type": "string",
+                      "example": "9:30 AM"
+                    },
+                    "closes": {
+                      "type": "string",
+                      "example": "1:30 PM"
+                    }
+                  }
+                }
+              },
+              "tuesday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "wednesday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "thrusday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "friday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "saturday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "sunday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              }
+            }
+          },
+          "specialOpeningHours": {
+            "type": "object",
+            "properties": {
+              "monday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "tuesday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "wednesday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "thrusday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "friday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              },
+              "saturday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "opens": {
+                      "type": "string",
+                      "example": "9:30 AM"
+                    },
+                    "closes": {
+                      "type": "string",
+                      "example": "1:30 PM"
+                    },
+                    "validFrom": {
+                      "type": "string",
+                      "example": 12345
+                    },
+                    "validThrough": {
+                      "type": "string",
+                      "example": 12345
+                    }
+                  }
+                }
+              },
+              "sunday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "example": null
+                }
+              }
+            }
+          },
+          "customFields": {
+            "type": "object",
+            "properties": {
+              "myPlace": {
+                "type": "string",
+                "example": "wonders"
+              }
+            }
+          },
+          "description": {
+            "type": "string",
+            "example": "WOW Description"
+          },
+          "rating": {
+            "type": "integer",
+            "example": "5,"
+          },
+          "paymentMode": {
+            "type": "object",
+            "properties": {
+              "cash": {
+                "type": "integer",
+                "example": 0
+              },
+              "creditcard": {
+                "type": "integer",
+                "example": 0
+              },
+              "wallet": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          },
+          "cost": {
+            "type": "integer",
+            "example": 100
+          },
+          "cuisines": {
+            "type": "string",
+            "example": "Indian,Mughlai"
+          },
+          "amenities": {
+            "type": "object",
+            "properties": {
+              "isParkingAvail": {
+                "type": "integer",
+                "example": 1
+              },
+              "parkingDetails": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "vehicleType": {
+                      "type": "string",
+                      "example": "two-wheeler"
+                    },
+                    "rateUnitType": {
+                      "type": "string",
+                      "example": "hours"
+                    },
+                    "rateUnitRanges": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "rateUnitRange": {
+                            "type": "string",
+                            "example": "0-6,"
+                          },
+                          "rateUnitCost": {
+                            "type": "integer",
+                            "example": 50
+                          }
+                        }
+                      }
+                    },
+                    "rateUnitRange": {
+                      "type": "string",
+                      "example": "7-12,"
+                    },
+                    "rateUnitCost": {
+                      "type": "integer",
+                      "example": 100
+                    }
+                  }
+                }
+              },
+              "isWheelchairAccess": {
+                "type": "integer",
+                "example": 1
+              },
+              "isRestroomAvail": {
+                "type": "integer",
+                "example": 0
+              },
+              "isSmokingZoneAvail": {
+                "type": "integer",
+                "example": 0
+              },
+              "isValetParkingAvail": {
+                "type": "integer",
+                "example": 1
+              },
+              "isAlcoholServed": {
+                "type": "integer",
+                "example": 0
+              },
+              "isDeliveryAvail": {
+                "type": "integer",
+                "example": 0
+              },
+              "isPureVeg": {
+                "type": "integer",
+                "example": 0
+              },
+              "isOutdoorSittingAvail": {
+                "type": "integer",
+                "example": 1
+              },
+              "isHappyHours": {
+                "type": "integer",
+                "example": 1
+              },
+              "happyHoursDetails": {
+                "type": "object",
+                "properties": {
+                  "monday": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "opens": {
+                          "type": "string",
+                          "example": "9:00 AM"
+                        },
+                        "closes": {
+                          "type": "string",
+                          "example": "6:00 PM"
+                        }
+                      }
+                    }
+                  },
+                  "tuesday": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "example": null
+                    }
+                  },
+                  "wednesday": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "example": null
+                    }
+                  },
+                  "thrusday": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "example": null
+                    }
+                  },
+                  "friday": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "example": null
+                    }
+                  },
+                  "saturday": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "example": null
+                    }
+                  },
+                  "sunday": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "example": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          },
+          "altitude": {
+            "type": "string"
+          },
+          "altitudeAccuracy": {
+            "type": "string"
+          },
+          "locationAccuracy": {
+            "type": "string"
+          }
+        }
+      },
+      "Place-PATCH-EditAPlace-Request": {
         "type": "object",
         "properties": {
           "address": {
@@ -2685,100 +3345,6 @@
           }
         }
       },
-      "Place-post-AddAPlace-Request": {
-        "type": "object",
-        "properties": {
-          "address": {
-            "type": "string"
-          },
-          "altitude": {
-            "type": "number",
-            "format": "decimal"
-          },
-          "altitudeAccuracy": {
-            "type": "number",
-            "format": "decimal"
-          },
-          "categoryCode": {
-            "type": "string"
-          },
-          "city": {
-            "type": "string"
-          },
-          "customField": {
-            "type": "object"
-          },
-          "description": {
-            "type": "string"
-          },
-          "district": {
-            "type": "string"
-          },
-          "doorNumber": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "floorNumber": {
-            "type": "string"
-          },
-          "houseNumber": {
-            "type": "string"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "decimal"
-          },
-          "locality": {
-            "type": "string"
-          },
-          "locationAccuracy": {
-            "type": "number",
-            "format": "decimal"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "decimal"
-          },
-          "nearestLandMark": {
-            "type": "string"
-          },
-          "openingHours": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "phoneNumber": {
-            "type": "string"
-          },
-          "pincode": {
-            "type": "string"
-          },
-          "placeName": {
-            "type": "string"
-          },
-          "placeType": {
-            "type": "string"
-          },
-          "platform": {
-            "type": "string"
-          },
-          "specialOpeningHours": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "state": {
-            "type": "string"
-          },
-          "website": {
-            "type": "string"
-          }
-        }
-      },
       "Events-GET-AllEventsOfAUser-Response": {
         "type": "object",
         "properties": {
@@ -2815,20 +3381,14 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "example": [
-                      "9934321856",
-                      "9582058100"
-                    ]
+                    "example": 9934321856
                   }
                 },
                 "contactEmail": {
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "example": [
-                      "prateek@gmail.com",
-                      " azmiwilson@gmail.com"
-                    ]
+                    "example": "prateek@gmail.com"
                   }
                 },
                 "genre": {
@@ -3018,20 +3578,14 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "example": [
-                      "9934321856",
-                      "9582058100"
-                    ]
+                    "example": 9934321856
                   }
                 },
                 "contactEmail": {
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "example": [
-                      "prateek@gmail.com",
-                      " azmiwilson@gmail.com"
-                    ]
+                    "example": "prateek@gmail.com"
                   }
                 },
                 "genre": {
@@ -3216,20 +3770,14 @@
             "type": "array",
             "items": {
               "type": "string",
-              "example": [
-                "9934321856",
-                "9582058100"
-              ]
+              "example": 9934321856
             }
           },
           "contactEmail": {
             "type": "array",
             "items": {
               "type": "string",
-              "example": [
-                "prateek@gmail.com",
-                " azmiwilson@gmail.com"
-              ]
+              "example": "prateek@gmail.com"
             }
           },
           "genre": {
@@ -4607,36 +5155,26 @@
         }
       },
       "GET-RelationWithUser-Response": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "checkin": {
-              "type": "boolean"
-            },
-            "edited": {
-              "type": "boolean"
-            },
-            "event": {
-              "type": "boolean"
-            },
-            "favourite": {
-              "type": "boolean"
-            },
-            "report": {
-              "type": "array",
-              "items": {
+        "type": "object",
+        "properties": {
+          "relation": {
+            "type": "object",
+            "properties": {
+              "totalReports": {
+                "type": "integer",
+                "example": 3
+              },
+              "totalReviews": {
+                "type": "integer",
+                "example": 13
+              },
+              "totalEnquiries": {
+                "type": "integer",
+                "example": 0
+              },
+              "review": {
                 "type": "object",
                 "properties": {
-                  "addedBy": {
-                    "type": "string"
-                  },
-                  "addedByName": {
-                    "type": "string"
-                  },
-                  "childCategory": {
-                    "type": "string"
-                  },
                   "createdOn": {
                     "type": "integer"
                   },
@@ -4651,9 +5189,6 @@
                   },
                   "flagged": {
                     "type": "boolean"
-                  },
-                  "id": {
-                    "type": "string"
                   },
                   "latitude": {
                     "type": "number",
@@ -4687,17 +5222,20 @@
                   "placeName": {
                     "type": "string"
                   },
+                  "rating": {
+                    "type": "integer"
+                  },
                   "resourceLocation": {
                     "type": "string"
                   },
                   "status": {
                     "type": "string"
                   },
-                  "subChildCategory": {
+                  "userId": {
                     "type": "string"
                   },
-                  "userCount": {
-                    "type": "integer"
+                  "userName": {
+                    "type": "string"
                   },
                   "videos": {
                     "type": "array",
@@ -4706,99 +5244,110 @@
                     }
                   }
                 }
-              }
-            },
-            "reported": {
-              "type": "boolean"
-            },
-            "review": {
-              "type": "object",
-              "properties": {
-                "createdOn": {
-                  "type": "integer"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "eventId": {
-                  "type": "string"
-                },
-                "flagCount": {
-                  "type": "integer"
-                },
-                "flagged": {
-                  "type": "boolean"
-                },
-                "latitude": {
-                  "type": "number",
-                  "format": "decimal"
-                },
-                "likeCount": {
-                  "type": "integer"
-                },
-                "liked": {
-                  "type": "boolean"
-                },
-                "longitude": {
-                  "type": "number",
-                  "format": "decimal"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "photo": {
-                  "type": "string"
-                },
-                "pictures": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "placeId": {
-                  "type": "string"
-                },
-                "placeName": {
-                  "type": "string"
-                },
-                "rating": {
-                  "type": "number",
-                  "format": "decimal"
-                },
-                "resourceLocation": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string"
-                },
-                "userId": {
-                  "type": "string"
-                },
-                "userName": {
-                  "type": "string"
-                },
-                "videos": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
+              },
+              "report": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "addedBy": {
+                      "type": "string"
+                    },
+                    "addedByName": {
+                      "type": "string"
+                    },
+                    "childCategory": {
+                      "type": "string"
+                    },
+                    "createdOn": {
+                      "type": "integer"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "eventId": {
+                      "type": "string"
+                    },
+                    "flagCount": {
+                      "type": "integer"
+                    },
+                    "flagged": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "latitude": {
+                      "type": "number",
+                      "format": "decimal"
+                    },
+                    "likeCount": {
+                      "type": "integer"
+                    },
+                    "liked": {
+                      "type": "boolean"
+                    },
+                    "longitude": {
+                      "type": "number",
+                      "format": "decimal"
+                    },
+                    "parentCategory": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string"
+                    },
+                    "pictures": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "placeId": {
+                      "type": "string"
+                    },
+                    "placeName": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "subChildCategory": {
+                      "type": "string"
+                    },
+                    "usersCount": {
+                      "type": "integer"
+                    },
+                    "videos": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
                   }
                 }
+              },
+              "favourite": {
+                "type": "boolean"
+              },
+              "edited": {
+                "type": "boolean"
+              },
+              "saved": {
+                "type": "boolean"
+              },
+              "reviewed": {
+                "type": "boolean"
+              },
+              "reported": {
+                "type": "boolean"
+              },
+              "event": {
+                "type": "boolean"
+              },
+              "checkin": {
+                "type": "boolean"
               }
-            },
-            "reviewed": {
-              "type": "boolean"
-            },
-            "saved": {
-              "type": "boolean"
-            },
-            "totalEnquiries": {
-              "type": "integer"
-            },
-            "totalReports": {
-              "type": "integer"
-            },
-            "totalReviews": {
-              "type": "integer"
             }
           }
         }
