@@ -2952,10 +2952,213 @@
           }
         }
       }
+    },
+    "/{version}/users/list/{listId}": {
+      "delete": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Delete List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Unique ID of List",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Update List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Unique ID of List",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "placeRequest",
+            "in": "header",
+            "description": "Place Request Body",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "$ref": "#/components/schemas/List-PATCH-UpdateList-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{version}/users/list/follow": {
+      "post": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Follow List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listId",
+            "in": "query",
+            "description": "Unique List ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/users/list/unfollow": {
+      "delete": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Delete List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listId",
+            "in": "query",
+            "description": "Unique ID of List",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "List-PATCH-UpdateList-Request": {
+        "type": "object",
+        "properties": {
+          "listName": {
+            "type": "string",
+            "example": "wonder List,Testing123"
+          },
+          "privacy": {
+            "type": "integer",
+            "example": 1
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          }
+        }
+      },
       "List-POST-CreateList-Request": {
         "type": "object",
         "properties": {
