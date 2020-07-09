@@ -2806,10 +2806,218 @@
           }
         }
       }
+    },
+    "/{version}/places/listitem/{itemId}": {
+      "delete": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Delete Item from List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "Unique ID of Item",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/listitem": {
+      "post": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Add Item to List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listItemRequest",
+            "in": "header",
+            "description": "List Item Request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/List-POST-AddItemToList-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/user/list": {
+      "post": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Add Item to List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listRequest",
+            "in": "header",
+            "description": "List Request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/List-POST-CreateList-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "List-POST-CreateList-Request": {
+        "type": "object",
+        "properties": {
+          "eLoc": {
+            "type": "string",
+            "example": "1T182A"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": "28.7041"
+          },
+          "listName": {
+            "type": "string",
+            "example": "wonder list"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": "77.1025"
+          },
+          "placeName": {
+            "type": "string",
+            "example": "Delhi"
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          },
+          "privacy": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "List-POST-AddItemToList-Request": {
+        "type": "object",
+        "properties": {
+          "placeName": {
+            "type": "string",
+            "example": "test place"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": "28.7041"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": "77.1025"
+          },
+          "listId": {
+            "type": "string",
+            "example": "791c4990ae4a018535b933908f332f97"
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          }
+        }
+      },
       "Place-GET-EVFilter-Response": {
         "type": "object"
       },
@@ -2869,12 +3077,12 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal",
+            "format": "double",
             "example": 26.9041
           },
           "longitude": {
             "type": "number",
-            "format": "decimal",
+            "format": "double",
             "example": 77.1125
           },
           "address": {
@@ -3304,14 +3512,14 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "locality": {
             "type": "string"
           },
           "longitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "nearestLandmark": {
             "type": "string"
@@ -3421,12 +3629,12 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal",
+                  "format": "double",
                   "example": 28.2
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal",
+                  "format": "double",
                   "example": 77.27
                 },
                 "userId": {
@@ -3519,11 +3727,11 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "longitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "organization": {
             "type": "string"
@@ -3618,12 +3826,12 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal",
+                  "format": "double",
                   "example": 28.2
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal",
+                  "format": "double",
                   "example": 77.27
                 },
                 "userId": {
@@ -3716,11 +3924,11 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "longitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "organization": {
             "type": "string"
@@ -3810,12 +4018,12 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal",
+            "format": "double",
             "example": 28.2
           },
           "longitude": {
             "type": "number",
-            "format": "decimal",
+            "format": "double",
             "example": 77.27
           },
           "userId": {
@@ -3881,12 +4089,12 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal",
+                  "format": "double",
                   "example": 28.612964
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal",
+                  "format": "double",
                   "example": 77.229463
                 },
                 "status": {
@@ -3975,14 +4183,14 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "latlngAcc": {
             "type": "integer"
           },
           "longitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "placeName": {
             "type": "string"
@@ -4029,12 +4237,12 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal",
+            "format": "double",
             "example": 22.8423453456
           },
           "longitude": {
             "type": "number",
-            "format": "decimal",
+            "format": "double",
             "example": 75.65474567567
           },
           "status": {
@@ -4099,7 +4307,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -4109,7 +4317,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "name": {
                   "type": "string"
@@ -4176,7 +4384,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -4186,7 +4394,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "name": {
                   "type": "string"
@@ -4249,14 +4457,14 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "latlngAcc": {
             "type": "integer"
           },
           "longitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "placeName": {
             "type": "string"
@@ -4286,7 +4494,7 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "likeCount": {
             "type": "integer"
@@ -4296,7 +4504,7 @@
           },
           "longitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "name": {
             "type": "string"
@@ -4502,11 +4710,11 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 }
               }
             }
@@ -4527,7 +4735,7 @@
               },
               "latitude": {
                 "type": "number",
-                "format": "decimal",
+                "format": "double",
                 "example": 28.612964
               },
               "houseNumber": {
@@ -4558,7 +4766,7 @@
               },
               "eLat": {
                 "type": "number",
-                "format": "decimal",
+                "format": "double",
                 "example": 28.613058
               },
               "popularName": {
@@ -4580,7 +4788,7 @@
               },
               "longitude": {
                 "type": "number",
-                "format": "decimal",
+                "format": "double",
                 "example": 77.2294630000001
               },
               "pincode": {
@@ -4608,7 +4816,7 @@
               },
               "eLng": {
                 "type": "number",
-                "format": "decimal",
+                "format": "double",
                 "example": 77.227738
               },
               "subSubLocality": {
@@ -4966,7 +5174,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -4976,7 +5184,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "name": {
                   "type": "string"
@@ -5027,11 +5235,11 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "longitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "platform": {
             "type": "string"
@@ -5104,7 +5312,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -5114,7 +5322,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "parentCategory": {
                   "type": "string"
@@ -5192,7 +5400,7 @@
                   },
                   "latitude": {
                     "type": "number",
-                    "format": "decimal"
+                    "format": "double"
                   },
                   "likeCount": {
                     "type": "integer"
@@ -5202,7 +5410,7 @@
                   },
                   "longitude": {
                     "type": "number",
-                    "format": "decimal"
+                    "format": "double"
                   },
                   "name": {
                     "type": "string"
@@ -5279,7 +5487,7 @@
                     },
                     "latitude": {
                       "type": "number",
-                      "format": "decimal"
+                      "format": "double"
                     },
                     "likeCount": {
                       "type": "integer"
@@ -5289,7 +5497,7 @@
                     },
                     "longitude": {
                       "type": "number",
-                      "format": "decimal"
+                      "format": "double"
                     },
                     "parentCategory": {
                       "type": "string"
@@ -5378,12 +5586,12 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal",
+                  "format": "double",
                   "example": 28.612964
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal",
+                  "format": "double",
                   "example": 77.229463
                 },
                 "status": {
@@ -5460,11 +5668,11 @@
           },
           "latitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "longitude": {
             "type": "number",
-            "format": "decimal"
+            "format": "double"
           },
           "platform": {
             "type": "string"
@@ -5587,7 +5795,7 @@
                 },
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "likeCount": {
                   "type": "integer"
@@ -5597,7 +5805,7 @@
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "name": {
                   "type": "string"
@@ -5752,12 +5960,12 @@
                             },
                             "latitude": {
                               "type": "number",
-                              "format": "decimal",
+                              "format": "double",
                               "example": 28.519693
                             },
                             "longitude": {
                               "type": "number",
-                              "format": "decimal",
+                              "format": "double",
                               "example": 77.097061
                             },
                             "usersCount": {
@@ -5826,11 +6034,11 @@
                     "properties": {
                       "latitude": {
                         "type": "number",
-                        "format": "decimal"
+                        "format": "double"
                       },
                       "longitude": {
                         "type": "number",
-                        "format": "decimal"
+                        "format": "double"
                       },
                       "name": {
                         "type": "string"
@@ -5862,11 +6070,11 @@
               "properties": {
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "name": {
                   "type": "string"
@@ -5898,11 +6106,11 @@
               "properties": {
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "name": {
                   "type": "string"
@@ -5931,11 +6139,11 @@
               "properties": {
                 "latitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "longitude": {
                   "type": "number",
-                  "format": "decimal"
+                  "format": "double"
                 },
                 "name": {
                   "type": "string"
