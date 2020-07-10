@@ -9,7 +9,7 @@
       "url": "https://www.mapmyindia.com/api/#f_cont",
       "email": "apisupport@mapmyindia.com"
     },
-    "version": "2.1.0.0"
+    "version": "v2.1.0"
   },
   "externalDocs": {
     "description": "Find out more about MapmyIndia APIs",
@@ -2807,6 +2807,79 @@
         }
       }
     },
+    "/{version}/places/listitem": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "All Saved Items",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "description": "Pagination",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-AllSavedItems-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/{version}/places/listitem/{itemId}": {
       "delete": {
         "tags": [
@@ -3138,10 +3211,491 @@
           }
         }
       }
+    },
+    "/{version}/places/{userName}/listitem/{listId}": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "All Items of a List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "User Name",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Unique ID of List",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-AllItemsOfAList-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/users/{listId}/followers": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Followers of List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Unique ID of List",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-FollowersOfList-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/users/{userName}/list": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "All List of a User",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "User Name",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-AllListOfAUser-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "GET-AllListOfAUser-Response": {
+        "type": "object",
+        "properties": {
+          "lists": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "listName": {
+                  "type": "string",
+                  "example": "Contributions"
+                },
+                "privacy": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "createdOn": {
+                  "type": "integer",
+                  "example": 1462857748
+                },
+                "itemCount": {
+                  "type": "integer",
+                  "example": 21
+                },
+                "listId": {
+                  "type": "string",
+                  "example": "73bf71ca812c4810071df8ac054171d3"
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItems": {
+                "type": "integer",
+                "example": 1
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 1
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "GET-FollowersOfList-Response": {
+        "type": "object",
+        "properties": {
+          "followers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "since": {
+                  "type": "integer",
+                  "example": 1545065889
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Prateek Mishra"
+                },
+                "userName": {
+                  "type": "string",
+                  "example": "prateek276"
+                },
+                "photo": {
+                  "type": "string",
+                  "example": "5be276c1ce3ab.jpg"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "Delhi"
+                },
+                "about": {
+                  "type": "string",
+                  "example": "Demo"
+                },
+                "followedByMe": {
+                  "type": "boolean",
+                  "example": false
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItems": {
+                "type": "integer",
+                "example": 1
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 1
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "GET-AllItemsOfAList-Response": {
+        "type": "object",
+        "properties": {
+          "listItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "placeName": {
+                  "type": "string",
+                  "example": "test place"
+                },
+                "eLoc": {
+                  "type": "string",
+                  "example": "MMI000"
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 28.7041
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 77.1025
+                },
+                "listName": {
+                  "type": "string",
+                  "example": "Favourites"
+                },
+                "itemId": {
+                  "type": "string",
+                  "example": "5679ee1b3fd45d27b6fbec1513228304"
+                },
+                "createdOn": {
+                  "type": "integer",
+                  "example": 1548102188
+                },
+                "rating": {
+                  "type": "integer",
+                  "example": 0
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItems": {
+                "type": "integer",
+                "example": 1
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 1
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "GET-AllSavedItems-Response": {
+        "type": "object",
+        "properties": {
+          "listItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "placeName": {
+                  "type": "string",
+                  "example": "test place"
+                },
+                "eLoc": {
+                  "type": "string",
+                  "example": "MMI000"
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 28.7041
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 77.1025
+                },
+                "listName": {
+                  "type": "string",
+                  "example": "Favourites"
+                },
+                "itemId": {
+                  "type": "string",
+                  "example": "5679ee1b3fd45d27b6fbec1513228304"
+                },
+                "createdOn": {
+                  "type": "integer",
+                  "example": 1548102188
+                },
+                "rating": {
+                  "type": "integer",
+                  "example": 0
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItems": {
+                "type": "integer",
+                "example": 1
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 1
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
       "List-PATCH-UpdateList-Request": {
         "type": "object",
         "properties": {
