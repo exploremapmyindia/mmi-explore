@@ -3441,7 +3441,7 @@
     "/{version}/places/report/nearby": {
       "get": {
         "tags": [
-          "List"
+          "Report"
         ],
         "summary": "Nearby Reports",
         "parameters": [
@@ -3587,10 +3587,136 @@
           }
         }
       }
+    },
+    "/{version}/places/reportCatMaster": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Report Category Master",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "\",\"(Comma) separated id of Categories OR null in case of all categories requried.",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 6,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report-GET-reportCatMaster-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Report-GET-reportCatMaster-Response": {
+        "type": "object",
+        "properties": {
+          "baseURLObj": {
+            "type": "object",
+            "properties": {
+              "icon_url": {
+                "type": "string",
+                "example": "https://mmi-explore-images.s3.ap-south-1.amazonaws.com/reports/"
+              }
+            }
+          },
+          "parentCategories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 2
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Traffic Issues"
+                },
+                "icon": {
+                  "type": "string",
+                  "example": "2.png"
+                },
+                "childCategories": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 14
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Jam"
+                      },
+                      "icon": {
+                        "type": "string",
+                        "example": "2_14.png"
+                      },
+                      "subChildCategories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Heavy"
+                            },
+                            "icon": {
+                              "type": "string",
+                              "example": "2_14_1.png"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "Report-PATCH-UpdateReport-Request": {
         "type": "object",
         "properties": {
