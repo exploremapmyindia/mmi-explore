@@ -58,9 +58,6 @@
       "name": "Route"
     },
     {
-      "name": "Route Report Summary"
-    },
-    {
       "name": "User"
     }
   ],
@@ -1600,7 +1597,7 @@
     "/{version}/route/reports": {
       "get": {
         "tags": [
-          "Route Report Summary"
+          "Report"
         ],
         "summary": "Route Report Summary",
         "parameters": [
@@ -3440,10 +3437,354 @@
           }
         }
       }
+    },
+    "/{version}/places/report/nearby": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Nearby Reports",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "zoom",
+            "in": "query",
+            "description": "zoom",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 11,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "parentCategory",
+            "in": "query",
+            "description": "Id of Parent Category",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "childCategory",
+            "in": "query",
+            "description": "Id of Child Category",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 6,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report-GET-NearbyReports-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/report/{reportId}": {
+      "patch": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Update Report",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "Unique ID of Report",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportRequest",
+            "in": "header",
+            "description": "Report Request Body",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "$ref": "#/components/schemas/Report-PATCH-UpdateReport-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Report-PATCH-UpdateReport-Request": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "Wow description"
+          },
+          "parentCategory": {
+            "type": "integer",
+            "example": 2
+          },
+          "childCategory": {
+            "type": "integer",
+            "example": 13
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          },
+          "expiry": {
+            "type": "integer",
+            "format": "long",
+            "example": 10202021
+          },
+          "broadcast": {
+            "type": "string",
+            "example": "public"
+          }
+        }
+      },
+      "Report-GET-NearbyReports-Response": {
+        "type": "object",
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "018e685b70db78cbcf699f80ffeb2f49"
+                },
+                "placeName": {
+                  "type": "string",
+                  "example": "Dr Sandip Guptqa"
+                },
+                "eventId": {
+                  "type": "integer",
+                  "example": 1301
+                },
+                "placeId": {
+                  "type": "string",
+                  "example": "Z6WW94"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Please check this poi name. Dr Sandip Guptqa. Its spell mistake. It should be Gupa not Guptqa."
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 28.56256828
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 77.26343738
+                },
+                "parentCategory": {
+                  "type": "integer",
+                  "example": "1"
+                },
+                "childCategory": {
+                  "type": "integer",
+                  "example": "6"
+                },
+                "subChildCategory": {
+                  "type": "integer",
+                  "example": 11
+                },
+                "status": {
+                  "type": "string",
+                  "example": "published"
+                },
+                "createdOn": {
+                  "type": "integer",
+                  "format": "long",
+                  "example": 1511773404
+                },
+                "addedBy": {
+                  "type": "string",
+                  "example": "rameshc886"
+                },
+                "addedByName": {
+                  "type": "string",
+                  "example": "rameshc"
+                },
+                "photo": {
+                  "type": "string",
+                  "example": "https://anchor.mapmyindia.com/api/users/rameshc886/avatar"
+                },
+                "pictures": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "videos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "audios": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "source": {
+                  "type": "string",
+                  "example": null
+                },
+                "liked": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "flagged": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "likeCount": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "flagCount": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "usersCount": {
+                  "type": "integer",
+                  "example": null
+                },
+                "picturesCount": {
+                  "type": "integer",
+                  "example": null
+                },
+                "audiosCount": {
+                  "type": "integer",
+                  "example": null
+                },
+                "videosCount": {
+                  "type": "integer",
+                  "example": null
+                },
+                "thumbnail": {
+                  "type": "integer",
+                  "example": null
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItems": {
+                "type": "integer",
+                "example": 1
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 1
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          },
+          "baseURLObj": {
+            "type": "object",
+            "properties": {
+              "assets": {
+                "type": "string",
+                "example": "https://anchor.mapmyindia.com/api/users/"
+              }
+            }
+          }
+        }
+      },
       "GET-AllListOfAUser-Response": {
         "type": "object",
         "properties": {
