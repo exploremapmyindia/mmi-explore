@@ -5093,90 +5093,121 @@
       },
       "Place-POST-AddAPlace-Request": {
         "type": "object",
+        "required": [
+          "placeType",
+          "placeCatCode",
+          "placeName",
+          "address",
+          "latitude",
+          "longitude",
+          "platform"
+        ],
         "properties": {
           "placeName": {
             "type": "string",
-            "example": "Lal Qila"
+            "example": "Lal Qila",
+            "description": "Name of the place."
           },
           "placeType": {
             "type": "integer",
-            "example": 1
+            "example": 1,
+            "description": "Type of the place. Allowed values: 0(Residential), 1(Non-Residential)"
           },
           "placeCatCode": {
             "type": "string",
-            "example": "HISFRT"
+            "example": "HISFRT",
+            "description": "Hyphon separated Category and Sub-category Code of the place. e.g.: RESLCS-LCSAPT OR RESLCS."
           },
           "knownAs": {
             "type": "string",
-            "example": "Lal Qila"
+            "example": "Lal Qila",
+            "description": "Popular name of the place."
           },
           "latitude": {
             "type": "number",
             "format": "double",
-            "example": 26.9041
+            "example": 26.9041,
+            "description": "Latitude of the userâ€™s location."
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "example": 77.1125
+            "example": 77.1125,
+            "description": "Longitude of the userâ€™s location."
           },
           "address": {
             "type": "string",
-            "example": "Netaji Subhash Road, Chandni Chowk, New Delhi, Delhi, 110006"
+            "example": "Netaji Subhash Road, Chandni Chowk, New Delhi, Delhi, 110006",
+            "description": "Address of the place to add."
           },
           "houseNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "House number of the place."
           },
           "doorNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Door number of the place."
           },
           "floorNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Floor number of the place."
           },
           "streetName": {
             "type": "string",
-            "format": "Netaji Subhash Road"
+            "format": "Netaji Subhash Road",
+            "description": "Street name of the place."
           },
           "village": {
-            "type": "string"
+            "type": "string",
+            "description": "Village name of the place (For Rural Areas)."
           },
           "locality": {
             "type": "string",
-            "example": "Chandni Chowk"
+            "example": "Chandni Chowk",
+            "description": "Locality name of the place (For Urban Areas)."
           },
           "city": {
             "type": "string",
-            "example": "Delhi"
+            "example": "Delhi",
+            "description": "City name of the place (For Urban Areas)."
           },
           "district": {
             "type": "string",
-            "example": "North Delhi"
+            "example": "North Delhi",
+            "description": "District name of the place (For Rular Areas)."
           },
           "state": {
             "type": "string",
-            "example": "Delhi"
+            "example": "Delhi",
+            "description": "State name of the place."
           },
           "pincode": {
             "type": "string",
-            "example": 110006
+            "example": 110006,
+            "description": "Postal Code of the place."
           },
           "nearestLandmark": {
             "type": "string",
-            "example": "Lal Qila Metro Station Gate No.- 1"
+            "example": "Lal Qila Metro Station Gate No.- 1",
+            "description": "Nearest landmark of the place."
           },
           "phone": {
             "type": "string",
-            "example": "+911123277705,+911123277706"
+            "example": "+911123277705,+911123277706",
+            "description": "Phone number if any of the place."
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email if any of the place."
           },
           "website": {
             "type": "string",
-            "example": "www.asi.nic.in,"
+            "example": "www.asi.nic.in",
+            "description": "Website if any of the place."
           },
           "openingHours": {
             "type": "object",
+            "description": "List of days of opening hours object.",
             "properties": {
               "specificInterval": {
                 "type": "string",
@@ -5244,6 +5275,7 @@
           },
           "specialOpeningHours": {
             "type": "object",
+            "description": "List of days of special opening hours object.",
             "properties": {
               "monday": {
                 "type": "array",
@@ -5315,6 +5347,7 @@
           },
           "customFields": {
             "type": "object",
+            "description": "List of key value pairs of used added input.",
             "properties": {
               "myPlace": {
                 "type": "string",
@@ -5324,14 +5357,17 @@
           },
           "description": {
             "type": "string",
-            "example": "WOW Description"
+            "example": "Nice place to hangout",
+            "description": "A short description about the place. Size range: 10..250"
           },
           "rating": {
             "type": "integer",
-            "example": "5,"
+            "example": "5",
+            "description": "Star Rating of the place."
           },
           "paymentMode": {
             "type": "object",
+            "description": "Payment modes accepted for the place.",
             "properties": {
               "cash": {
                 "type": "integer",
@@ -5349,14 +5385,17 @@
           },
           "cost": {
             "type": "integer",
-            "example": 100
+            "example": 100,
+            "description": "Cost to access the place."
           },
           "cuisines": {
             "type": "string",
-            "example": "Indian,Mughlai"
+            "example": "Indian,Mughlai",
+            "description": "List of Cusines available at the place."
           },
           "amenities": {
             "type": "object",
+            "description": "Amenities available for the place.",
             "properties": {
               "isParkingAvail": {
                 "type": "integer",
@@ -5505,16 +5544,20 @@
           },
           "platform": {
             "type": "integer",
-            "example": 101
+            "example": 101,
+            "description": "Platfrom from which request is being made. Allowed values: 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)"
           },
           "altitude": {
-            "type": "string"
+            "type": "string",
+            "description": "Altitude of the userâ€™s location, in meters."
           },
           "altitudeAccuracy": {
-            "type": "string"
+            "type": "string",
+            "description": "Vertical accuracy of the userâ€™s location, in meters."
           },
           "locationAccuracy": {
-            "type": "string"
+            "type": "string",
+            "description": "Accuracy of the userâ€™s latitude and longitude, in meters."
           }
         }
       },
