@@ -5127,13 +5127,13 @@
             "type": "number",
             "format": "double",
             "example": 26.9041,
-            "description": "Latitude of the userâ€™s location."
+            "description": "Latitude of the userÃ¢â‚¬â„¢s location."
           },
           "longitude": {
             "type": "number",
             "format": "double",
             "example": 77.1125,
-            "description": "Longitude of the userâ€™s location."
+            "description": "Longitude of the userÃ¢â‚¬â„¢s location."
           },
           "address": {
             "type": "string",
@@ -5549,15 +5549,15 @@
           },
           "altitude": {
             "type": "string",
-            "description": "Altitude of the userâ€™s location, in meters."
+            "description": "Altitude of the userÃ¢â‚¬â„¢s location, in meters."
           },
           "altitudeAccuracy": {
             "type": "string",
-            "description": "Vertical accuracy of the userâ€™s location, in meters."
+            "description": "Vertical accuracy of the userÃ¢â‚¬â„¢s location, in meters."
           },
           "locationAccuracy": {
             "type": "string",
-            "description": "Accuracy of the userâ€™s latitude and longitude, in meters."
+            "description": "Accuracy of the userÃ¢â‚¬â„¢s latitude and longitude, in meters."
           }
         }
       },
@@ -6623,93 +6623,95 @@
         "type": "object",
         "properties": {
           "images": {
-            "type": "object"
-          },
-          "assets": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "addedByURL": {
-                  "type": "string",
-                  "example": "https://maps.mapmyindia.com/babammi"
-                },
-                "addedByName": {
-                  "type": "string",
-                  "example": "Rakesh Sharma"
-                },
-                "sourceType": {
-                  "type": "string",
-                  "example": "MapmyIndia"
-                },
-                "origin": {
-                  "type": "number",
-                  "example": 1
-                },
-                "caption": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string",
-                  "example": "place"
-                },
-                "originLogo": {
-                  "type": "string"
-                },
-                "addedOn": {
-                  "type": "integer",
-                  "example": 1556044016
-                },
-                "imageObject": {
+            "type": "object",
+            "properties": {
+              "assets": {
+                "type": "array",
+                "items": {
                   "type": "object",
                   "properties": {
-                    "width": {
-                      "type": "string"
-                    },
-                    "url": {
+                    "addedByURL": {
                       "type": "string",
-                      "example": "https://maps.mapmyindia.com/place/1T182A_1556044015873_0.jpg"
+                      "example": "https://maps.mapmyindia.com/babammi"
                     },
-                    "height": {
+                    "addedByName": {
+                      "type": "string",
+                      "example": "Rakesh Sharma"
+                    },
+                    "sourceType": {
+                      "type": "string",
+                      "example": "MapmyIndia"
+                    },
+                    "origin": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "caption": {
                       "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "place"
+                    },
+                    "originLogo": {
+                      "type": "string"
+                    },
+                    "addedOn": {
+                      "type": "integer",
+                      "example": 1556044016
+                    },
+                    "imageObject": {
+                      "type": "object",
+                      "properties": {
+                        "width": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string",
+                          "example": "https://maps.mapmyindia.com/place/1T182A_1556044015873_0.jpg"
+                        },
+                        "height": {
+                          "type": "string"
+                        }
+                      }
                     }
                   }
                 }
-              }
-            }
-          },
-          "pagination": {
-            "type": "object",
-            "properties": {
-              "totalItems": {
-                "type": "integer",
-                "example": 16
               },
-              "perPage": {
-                "type": "integer",
-                "example": 10
+              "pagination": {
+                "type": "object",
+                "properties": {
+                  "totalItems": {
+                    "type": "integer",
+                    "example": 16
+                  },
+                  "perPage": {
+                    "type": "integer",
+                    "example": 10
+                  },
+                  "totalPages": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "currentPage": {
+                    "type": "string",
+                    "example": 1
+                  }
+                }
               },
-              "totalPages": {
-                "type": "integer",
-                "example": 2
-              },
-              "currentPage": {
+              "eloc": {
                 "type": "string",
-                "example": 1
+                "example": "1T182A"
+              },
+              "updatedOn": {
+                "type": "integer",
+                "example": 1560233495062
+              },
+              "createdOn": {
+                "type": "integer",
+                "example": 1560233495062
               }
             }
-          },
-          "eloc": {
-            "type": "string",
-            "example": "1T182A"
-          },
-          "updatedOn": {
-            "type": "integer",
-            "example": 1560233495062
-          },
-          "createdOn": {
-            "type": "integer",
-            "example": 1560233495062
           },
           "baseURLObj": {
             "type": "object",
