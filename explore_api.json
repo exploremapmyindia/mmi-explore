@@ -427,6 +427,17 @@
           "Claim a Business"
         ],
         "summary": "Create Claim",
+        "requestBody": {
+          "description": "Request Body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POST-CreateClaim-Request"
+              }
+            }
+          }
+        },
         "parameters": [
           {
             "name": "version",
@@ -446,15 +457,6 @@
             "allowEmptyValue": false,
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "claimRequest",
-            "in": "header",
-            "description": "Claim request body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/POST-CreateClaim-Request"
             }
           }
         ],
@@ -5127,13 +5129,13 @@
             "type": "number",
             "format": "double",
             "example": 26.9041,
-            "description": "Latitude of the userÃ¢â‚¬â„¢s location."
+            "description": "Latitude of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s location."
           },
           "longitude": {
             "type": "number",
             "format": "double",
             "example": 77.1125,
-            "description": "Longitude of the userÃ¢â‚¬â„¢s location."
+            "description": "Longitude of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s location."
           },
           "address": {
             "type": "string",
@@ -5549,15 +5551,15 @@
           },
           "altitude": {
             "type": "string",
-            "description": "Altitude of the userÃ¢â‚¬â„¢s location, in meters."
+            "description": "Altitude of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s location, in meters."
           },
           "altitudeAccuracy": {
             "type": "string",
-            "description": "Vertical accuracy of the userÃ¢â‚¬â„¢s location, in meters."
+            "description": "Vertical accuracy of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s location, in meters."
           },
           "locationAccuracy": {
             "type": "string",
-            "description": "Accuracy of the userÃ¢â‚¬â„¢s latitude and longitude, in meters."
+            "description": "Accuracy of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s latitude and longitude, in meters."
           }
         }
       },
@@ -7207,16 +7209,16 @@
       "POST-CreateClaim-Request": {
         "type": "object",
         "properties": {
-          "claimDescription": {
-            "type": "string"
-          },
-          "claimerDesignation": {
+          "claimerName": {
             "type": "string"
           },
           "claimerLevel": {
             "type": "string"
           },
-          "claimerName": {
+          "claimerDesignation": {
+            "type": "string"
+          },
+          "claimDescription": {
             "type": "string"
           },
           "email": {
@@ -7226,6 +7228,15 @@
             "type": "string"
           },
           "platform": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "string"
+          },
+          "latlong": {
             "type": "string"
           }
         }
