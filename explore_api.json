@@ -49,6 +49,12 @@
       "name": "Place"
     },
     {
+      "name": "Preference"
+    },
+    {
+      "name": "Push Incidents Data"
+    },
+    {
       "name": "Report"
     },
     {
@@ -427,17 +433,6 @@
           "Claim a Business"
         ],
         "summary": "Create Claim",
-        "requestBody": {
-          "description": "Request Body",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/POST-CreateClaim-Request"
-              }
-            }
-          }
-        },
         "parameters": [
           {
             "name": "version",
@@ -457,6 +452,15 @@
             "allowEmptyValue": false,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "claimRequest",
+            "in": "header",
+            "description": "Claim request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/POST-CreateClaim-Request"
             }
           }
         ],
@@ -2806,6 +2810,272 @@
         }
       }
     },
+    "/{version}/preference/app/config": {
+      "get": {
+        "tags": [
+          "Preference"
+        ],
+        "summary": "Get App Config",
+        "parameters": [
+          {
+            "name": "paltform",
+            "in": "query",
+            "description": "Platform",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preference-Get-App-Config-Response"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/{version}/preference/app/product/settings": {
+      "get": {
+        "tags": [
+          "Preference"
+        ],
+        "summary": "Get Product Preferences",
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "query",
+            "description": "platform",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preference-Get-Product-Preferences-Response"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/preference/app/user/setting": {
+      "post": {
+        "tags": [
+          "Preference"
+        ],
+        "summary": "Set User Preferences",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "object which contains key info of a place.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "description": "value",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/preference/app/user/settings": {
+      "get": {
+        "tags": [
+          "Preference"
+        ],
+        "summary": "Get User Preferences",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "object which contains key info of a place.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preference-Get-User-Preferences-Response"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/external/pushIncidents": {
+      "post": {
+        "tags": [
+          "Push Incidents Data"
+        ],
+        "summary": "Push Incidents Data",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "payLoad",
+            "in": "path",
+            "description": "payLoad Request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Push-Incidents-Data-Post-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/{version}/places/listitem": {
       "get": {
         "tags": [
@@ -3851,6 +4121,47 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/users/<userName>/activity": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Activity Of A User",
+        "description": "This API allows you to get counts of all activity done by a user.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "Object with activity detail.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/User-Activity-Of-A-User-Response"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -5129,13 +5440,13 @@
             "type": "number",
             "format": "double",
             "example": 26.9041,
-            "description": "Latitude of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s location."
+            "description": "Latitude of the userÃ¢â‚¬â„¢s location."
           },
           "longitude": {
             "type": "number",
             "format": "double",
             "example": 77.1125,
-            "description": "Longitude of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s location."
+            "description": "Longitude of the userÃ¢â‚¬â„¢s location."
           },
           "address": {
             "type": "string",
@@ -5551,15 +5862,15 @@
           },
           "altitude": {
             "type": "string",
-            "description": "Altitude of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s location, in meters."
+            "description": "Altitude of the userÃ¢â‚¬â„¢s location, in meters."
           },
           "altitudeAccuracy": {
             "type": "string",
-            "description": "Vertical accuracy of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s location, in meters."
+            "description": "Vertical accuracy of the userÃ¢â‚¬â„¢s location, in meters."
           },
           "locationAccuracy": {
             "type": "string",
-            "description": "Accuracy of the userÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s latitude and longitude, in meters."
+            "description": "Accuracy of the userÃ¢â‚¬â„¢s latitude and longitude, in meters."
           }
         }
       },
@@ -5630,6 +5941,203 @@
           },
           "website": {
             "type": "string"
+          }
+        }
+      },
+      "Preference-Get-App-Config-Response": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "parentId": {
+                  "type": "string",
+                  "example": null
+                },
+                "parentName": {
+                  "type": "string",
+                  "example": null
+                },
+                "icons": {
+                  "type": "object",
+                  "properties": {
+                    "largeIcon": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "smallIcon": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                },
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "icons": {
+                        "type": "object",
+                        "properties": {
+                          "largeIcon": {
+                            "type": "string",
+                            "example": "string"
+                          },
+                          "smallIcon": {
+                            "type": "string",
+                            "example": "string"
+                          }
+                        }
+                      },
+                      "id": {
+                        "type": "integer",
+                        "example": 0
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "string"
+                      },
+                      "subChildrens": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "icons": {
+                              "type": "object",
+                              "properties": {
+                                "largeIcon": {
+                                  "type": "string",
+                                  "example": "string"
+                                },
+                                "smallIcon": {
+                                  "type": "string",
+                                  "example": "string"
+                                }
+                              }
+                            },
+                            "id": {
+                              "type": "integer",
+                              "example": 0
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "map_Layers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "styleUrls": {
+                  "type": "object",
+                  "properties": {
+                    "nightStyleUrl": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "styleUrl": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                },
+                "thumbnail": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "title": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Preference-Get-Product-Preferences-Response": {
+        "type": "object",
+        "properties": {
+          "key1": {
+            "type": "string",
+            "example": "value1"
+          },
+          "key2": {
+            "type": "string",
+            "example": "value2"
+          }
+        }
+      },
+      "Preference-Get-User-Preferences-Response": {
+        "type": "object",
+        "properties": {
+          "key1": {
+            "type": "string",
+            "example": "value1"
+          },
+          "key2": {
+            "type": "string",
+            "example": "value2"
+          }
+        }
+      },
+      "Push-Incidents-Data-Post-Request": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "IMEI": {
+                  "type": "string",
+                  "example": 999999999999999
+                },
+                "event": {
+                  "type": "string",
+                  "example": "AZ"
+                },
+                "hdop": {
+                  "type": "string",
+                  "example": "1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3"
+                },
+                "lat": {
+                  "type": "number",
+                  "format": "double",
+                  "example": "28.502607,28.502607,28.502611,28.502616,28.502616,28.502616,28.502624,28.502632,28.502628,28.50262,28.502616"
+                },
+                "latd": {
+                  "type": "string",
+                  "example": "N,N,N,N,N,N,N,N,N,N,N"
+                },
+                "lon": {
+                  "type": "number",
+                  "format": "double",
+                  "example": "77.060615,77.060531,77.060455,77.060379,77.06031,77.06031,77.060272,77.060249,77.060218,77.060188,77.060165"
+                },
+                "lond": {
+                  "type": "string",
+                  "example": "E,E,E,E,E,E,E,E,E,E,E"
+                },
+                "ts": {
+                  "type": "string",
+                  "example": "2019-09-11T16:08:40.000Z"
+                },
+                "vs": {
+                  "type": "integer",
+                  "example": 16
+                }
+              }
+            }
           }
         }
       },
@@ -7209,16 +7717,16 @@
       "POST-CreateClaim-Request": {
         "type": "object",
         "properties": {
-          "claimerName": {
-            "type": "string"
-          },
-          "claimerLevel": {
+          "claimDescription": {
             "type": "string"
           },
           "claimerDesignation": {
             "type": "string"
           },
-          "claimDescription": {
+          "claimerLevel": {
+            "type": "string"
+          },
+          "claimerName": {
             "type": "string"
           },
           "email": {
@@ -7228,15 +7736,6 @@
             "type": "string"
           },
           "platform": {
-            "type": "string"
-          },
-          "placeName": {
-            "type": "string"
-          },
-          "latitude": {
-            "type": "string"
-          },
-          "latlong": {
             "type": "string"
           }
         }
@@ -8128,6 +8627,225 @@
                 }
               }
             }
+          }
+        }
+      },
+      "User-Activity-Of-A-User-Response": {
+        "type": "object",
+        "properties": {
+          "activity": {
+            "type": "object",
+            "properties": {
+              "home": {
+                "type": "object",
+                "properties": {
+                  "entry_lat": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 0
+                  },
+                  "lng": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 77.268194
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Raj Niwas, Block D, Kalkaji, New Delhi, Delhi, 110019"
+                  },
+                  "entry_lng": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 0
+                  },
+                  "lat": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 28.549572
+                  },
+                  "place_id": {
+                    "type": "string",
+                    "example": "W7R5DF"
+                  },
+                  "platform": {
+                    "type": "string",
+                    "example": 101
+                  },
+                  "openingHours": {
+                    "type": "object",
+                    "properties": {
+                      "monday": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "opens": {
+                              "type": "string",
+                              "example": "9:00 AM"
+                            },
+                            "closes": {
+                              "type": "string",
+                              "example": "8:30 PM"
+                            }
+                          }
+                        }
+                      },
+                      "thuesday": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "opens": {
+                              "type": "string",
+                              "example": "9:30 AM"
+                            },
+                            "closes": {
+                              "type": "string",
+                              "example": "1:30 PM"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "office": {
+                "type": "object",
+                "properties": {
+                  "place_id": {
+                    "type": "string",
+                    "example": "MMI000"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Mapmyindia Head Office New Delhi, 237"
+                  },
+                  "lat": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 28.550716
+                  },
+                  "lng": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 77.268928
+                  },
+                  "entry_lat": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 0
+                  },
+                  "entry_lng": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 0
+                  },
+                  "openingHours": {
+                    "type": "object",
+                    "properties": {
+                      "monday": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "opens": {
+                              "type": "string",
+                              "example": "9:00 AM"
+                            },
+                            "closes": {
+                              "type": "string",
+                              "example": "8:30 PM"
+                            }
+                          }
+                        }
+                      },
+                      "thuesday": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "opens": {
+                              "type": "string",
+                              "example": "9:30 AM"
+                            },
+                            "closes": {
+                              "type": "string",
+                              "example": "1:30 PM"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "platform": {
+                    "type": "string",
+                    "example": 101
+                  }
+                }
+              }
+            }
+          },
+          "checkins": {
+            "type": "integer",
+            "example": 1
+          },
+          "reviews": {
+            "type": "integer",
+            "example": 5
+          },
+          "reports": {
+            "type": "integer",
+            "example": 16
+          },
+          "followings": {
+            "type": "integer",
+            "example": 0
+          },
+          "followers": {
+            "type": "integer",
+            "example": 0
+          },
+          "listCount": {
+            "type": "integer",
+            "example": 5
+          },
+          "placeCount": {
+            "type": "integer",
+            "example": 21
+          },
+          "favCount": {
+            "type": "integer",
+            "example": 4
+          },
+          "events": {
+            "type": "integer",
+            "example": 0
+          },
+          "userPhoto": {
+            "type": "object",
+            "properties": {
+              "thumbnail": {
+                "type": "string",
+                "example": "<Base URL of resource>/avatar"
+              },
+              "original": {
+                "type": "string",
+                "example": "<Base URL of resource>/avatar"
+              },
+              "medium": {
+                "type": "string",
+                "example": "<Base URL of resource>/avatar"
+              }
+            }
+          },
+          "followedByMe": {
+            "type": "string",
+            "example": false
+          },
+          "followsYou": {
+            "type": "string",
+            "example": false
           }
         }
       }
