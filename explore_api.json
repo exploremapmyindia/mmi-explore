@@ -2112,6 +2112,62 @@
         }
       }
     },
+    "/{version}/places/report/<reportId>": {
+      "delete": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Delete Report",
+        "description": "This API allows you to delete an existing report.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/No-Content"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{version}/places/event/{eventId}": {
       "delete": {
         "tags": [
@@ -4458,14 +4514,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/POST-User-Flag-Request"
-                }
-              }
-            }
+            "description": "OK"
           },
           "201": {
             "description": "Created"
@@ -10032,10 +10081,18 @@
                 },
                 "displayMessage": {
                   "type": "string",
-                  "example": "Resorce not found"
+                  "example": "Resorce not found."
                 }
               }
             }
+          }
+        }
+      },
+      "No-Content": {
+        "type": "object",
+        "properties": {
+          "HTTP/1.1 204 No Content": {
+            "type": "string"
           }
         }
       },
@@ -10160,53 +10217,6 @@
                 "example": 1
               }
             }
-          }
-        }
-      },
-      "POST-User-Flag-Request": {
-        "type": "object",
-        "properties": {
-          "pinId": {
-            "type": "string",
-            "example": "40723f81baa828fc45eba8b859c85365"
-          },
-          "staus": {
-            "type": "number",
-            "example": 0
-          },
-          "platform": {
-            "type": "integer",
-            "example": 101
-          }
-        }
-      },
-      "POST-User-follow-Request": {
-        "type": "object",
-        "properties": {
-          "followTo": {
-            "type": "string",
-            "example": "mustanish"
-          },
-          "platform": {
-            "type": "integer",
-            "example": 101
-          }
-        }
-      },
-      "POST-User-like-unlike-Request": {
-        "type": "object",
-        "properties": {
-          "pinId": {
-            "type": "string",
-            "example": "40723f81baa828fc45eba8b859c85365"
-          },
-          "status": {
-            "type": "integer",
-            "example": 0
-          },
-          "platform": {
-            "type": "integer",
-            "example": 101
           }
         }
       },
@@ -10587,146 +10597,6 @@
               "assets": {
                 "type": "string",
                 "example": "https://anchor.mapmyindia.com/api/users/"
-              }
-            }
-          }
-        }
-      },
-      "Post-User-Set-Home-Request": {
-        "type": "object",
-        "properties": {
-          "entryLatitude": {
-            "type": "number",
-            "format": "double",
-            "example": 0
-          },
-          "entryLongitude": {
-            "type": "number",
-            "format": "double",
-            "example": 0
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double",
-            "example": 28.550716
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double",
-            "example": 77.268928
-          },
-          "placeName": {
-            "type": "string",
-            "example": "Mapmyindia Head Office New Delhi, 237, Okhla Industrial Estate Phase 3, Near Modi Mill, New Delhi, Delhi, 110020"
-          },
-          "platform": {
-            "type": "integer",
-            "example": 101
-          },
-          "openingHours": {
-            "type": "object",
-            "properties": {
-              "monday": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "opens": {
-                      "type": "string",
-                      "example": "9:00 AM"
-                    },
-                    "closes": {
-                      "type": "string",
-                      "example": "8:30 PM"
-                    }
-                  }
-                }
-              },
-              "thuesday": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "opens": {
-                      "type": "string",
-                      "example": "9:30 AM"
-                    },
-                    "closes": {
-                      "type": "string",
-                      "example": "1:30 PM"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "Post-User-Set-Office-Request": {
-        "type": "object",
-        "properties": {
-          "entryLatitude": {
-            "type": "number",
-            "format": "double",
-            "example": 0
-          },
-          "entryLongitude": {
-            "type": "number",
-            "format": "double",
-            "example": 0
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double",
-            "example": 28.550716
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double",
-            "example": 77.268928
-          },
-          "placeName": {
-            "type": "string",
-            "example": "Mapmyindia Head Office New Delhi, 237"
-          },
-          "platform": {
-            "type": "integer",
-            "example": 101
-          },
-          "openingHours": {
-            "type": "object",
-            "properties": {
-              "monday": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "opens": {
-                      "type": "string",
-                      "example": "9:00 AM"
-                    },
-                    "closes": {
-                      "type": "string",
-                      "example": "8:30 PM"
-                    }
-                  }
-                }
-              },
-              "thuesday": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "opens": {
-                      "type": "string",
-                      "example": "9:30 AM"
-                    },
-                    "closes": {
-                      "type": "string",
-                      "example": "1:30 PM"
-                    }
-                  }
-                }
               }
             }
           }
