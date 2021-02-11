@@ -10163,6 +10163,53 @@
           }
         }
       },
+      "POST-User-Flag-Request": {
+        "type": "object",
+        "properties": {
+          "pinId": {
+            "type": "string",
+            "example": "40723f81baa828fc45eba8b859c85365"
+          },
+          "staus": {
+            "type": "number",
+            "example": 0
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          }
+        }
+      },
+      "POST-User-follow-Request": {
+        "type": "object",
+        "properties": {
+          "followTo": {
+            "type": "string",
+            "example": "mustanish"
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          }
+        }
+      },
+      "POST-User-like-unlike-Request": {
+        "type": "object",
+        "properties": {
+          "pinId": {
+            "type": "string",
+            "example": "40723f81baa828fc45eba8b859c85365"
+          },
+          "status": {
+            "type": "integer",
+            "example": 0
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          }
+        }
+      },
       "Get-User-My-Contribution-Response": {
         "type": "object",
         "properties": {
@@ -10545,6 +10592,147 @@
           }
         }
       },
+      "Post-User-Set-Home-Request": {
+        "type": "object",
+        "properties": {
+          "entryLatitude": {
+            "type": "number",
+            "format": "double",
+            "example": 0
+          },
+          "entryLongitude": {
+            "type": "number",
+            "format": "double",
+            "example": 0
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": 28.550716
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": 77.268928
+          },
+          "placeName": {
+            "type": "string",
+            "example": "Mapmyindia Head Office New Delhi, 237, Okhla Industrial Estate Phase 3, Near Modi Mill, New Delhi, Delhi, 110020"
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          },
+          "openingHours": {
+            "type": "object",
+            "properties": {
+              "monday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "opens": {
+                      "type": "string",
+                      "example": "9:00 AM"
+                    },
+                    "closes": {
+                      "type": "string",
+                      "example": "8:30 PM"
+                    }
+                  }
+                }
+              },
+              "thuesday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "opens": {
+                      "type": "string",
+                      "example": "9:30 AM"
+                    },
+                    "closes": {
+                      "type": "string",
+                      "example": "1:30 PM"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Post-User-Set-Office-Request": {
+        "type": "object",
+        "properties": {
+          "entryLatitude": {
+            "type": "number",
+            "format": "double",
+            "example": 0
+          },
+          "entryLongitude": {
+            "type": "number",
+            "format": "double",
+            "example": 0
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": 28.550716
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": 77.268928
+          },
+          "placeName": {
+            "type": "string",
+            "example": "Mapmyindia Head Office New Delhi, 237"
+          },
+          "platform": {
+            "type": "integer",
+            "example": 101
+          },
+          "openingHours": {
+            "type": "object",
+            "properties": {
+              "monday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "opens": {
+                      "type": "string",
+                      "example": "9:00 AM"
+                    },
+                    "closes": {
+                      "type": "string",
+                      "example": "8:30 PM"
+                    }
+                  }
+                }
+              },
+              "thuesday": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "opens": {
+                      "type": "string",
+                      "example": "9:30 AM"
+                    },
+                    "closes": {
+                      "type": "string",
+                      "example": "1:30 PM"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "securitySchemes": {
       "mmi_auth": {
         "type": "oauth2",
