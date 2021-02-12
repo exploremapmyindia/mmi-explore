@@ -31,13 +31,7 @@
   ],
   "tags": [
     {
-      "name": "Checkins"
-    },
-    {
       "name": "Claim a Business"
-    },
-    {
-      "name": "Events"
     },
     {
       "name": "Image"
@@ -49,267 +43,16 @@
       "name": "Place"
     },
     {
-      "name": "Preference"
-    },
-    {
-      "name": "Push Incidents Data"
-    },
-    {
       "name": "Report"
     },
     {
       "name": "Review"
     },
     {
-      "name": "Route"
-    },
-    {
       "name": "User"
     }
   ],
   "paths": {
-    "/{version}/places/checkin/{checkinId}": {
-      "get": {
-        "tags": [
-          "Checkins"
-        ],
-        "summary": "Checkin details",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "checkinId",
-            "in": "path",
-            "description": "Checkin ID to get details of",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GET-CheckinDetail-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/{version}/places/{eloc}/checkin": {
-      "get": {
-        "tags": [
-          "Checkins"
-        ],
-        "summary": "All Checkin at a place",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GET-AllCheckinAtAPlace-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Checkins"
-        ],
-        "summary": "Create Checkin",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "checkInRequest",
-            "in": "header",
-            "description": "Checkin request body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/POST-CreateCheckin-Request"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/users/checkin": {
-      "get": {
-        "tags": [
-          "Checkins"
-        ],
-        "summary": "All checkins of a user",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GET-AllCheckinOfAUser-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
     "/{version}/places/{claimId}/claim": {
       "patch": {
         "tags": [
@@ -872,17 +615,82 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "reviewRequest",
-            "in": "header",
-            "description": "Review request body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Review-POST-CreateReview-Request"
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "placeName",
+                  "latitude",
+                  "longitude",
+                  "rating",
+                  "platform"
+                ],
+                "properties": {
+                  "alt": {
+                    "type": "integer",
+                    "description": "Altitude of the user’s location, in meters.",
+                    "example": 0
+                  },
+                  "altAcc": {
+                    "type": "integer",
+                    "description": "Vertical accuracy of the user’s location, in meters.",
+                    "example": 0
+                  },
+                  "broadcast": {
+                    "type": "string",
+                    "description": "Who to broadcast this review. Accepts a comma-separated list of values (public, private, followers, followings). If no valid value is found, the default is public.",
+                    "example": "public"
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Latitude of the user’s location.",
+                    "example": 28.655283
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Longitude of the user’s location.",
+                    "example": 77.240818
+                  },
+                  "placeName": {
+                    "type": "string",
+                    "description": "Name of the place or event.",
+                    "example": "Mapmyindia"
+                  },
+                  "platform": {
+                    "type": "integer",
+                    "description": "Platfrom from which request is being made.<br> Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
+                    "enum": [
+                      "101(Android)",
+                      "104(IOS)",
+                      "111(ExploreWeb)",
+                      "112(MapWeb)",
+                      "121(Traffic)"
+                    ],
+                    "example": 101
+                  },
+                  "rating": {
+                    "type": "integer",
+                    "description": "Rating assigned by user.<br> Allowed values- 1, 2, 3, 4, 5",
+                    "enum": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5
+                    ],
+                    "example": 5
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -1024,6 +832,7 @@
             }
           }
         ],
+        "deprecated": true,
         "responses": {
           "200": {
             "description": "OK"
@@ -1679,260 +1488,6 @@
         }
       }
     },
-    "/{version}/users/route": {
-      "get": {
-        "tags": [
-          "Route"
-        ],
-        "summary": "All Routes of a User",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GET-AllRoutesOfAUser-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Route"
-        ],
-        "summary": "Add Route",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "routeRequest",
-            "in": "header",
-            "description": "Route Request Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/POST-AddRoute-Request"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/users/route/{routeId}": {
-      "delete": {
-        "tags": [
-          "Route"
-        ],
-        "summary": "Delete Route",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "routeId",
-            "in": "path",
-            "description": "Unique Route ID.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Route"
-        ],
-        "summary": "Route Details",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "routeId",
-            "in": "path",
-            "description": "Unique Route ID.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GET-RouteDetails-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Route"
-        ],
-        "summary": "Update Route",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "routeId",
-            "in": "path",
-            "description": "Unique Route ID.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "routeUpdate",
-            "in": "header",
-            "description": "Route Update Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/PATCH-UpdateRoute-Request"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
     "/{version}/places/review/{reviewId}": {
       "get": {
         "tags": [
@@ -2008,17 +1563,59 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "reviewRequest",
-            "in": "header",
-            "description": "Review Update Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Review-PATCH-UpdateReview-Request"
-            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "rating",
+                  "broadcast",
+                  "description",
+                  "platform"
+                ],
+                "properties": {
+                  "broadcast": {
+                    "type": "string",
+                    "description": "Who to broadcast this review. Accepts a comma-separated list of values (public, private, followers, followings). If no valid value is found, the default is public.",
+                    "example": "public"
+                  },
+                  "rating": {
+                    "type": "integer",
+                    "description": "Rating assigned by user.<br> Allowed values- 1, 2, 3, 4, 5",
+                    "enum": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5
+                    ],
+                    "example": 5
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "A message about your event.<br> Size range- 10..250",
+                    "example": "good place"
+                  },
+                  "platform": {
+                    "type": "integer",
+                    "description": "Platfrom from which request is being made.<br> Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
+                    "enum": [
+                      "101(Android)",
+                      "104(IOS)",
+                      "111(ExploreWeb)",
+                      "112(MapWeb)",
+                      "121(Traffic)"
+                    ],
+                    "example": 101
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -2112,6 +1709,63 @@
         }
       }
     },
+    "/{version}/places/review/<reviewId>": {
+      "delete": {
+        "tags": [
+          "Review"
+        ],
+        "summary": "Delete Review",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Client Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/No-Content"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/{version}/places/report/<reportId>": {
       "delete": {
         "tags": [
@@ -2164,410 +1818,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/{version}/places/event/{eventId}": {
-      "delete": {
-        "tags": [
-          "Events"
-        ],
-        "summary": "Delete Event",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "Unique Event ID.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Events"
-        ],
-        "summary": "Single Event Details",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "Unique Event ID.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Events-GET-SingleEventDetails-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Events"
-        ],
-        "summary": "Update Event",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "Unique Event ID.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eventRequest",
-            "in": "header",
-            "description": "Event Update Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Events-PATCH-UpdateEvent-Request"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/places/{eloc}/event": {
-      "get": {
-        "tags": [
-          "Events"
-        ],
-        "summary": "All Event at a place",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "fromDate",
-            "in": "query",
-            "description": "Starting date of event",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10112020,
-            "schema": {
-              "type": "integer",
-              "format": "long"
-            }
-          },
-          {
-            "name": "toDate",
-            "in": "query",
-            "description": "Ending date of Event",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 12112020,
-            "schema": {
-              "type": "integer",
-              "format": "long"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Sorting of results by date ascending or descending.",
-            "required": false,
-            "allowEmptyValue": true,
-            "schema": {
-              "type": "integer",
-              "example": "date:desc"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Events-GET-AllEventsAtAPlace-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Events"
-        ],
-        "summary": "Create Event",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eventRequest",
-            "in": "header",
-            "description": "Event Update Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Events-post-CreateEvent-Request"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/users/event": {
-      "get": {
-        "tags": [
-          "Events"
-        ],
-        "summary": "All Event at a place",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "fromDate",
-            "in": "query",
-            "description": "Starting date of event",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10112020,
-            "schema": {
-              "type": "integer",
-              "format": "long"
-            }
-          },
-          {
-            "name": "toDate",
-            "in": "query",
-            "description": "Ending date of Event",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 12112020,
-            "schema": {
-              "type": "integer",
-              "format": "long"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Sorting of results by date ascending or descending.",
-            "required": false,
-            "allowEmptyValue": true,
-            "schema": {
-              "type": "integer",
-              "example": "date:desc"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Events-GET-AllEventsOfAUser-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -2866,23 +2116,14 @@
         }
       }
     },
-    "/{version}/preference/app/config": {
+    "/{version}/places/userpoints": {
       "get": {
         "tags": [
-          "Preference"
+          "Place"
         ],
-        "summary": "Get App Config",
+        "summary": "Leader Dashboard",
+        "description": "This API allows you to get counts of all activity done by all Users.",
         "parameters": [
-          {
-            "name": "paltform",
-            "in": "query",
-            "description": "Platform",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "version",
             "in": "path",
@@ -2900,44 +2141,186 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Preference-Get-App-Config-Response"
+                  "$ref": "#/components/schemas/Place-GET-Leader-Dashboard-Response"
                 }
               }
             }
           },
-          "204": {
-            "description": "No content found"
+          "400": {
+            "description": "Client Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error-Response"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Client Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{version}/places/asset": {
+      "post": {
+        "tags": [
+          "Place"
+        ],
+        "summary": "Upload Assets",
+        "description": "This API allows you to upload files of different media type on a place or pin.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "eloc",
+                  "platform",
+                  "files[]"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "Type on which assets are uploaded( place or pin) . <br>Allowed values- place, report, review, atlas, comment, claim, respond, enquiry",
+                    "enum": [
+                      "place",
+                      "report",
+                      "review",
+                      "atlas",
+                      "comment",
+                      "claim",
+                      "respond",
+                      "enquiry"
+                    ],
+                    "example": "place"
+                  },
+                  "eloc": {
+                    "type": "string",
+                    "description": "Eloc of the place.",
+                    "example": "MMI000"
+                  },
+                  "pinId": {
+                    "type": "string",
+                    "description": "Id of the pin(report,review,atlas,comment,claim,respond,enquiry) on which assets are uploaded. Optional if type = place, otherwise mandatory.",
+                    "example": "5e82b2c1-08b2-4d04-9391-630c184bb06c"
+                  },
+                  "platform": {
+                    "type": "integer",
+                    "description": "Platfrom from which request is being made. <br>Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
+                    "enum": [
+                      "101(Android)",
+                      "104(IOS)",
+                      "111(ExploreWeb)",
+                      "112(MapWeb)",
+                      "121(Traffic)"
+                    ],
+                    "example": 101
+                  },
+                  "files[]": {
+                    "type": "string",
+                    "description": "Files attached by the user. To upload Multiple files use 'files' parameter as, files[0]='file1', files[1]='file2' ... (Max File Size is 6MB) <br>Allowed values- Image(.jpg, .jpeg, .png, .gif), Video(.mp4, .3gp, .avi), Audio(.mp3, .wav, .wave, .ogg, .mpeg), Documents(.pdf, .csv, .txt, .plain, .docx)."
+                  }
+                }
+              }
+            }
           }
         },
-        "deprecated": false
-      }
-    },
-    "/{version}/preference/app/product/settings": {
-      "get": {
-        "tags": [
-          "Preference"
-        ],
-        "summary": "Get Product Preferences",
-        "parameters": [
-          {
-            "name": "platform",
-            "in": "query",
-            "description": "platform",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error-Response"
+                }
+              }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{version}/users/contribution": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "My Contribution",
+        "description": "This API allows you to get all contributions of a user.",
+        "parameters": [
           {
             "name": "version",
             "in": "path",
@@ -2946,6 +2329,16 @@
             "allowEmptyValue": false,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "userName of the user to be followed.",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
             }
           }
         ],
@@ -2955,179 +2348,40 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Preference-Get-Product-Preferences-Response"
+                  "$ref": "#/components/schemas/Get-User-My-Contribution-Response"
                 }
               }
             }
           },
-          "204": {
-            "description": "No content found"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/preference/app/user/setting": {
-      "post": {
-        "tags": [
-          "Preference"
-        ],
-        "summary": "Set User Preferences",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "key",
-            "in": "query",
-            "description": "object which contains key info of a place.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "value",
-            "in": "query",
-            "description": "value",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/preference/app/user/settings": {
-      "get": {
-        "tags": [
-          "Preference"
-        ],
-        "summary": "Get User Preferences",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "key",
-            "in": "query",
-            "description": "object which contains key info of a place.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
+          "400": {
+            "description": "Client Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Preference-Get-User-Preferences-Response"
+                  "$ref": "#/components/schemas/Client-Error-Response"
                 }
               }
             }
           },
-          "204": {
-            "description": "No content found"
-          },
           "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/external/pushIncidents": {
-      "post": {
-        "tags": [
-          "Push Incidents Data"
-        ],
-        "summary": "Push Incidents Data",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
             }
           },
-          {
-            "name": "payLoad",
-            "in": "path",
-            "description": "payLoad Request body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Push-Incidents-Data-Post-Request"
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -3310,7 +2564,7 @@
         "tags": [
           "List"
         ],
-        "summary": "Add Item to List",
+        "summary": "Create List",
         "parameters": [
           {
             "name": "version",
@@ -3498,7 +2752,7 @@
         "tags": [
           "List"
         ],
-        "summary": "Delete List",
+        "summary": "Unfollow List",
         "parameters": [
           {
             "name": "version",
@@ -3622,6 +2876,7 @@
     },
     "/{version}/users/{listId}/followers": {
       "get": {
+        "deprecated": true,
         "tags": [
           "List"
         ],
@@ -4775,79 +4030,6 @@
         }
       }
     },
-    "/{version}/users/contribution": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "My Contribution",
-        "description": "This API allows you to get all contributions of a user.",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "userName of the user to be followed.",
-            "required": false,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Get-User-My-Contribution-Response"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Client Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client-Error-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid Token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Invalid-Token-Response"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/{version}/users/<userName>/myjourney": {
       "get": {
         "tags": [
@@ -5421,45 +4603,45 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "example": "018e685b70db78cbcf699f80ffeb2f49"
+                  "example": "5e82b2c1-08b2-4d04-9391-630c184bb06c"
                 },
                 "placeName": {
                   "type": "string",
-                  "example": "Dr Sandip Guptqa"
+                  "example": "New Delhi"
                 },
                 "eventId": {
                   "type": "integer",
-                  "example": 1301
+                  "example": null
                 },
                 "placeId": {
                   "type": "string",
-                  "example": "Z6WW94"
+                  "example": "2P7AWX"
                 },
                 "description": {
                   "type": "string",
-                  "example": "Please check this poi name. Dr Sandip Guptqa. Its spell mistake. It should be Gupa not Guptqa."
+                  "example": "Report a issue."
                 },
                 "latitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 28.56256828
+                  "example": 28.667701
                 },
                 "longitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 77.26343738
+                  "example": 77.181342
                 },
                 "parentCategory": {
                   "type": "integer",
-                  "example": "1"
+                  "example": "5"
                 },
                 "childCategory": {
                   "type": "integer",
-                  "example": "6"
+                  "example": "87"
                 },
                 "subChildCategory": {
                   "type": "integer",
-                  "example": 11
+                  "example": null
                 },
                 "status": {
                   "type": "string",
@@ -5468,36 +4650,39 @@
                 "createdOn": {
                   "type": "integer",
                   "format": "long",
-                  "example": 1511773404
+                  "example": 1612942276
                 },
                 "addedBy": {
                   "type": "string",
-                  "example": "rameshc886"
+                  "example": "ishar081"
                 },
                 "addedByName": {
                   "type": "string",
-                  "example": "rameshc"
+                  "example": "isha"
                 },
                 "photo": {
                   "type": "string",
-                  "example": "https://anchor.mapmyindia.com/api/users/rameshc886/avatar"
+                  "example": "https://anchor.mapmyindia.com/api/users/ishar081/avatar"
                 },
                 "pictures": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "example": null
                   }
                 },
                 "videos": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "example": null
                   }
                 },
                 "audios": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "example": null
                   }
                 },
                 "source": {
@@ -5548,7 +4733,7 @@
             "properties": {
               "totalItems": {
                 "type": "integer",
-                "example": 1
+                "example": 48
               },
               "perPage": {
                 "type": "integer",
@@ -5556,7 +4741,7 @@
               },
               "totalPages": {
                 "type": "integer",
-                "example": 1
+                "example": 5
               },
               "currentPage": {
                 "type": "integer",
@@ -5594,45 +4779,45 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "example": "018e685b70db78cbcf699f80ffeb2f49"
+                  "example": "825988d2-0ae9-4072-bd72-4ec5aa2a0b6b"
                 },
                 "placeName": {
                   "type": "string",
-                  "example": "Dr Sandip Guptqa"
+                  "example": "Okhla Industrial Estate Phase 3, New Delhi, Delhi. 17 m from MapmyIndia Head Office New Delhi pin-110020"
                 },
                 "eventId": {
                   "type": "integer",
-                  "example": 1301
+                  "example": null
                 },
                 "placeId": {
                   "type": "string",
-                  "example": "Z6WW94"
+                  "example": "MMI000"
                 },
                 "description": {
                   "type": "string",
-                  "example": "Please check this poi name. Dr Sandip Guptqa. Its spell mistake. It should be Gupa not Guptqa."
+                  "example": "Reported By Car Play."
                 },
                 "latitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 28.56256828
+                  "example": 28.550566729784187
                 },
                 "longitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 77.26343738
+                  "example": 77.26892202866581
                 },
                 "parentCategory": {
                   "type": "integer",
-                  "example": "1"
+                  "example": "2"
                 },
                 "childCategory": {
                   "type": "integer",
-                  "example": "6"
+                  "example": "15"
                 },
                 "subChildCategory": {
                   "type": "integer",
-                  "example": 11
+                  "example": null
                 },
                 "status": {
                   "type": "string",
@@ -5641,19 +4826,19 @@
                 "createdOn": {
                   "type": "integer",
                   "format": "long",
-                  "example": 1511773404
+                  "example": 1613042553
                 },
                 "addedBy": {
                   "type": "string",
-                  "example": "rameshc886"
+                  "example": "akshat_1570612631"
                 },
                 "addedByName": {
                   "type": "string",
-                  "example": "rameshc"
+                  "example": "Akshat Mathur"
                 },
                 "photo": {
                   "type": "string",
-                  "example": "https://anchor.mapmyindia.com/api/users/rameshc886/avatar"
+                  "example": "https://anchor.mapmyindia.com/api/users/akshat_1570612631/avatar"
                 },
                 "pictures": {
                   "type": "array",
@@ -5711,6 +4896,10 @@
                 },
                 "thumbnail": {
                   "type": "integer",
+                  "example": null
+                },
+                "managerStatus": {
+                  "type": "string",
                   "example": null
                 }
               }
@@ -5819,33 +5008,33 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "example": "018e685b70db78cbcf699f80ffeb2f49"
+                  "example": "41bf26746823dbe346ed092e5ee5cceb"
                 },
                 "placeName": {
                   "type": "string",
-                  "example": "Dr Sandip Guptqa"
+                  "example": "Indianotion Communications 43 Appareddipalya Indiranagar Bengaluru Karnataka"
                 },
                 "eventId": {
                   "type": "integer",
-                  "example": 1301
+                  "example": null
                 },
                 "placeId": {
                   "type": "string",
-                  "example": "Z6WW94"
+                  "example": "E34S58"
                 },
                 "description": {
                   "type": "string",
-                  "example": "Please check this poi name. Dr Sandip Guptqa. Its spell mistake. It should be Gupa not Guptqa."
+                  "example": "Add New POI Unique Wheel Alignment Centre - Multi Brand Car Service Station."
                 },
                 "latitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 28.56256828
+                  "example": 77.637
                 },
                 "longitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 77.26343738
+                  "example": 77.637
                 },
                 "parentCategory": {
                   "type": "integer",
@@ -5853,11 +5042,11 @@
                 },
                 "childCategory": {
                   "type": "integer",
-                  "example": "6"
+                  "example": "7"
                 },
                 "subChildCategory": {
                   "type": "integer",
-                  "example": 11
+                  "example": null
                 },
                 "status": {
                   "type": "string",
@@ -5866,36 +5055,39 @@
                 "createdOn": {
                   "type": "integer",
                   "format": "long",
-                  "example": 1511773404
+                  "example": 1492508800
                 },
                 "addedBy": {
                   "type": "string",
-                  "example": "rameshc886"
+                  "example": "biswanath@mmi"
                 },
                 "addedByName": {
                   "type": "string",
-                  "example": "rameshc"
+                  "example": "Biswanath"
                 },
                 "photo": {
                   "type": "string",
-                  "example": "https://anchor.mapmyindia.com/api/users/rameshc886/avatar"
+                  "example": "https://anchor.mapmyindia.com/api/users/biswanath@mmi/avatar"
                 },
                 "pictures": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "https://s3.ap-south-1.amazonaws.com/mmi-explore-images/pin/report/original/94f6172338c7c3bf.jpg,<br> https://s3.ap-south-1.amazonaws.com/mmi-explore-images/pin/report/original/80dbf9af0375bd38.jpg"
                   }
                 },
                 "videos": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "example": null
                   }
                 },
                 "audios": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "string",
+                    "example": null
                   }
                 },
                 "source": {
@@ -5924,18 +5116,21 @@
                 },
                 "picturesCount": {
                   "type": "integer",
-                  "example": null
+                  "example": 2
                 },
                 "audiosCount": {
-                  "type": "integer",
-                  "example": null
+                  "type": "integer"
                 },
                 "videosCount": {
                   "type": "integer",
-                  "example": null
+                  "example": 0
                 },
                 "thumbnail": {
                   "type": "integer",
+                  "example": "https://s3.ap-south-1.amazonaws.com/mmi-explore-images/pins/41bf26746823dbe346ed092e5ee5cceb.png"
+                },
+                "managerStatus": {
+                  "type": "string",
                   "example": null
                 }
               }
@@ -5964,12 +5159,7 @@
           },
           "baseURLObj": {
             "type": "object",
-            "properties": {
-              "assets": {
-                "type": "string",
-                "example": "https://anchor.mapmyindia.com/api/users/"
-              }
-            }
+            "example": "https://anchor.mapmyindia.com/api/users/"
           }
         }
       },
@@ -5987,22 +5177,22 @@
                     "properties": {
                       "name": {
                         "type": "string",
-                        "example": "Incorrect Location For Place"
+                        "example": "School Closure"
                       },
                       "id": {
                         "type": "integer",
-                        "example": "11"
+                        "example": "96"
                       }
                     }
                   }
                 },
                 "name": {
                   "type": "string",
-                  "example": "Map Issues"
+                  "example": "UNICEF School Closure"
                 },
                 "id": {
                   "type": "integer",
-                  "example": "1"
+                  "example": "11"
                 }
               }
             }
@@ -6028,15 +5218,15 @@
               "properties": {
                 "id": {
                   "type": "integer",
-                  "example": 2
+                  "example": 11
                 },
                 "name": {
                   "type": "string",
-                  "example": "Traffic Issues"
+                  "example": "UNICEF School Closure"
                 },
                 "icon": {
                   "type": "string",
-                  "example": "2.png"
+                  "example": "11.png"
                 },
                 "childCategories": {
                   "type": "array",
@@ -6045,35 +5235,19 @@
                     "properties": {
                       "id": {
                         "type": "integer",
-                        "example": 14
+                        "example": 96
                       },
                       "name": {
                         "type": "string",
-                        "example": "Jam"
+                        "example": "School Closure"
                       },
                       "icon": {
                         "type": "string",
-                        "example": "2_14.png"
+                        "example": "11_96.png"
                       },
-                      "subChildCategories": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "integer",
-                              "example": 1
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Heavy"
-                            },
-                            "icon": {
-                              "type": "string",
-                              "example": "2_14_1.png"
-                            }
-                          }
-                        }
+                      "desc": {
+                        "type": "string",
+                        "example": null
                       }
                     }
                   }
@@ -6299,7 +5473,7 @@
                 },
                 "itemCount": {
                   "type": "integer",
-                  "example": 21
+                  "example": 73
                 },
                 "listId": {
                   "type": "string",
@@ -6313,7 +5487,7 @@
             "properties": {
               "totalItems": {
                 "type": "integer",
-                "example": 1
+                "example": 4
               },
               "perPage": {
                 "type": "integer",
@@ -6403,7 +5577,7 @@
               "properties": {
                 "placeName": {
                   "type": "string",
-                  "example": "test place"
+                  "example": "B71"
                 },
                 "eLoc": {
                   "type": "string",
@@ -6412,12 +5586,12 @@
                 "latitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 28.7041
+                  "example": 23.199028
                 },
                 "longitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 77.1025
+                  "example": 75.7897076
                 },
                 "listName": {
                   "type": "string",
@@ -6425,11 +5599,11 @@
                 },
                 "itemId": {
                   "type": "string",
-                  "example": "5679ee1b3fd45d27b6fbec1513228304"
+                  "example": "5a4d35da5026d24a3e540ad3a578d5e8"
                 },
                 "createdOn": {
                   "type": "integer",
-                  "example": 1548102188
+                  "example": 1585294212
                 },
                 "rating": {
                   "type": "integer",
@@ -6443,7 +5617,7 @@
             "properties": {
               "totalItems": {
                 "type": "integer",
-                "example": 1
+                "example": 13
               },
               "perPage": {
                 "type": "integer",
@@ -6451,7 +5625,7 @@
               },
               "totalPages": {
                 "type": "integer",
-                "example": 1
+                "example": 2
               },
               "currentPage": {
                 "type": "integer",
@@ -6471,21 +5645,21 @@
               "properties": {
                 "placeName": {
                   "type": "string",
-                  "example": "test place"
+                  "example": "Rajiv Gandhi International Airport"
                 },
                 "eLoc": {
                   "type": "string",
-                  "example": "MMI000"
+                  "example": "ESDTTT"
                 },
                 "latitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 28.7041
+                  "example": 17.235892
                 },
                 "longitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 77.1025
+                  "example": 78.429646
                 },
                 "listName": {
                   "type": "string",
@@ -6493,11 +5667,11 @@
                 },
                 "itemId": {
                   "type": "string",
-                  "example": "5679ee1b3fd45d27b6fbec1513228304"
+                  "example": "4f31aabc37f96e4cec2f6086760d61714"
                 },
                 "createdOn": {
                   "type": "integer",
-                  "example": 1548102188
+                  "example": 1573537145
                 },
                 "rating": {
                   "type": "integer",
@@ -6639,6 +5813,112 @@
                   "childName": {
                     "type": "string",
                     "example": "Government Office"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Place-GET-Leader-Dashboard-Response": {
+        "type": "object",
+        "properties": {
+          "userPoints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "points": {
+                  "type": "object",
+                  "properties": {
+                    "checkins": {
+                      "type": "string",
+                      "example": 0
+                    },
+                    "events": {
+                      "type": "string",
+                      "example": 0
+                    },
+                    "favCount": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "followers": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "followings": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "home": {
+                      "type": "string",
+                      "example": null
+                    },
+                    "imagesCount": {
+                      "type": "integer",
+                      "example": 1595
+                    },
+                    "isFollowedByMe": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "isFollowsYou": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "last_rank": {
+                      "type": "integer",
+                      "example": 7
+                    },
+                    "listCount": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "listItems": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "office": {
+                      "type": "string",
+                      "example": null
+                    },
+                    "placeCount": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "rank": {
+                      "type": "integer",
+                      "example": 7
+                    },
+                    "reports": {
+                      "type": "integer",
+                      "example": 3260
+                    },
+                    "reviews": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "totalContribution": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "totalFlag": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "totalLike": {
+                      "type": "integer",
+                      "example": 0
+                    },
+                    "totalPoints": {
+                      "type": "integer",
+                      "example": 4863
+                    },
+                    "user_name": {
+                      "type": "string",
+                      "example": "vimalgisee949821551"
+                    }
                   }
                 }
               }
@@ -7186,713 +6466,6 @@
           }
         }
       },
-      "Preference-Get-App-Config-Response": {
-        "type": "object",
-        "properties": {
-          "events": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "parentId": {
-                  "type": "string",
-                  "example": null
-                },
-                "parentName": {
-                  "type": "string",
-                  "example": null
-                },
-                "icons": {
-                  "type": "object",
-                  "properties": {
-                    "largeIcon": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "smallIcon": {
-                      "type": "string",
-                      "example": "string"
-                    }
-                  }
-                },
-                "children": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "icons": {
-                        "type": "object",
-                        "properties": {
-                          "largeIcon": {
-                            "type": "string",
-                            "example": "string"
-                          },
-                          "smallIcon": {
-                            "type": "string",
-                            "example": "string"
-                          }
-                        }
-                      },
-                      "id": {
-                        "type": "integer",
-                        "example": 0
-                      },
-                      "name": {
-                        "type": "string",
-                        "example": "string"
-                      },
-                      "subChildrens": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "icons": {
-                              "type": "object",
-                              "properties": {
-                                "largeIcon": {
-                                  "type": "string",
-                                  "example": "string"
-                                },
-                                "smallIcon": {
-                                  "type": "string",
-                                  "example": "string"
-                                }
-                              }
-                            },
-                            "id": {
-                              "type": "integer",
-                              "example": 0
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "string"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "map_Layers": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "styleUrls": {
-                  "type": "object",
-                  "properties": {
-                    "nightStyleUrl": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "styleUrl": {
-                      "type": "string",
-                      "example": "string"
-                    }
-                  }
-                },
-                "thumbnail": {
-                  "type": "string",
-                  "example": "string"
-                },
-                "title": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "Preference-Get-Product-Preferences-Response": {
-        "type": "object",
-        "properties": {
-          "key1": {
-            "type": "string",
-            "example": "value1"
-          },
-          "key2": {
-            "type": "string",
-            "example": "value2"
-          }
-        }
-      },
-      "Preference-Get-User-Preferences-Response": {
-        "type": "object",
-        "properties": {
-          "key1": {
-            "type": "string",
-            "example": "value1"
-          },
-          "key2": {
-            "type": "string",
-            "example": "value2"
-          }
-        }
-      },
-      "Push-Incidents-Data-Post-Request": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "IMEI": {
-                  "type": "string",
-                  "example": 999999999999999
-                },
-                "event": {
-                  "type": "string",
-                  "example": "AZ"
-                },
-                "hdop": {
-                  "type": "string",
-                  "example": "1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3"
-                },
-                "lat": {
-                  "type": "number",
-                  "format": "double",
-                  "example": "28.502607,28.502607,28.502611,28.502616,28.502616,28.502616,28.502624,28.502632,28.502628,28.50262,28.502616"
-                },
-                "latd": {
-                  "type": "string",
-                  "example": "N,N,N,N,N,N,N,N,N,N,N"
-                },
-                "lon": {
-                  "type": "number",
-                  "format": "double",
-                  "example": "77.060615,77.060531,77.060455,77.060379,77.06031,77.06031,77.060272,77.060249,77.060218,77.060188,77.060165"
-                },
-                "lond": {
-                  "type": "string",
-                  "example": "E,E,E,E,E,E,E,E,E,E,E"
-                },
-                "ts": {
-                  "type": "string",
-                  "example": "2019-09-11T16:08:40.000Z"
-                },
-                "vs": {
-                  "type": "integer",
-                  "example": 16
-                }
-              }
-            }
-          }
-        }
-      },
-      "Events-GET-AllEventsOfAUser-Response": {
-        "type": "object",
-        "properties": {
-          "events": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "eventName": {
-                  "type": "string",
-                  "example": "test event"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "Singing event"
-                },
-                "location": {
-                  "type": "string",
-                  "example": "test"
-                },
-                "locationEloc": {
-                  "type": "string",
-                  "example": "MMI000"
-                },
-                "status": {
-                  "type": "string",
-                  "example": "expired"
-                },
-                "organization": {
-                  "type": "string",
-                  "example": "MapmyIndia"
-                },
-                "contactNumber": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "example": 9934321856
-                  }
-                },
-                "contactEmail": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "example": "prateek@gmail.com"
-                  }
-                },
-                "genre": {
-                  "type": "string",
-                  "example": "comedy"
-                },
-                "startTime": {
-                  "type": "integer",
-                  "example": 1582534644
-                },
-                "endTime": {
-                  "type": "string",
-                  "example": 1582549044
-                },
-                "createdOn": {
-                  "type": "string",
-                  "example": 1582015570
-                },
-                "pictures": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "videos": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "latitude": {
-                  "type": "number",
-                  "format": "double",
-                  "example": 28.2
-                },
-                "longitude": {
-                  "type": "number",
-                  "format": "double",
-                  "example": 77.27
-                },
-                "userId": {
-                  "type": "string",
-                  "example": "usr15604269"
-                },
-                "resourceLocation": {
-                  "type": "string",
-                  "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/events/0e5495e6-1cd6-4193-90c0-bbe5f32af19d"
-                },
-                "banner": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Prateek Mishra"
-                },
-                "photo": {
-                  "type": "string",
-                  "example": "https://anchor.mapmyindia.com/api/users/prateek.mishra/avatar"
-                },
-                "liked": {
-                  "type": "boolean",
-                  "example": false
-                },
-                "flagged": {
-                  "type": "boolean",
-                  "example": false
-                },
-                "likeCount": {
-                  "type": "integer",
-                  "example": 1
-                },
-                "flagCount": {
-                  "type": "integer",
-                  "example": 0
-                }
-              }
-            }
-          },
-          "pagination": {
-            "type": "object",
-            "properties": {
-              "totalItem": {
-                "type": "integer",
-                "example": 9
-              },
-              "perPage": {
-                "type": "integer",
-                "example": 10
-              },
-              "totalPages": {
-                "type": "integer",
-                "example": 1
-              },
-              "currentPage": {
-                "type": "integer",
-                "example": 1
-              }
-            }
-          }
-        }
-      },
-      "Events-post-CreateEvent-Request": {
-        "type": "object",
-        "properties": {
-          "attachVideos": {
-            "type": "boolean"
-          },
-          "broadcast": {
-            "type": "string"
-          },
-          "contactEmail": {
-            "type": "string"
-          },
-          "contactNumber": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "eventName": {
-            "type": "string"
-          },
-          "fromTime": {
-            "type": "integer"
-          },
-          "genre": {
-            "type": "string"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "organization": {
-            "type": "string"
-          },
-          "placeName": {
-            "type": "string"
-          },
-          "platform": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "toTime": {
-            "type": "integer"
-          }
-        }
-      },
-      "Events-GET-AllEventsAtAPlace-Response": {
-        "type": "object",
-        "properties": {
-          "events": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "eventName": {
-                  "type": "string",
-                  "example": "test event"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "Singing event"
-                },
-                "location": {
-                  "type": "string",
-                  "example": "test"
-                },
-                "locationEloc": {
-                  "type": "string",
-                  "example": "MMI000"
-                },
-                "status": {
-                  "type": "string",
-                  "example": "expired"
-                },
-                "organization": {
-                  "type": "string",
-                  "example": "MapmyIndia"
-                },
-                "contactNumber": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "example": 9934321856
-                  }
-                },
-                "contactEmail": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "example": "prateek@gmail.com"
-                  }
-                },
-                "genre": {
-                  "type": "string",
-                  "example": "comedy"
-                },
-                "startTime": {
-                  "type": "integer",
-                  "example": 1582534644
-                },
-                "endTime": {
-                  "type": "string",
-                  "example": 1582549044
-                },
-                "createdOn": {
-                  "type": "string",
-                  "example": 1582015570
-                },
-                "pictures": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "videos": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "latitude": {
-                  "type": "number",
-                  "format": "double",
-                  "example": 28.2
-                },
-                "longitude": {
-                  "type": "number",
-                  "format": "double",
-                  "example": 77.27
-                },
-                "userId": {
-                  "type": "string",
-                  "example": "usr15604269"
-                },
-                "resourceLocation": {
-                  "type": "string",
-                  "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/events/0e5495e6-1cd6-4193-90c0-bbe5f32af19d"
-                },
-                "banner": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Prateek Mishra"
-                },
-                "photo": {
-                  "type": "string",
-                  "example": "https://anchor.mapmyindia.com/api/users/prateek.mishra/avatar"
-                },
-                "liked": {
-                  "type": "boolean",
-                  "example": false
-                },
-                "flagged": {
-                  "type": "boolean",
-                  "example": false
-                },
-                "likeCount": {
-                  "type": "integer",
-                  "example": 1
-                },
-                "flagCount": {
-                  "type": "integer",
-                  "example": 0
-                }
-              }
-            }
-          },
-          "pagination": {
-            "type": "object",
-            "properties": {
-              "totalItem": {
-                "type": "integer",
-                "example": 9
-              },
-              "perPage": {
-                "type": "integer",
-                "example": 10
-              },
-              "totalPages": {
-                "type": "integer",
-                "example": 1
-              },
-              "currentPage": {
-                "type": "integer",
-                "example": 1
-              }
-            }
-          }
-        }
-      },
-      "Events-PATCH-UpdateEvent-Request": {
-        "type": "object",
-        "properties": {
-          "attachVideos": {
-            "type": "boolean"
-          },
-          "broadcast": {
-            "type": "string"
-          },
-          "contactEmail": {
-            "type": "string"
-          },
-          "contactNumber": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "eventName": {
-            "type": "string"
-          },
-          "fromTime": {
-            "type": "integer"
-          },
-          "genre": {
-            "type": "string"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "organization": {
-            "type": "string"
-          },
-          "placeName": {
-            "type": "string"
-          },
-          "platform": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "toTime": {
-            "type": "integer"
-          }
-        }
-      },
-      "Events-GET-SingleEventDetails-Response": {
-        "type": "object",
-        "properties": {
-          "eventName": {
-            "type": "string",
-            "example": "test event"
-          },
-          "description": {
-            "type": "string",
-            "example": "Singing event"
-          },
-          "location": {
-            "type": "string",
-            "example": "test"
-          },
-          "locationEloc": {
-            "type": "string",
-            "example": "MMI000"
-          },
-          "status": {
-            "type": "string",
-            "example": "expired"
-          },
-          "organization": {
-            "type": "string",
-            "example": "MapmyIndia"
-          },
-          "contactNumber": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "example": 9934321856
-            }
-          },
-          "contactEmail": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "example": "prateek@gmail.com"
-            }
-          },
-          "genre": {
-            "type": "string",
-            "example": "comedy"
-          },
-          "startTime": {
-            "type": "integer",
-            "example": 1582534644
-          },
-          "endTime": {
-            "type": "string",
-            "example": 1582549044
-          },
-          "createdOn": {
-            "type": "string",
-            "example": 1582015570
-          },
-          "pictures": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "videos": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double",
-            "example": 28.2
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double",
-            "example": 77.27
-          },
-          "userId": {
-            "type": "string",
-            "example": "usr15604269"
-          },
-          "resourceLocation": {
-            "type": "string",
-            "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/events/0e5495e6-1cd6-4193-90c0-bbe5f32af19d"
-          },
-          "banner": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string",
-            "example": "Prateek Mishra"
-          },
-          "photo": {
-            "type": "string",
-            "example": "https://anchor.mapmyindia.com/api/users/prateek.mishra/avatar"
-          },
-          "liked": {
-            "type": "boolean",
-            "example": false
-          },
-          "flagged": {
-            "type": "boolean",
-            "example": false
-          },
-          "likeCount": {
-            "type": "integer",
-            "example": 1
-          },
-          "flagCount": {
-            "type": "integer",
-            "example": 0
-          }
-        }
-      },
       "Review-GET-AllReviewOfAUser-Response": {
         "type": "object",
         "properties": {
@@ -7903,29 +6476,29 @@
               "properties": {
                 "placeName": {
                   "type": "string",
-                  "example": "India Gate, New Delhi, Delhi"
+                  "example": "WelcomHeritage Sheikhpura Kothi"
                 },
                 "placeId": {
                   "type": "string",
-                  "example": "1T182A"
+                  "example": "937X7UA"
                 },
                 "description": {
                   "type": "string",
-                  "example": "Nice place"
+                  "example": "Awesome place to spend weekend with family and friends"
                 },
                 "rating": {
                   "type": "integer",
-                  "example": 4
+                  "example": 5
                 },
                 "latitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 28.612964
+                  "example": 29.114179
                 },
                 "longitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 77.229463
+                  "example": 75.994535
                 },
                 "status": {
                   "type": "string",
@@ -7933,23 +6506,31 @@
                 },
                 "createdOn": {
                   "type": "integer",
-                  "example": 1566557004
+                  "example": 1586537206
                 },
-                "name": {
+                "addedByName": {
                   "type": "string",
-                  "example": "prateek"
+                  "example": "Isha"
                 },
                 "photo": {
                   "type": "string",
-                  "example": "https://anchor.mapmyindia.com/api/users/gaurav123bzb/avatar"
+                  "example": "https://anchor.mapmyindia.com/api/users/ishar081/avatar"
+                },
+                "addedBy": {
+                  "type": "string",
+                  "example": "ishar081"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "isha"
                 },
                 "userName": {
                   "type": "string",
-                  "example": "prateek276"
+                  "example": "ishar081"
                 },
                 "liked": {
                   "type": "boolean",
-                  "example": false
+                  "example": true
                 },
                 "flagged": {
                   "type": "boolean",
@@ -7965,7 +6546,7 @@
                 },
                 "resourceLocation": {
                   "type": "string",
-                  "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/review/8914e285babb853d1165f7abc59540a3"
+                  "example": "https://explore.mapmyindia.com/api/v2.1.0.0/places/review/df0c3327a8f853b832f713507503ec71"
                 }
               }
             }
@@ -7975,7 +6556,7 @@
             "properties": {
               "totalItem": {
                 "type": "integer",
-                "example": 9
+                "example": 76
               },
               "perPage": {
                 "type": "integer",
@@ -7983,7 +6564,7 @@
               },
               "totalPages": {
                 "type": "integer",
-                "example": 1
+                "example": 8
               },
               "currentPage": {
                 "type": "integer",
@@ -7993,73 +6574,20 @@
           }
         }
       },
-      "Review-POST-CreateReview-Request": {
-        "type": "object",
-        "properties": {
-          "alt": {
-            "type": "integer"
-          },
-          "altAcc": {
-            "type": "integer"
-          },
-          "broadcast": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "eventId": {
-            "type": "string"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "latlngAcc": {
-            "type": "integer"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "placeName": {
-            "type": "string"
-          },
-          "platform": {
-            "type": "string"
-          },
-          "rating": {
-            "type": "integer"
-          }
-        }
-      },
-      "Review-PATCH-UpdateReview-Request": {
-        "type": "object",
-        "properties": {
-          "broadcast": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "platform": {
-            "type": "string"
-          },
-          "rating": {
-            "type": "string"
-          }
-        }
-      },
       "Review-GET-SingleReviewDetails-Response": {
         "type": "object",
         "properties": {
           "placeName": {
             "type": "string",
-            "example": "Test Place"
+            "example": "MapmyIndia Head Office New Delhi"
           },
           "placeId": {
             "type": "string",
-            "example": "G3AUHZ"
+            "example": "MMI000"
+          },
+          "description": {
+            "type": "string",
+            "example": "Great place"
           },
           "rating": {
             "type": "integer",
@@ -8068,12 +6596,12 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "example": 22.8423453456
+            "example": 28.550716
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "example": 75.65474567567
+            "example": 77.268928
           },
           "status": {
             "type": "string",
@@ -8081,15 +6609,39 @@
           },
           "createdOn": {
             "type": "integer",
-            "example": 1582096167
+            "example": 1584004016
           },
-          "name": {
+          "addedByName": {
             "type": "string",
-            "example": "Prateek Mishra"
+            "example": "Vaibhav Singla"
           },
           "photo": {
             "type": "string",
-            "example": "https://anchor.mapmyindia.com/api/users/prateek.mishra/avatar"
+            "example": "https://anchor.mapmyindia.com/api/users/vaibhav.singla_1578979903/avatar"
+          },
+          "addedBy": {
+            "type": "string",
+            "example": "vaibhav.singla_1578979903"
+          },
+          "name": {
+            "type": "string",
+            "example": "Vaibhav Singla"
+          },
+          "userName": {
+            "type": "string",
+            "example": "vaibhav.singla_1578979903"
+          },
+          "pictures": {
+            "type": "string",
+            "example": []
+          },
+          "audios": {
+            "type": "string",
+            "example": []
+          },
+          "videos": {
+            "type": "string",
+            "example": []
           },
           "liked": {
             "type": "boolean",
@@ -8097,277 +6649,39 @@
           },
           "flagged": {
             "type": "boolean",
-            "example": true
+            "example": false
           },
           "likeCount": {
             "type": "integer",
-            "example": 0
+            "example": 5
           },
           "flagCount": {
             "type": "integer",
-            "example": 1
+            "example": 6
           },
           "resourceLocation": {
             "type": "string",
-            "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/review/a1cdeb49-6a37-4e22-b306-7e45da3bd7a9"
-          }
-        }
-      },
-      "GET-AllCheckinOfAUser-Response": {
-        "type": "object",
-        "properties": {
-          "checkins": {
-            "type": "array",
-            "items": {
-              "properties": {
-                "createdOn": {
-                  "type": "integer"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "eventId": {
-                  "type": "string"
-                },
-                "flagCount": {
-                  "type": "integer"
-                },
-                "flagged": {
-                  "type": "boolean"
-                },
-                "latitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "likeCount": {
-                  "type": "integer"
-                },
-                "liked": {
-                  "type": "boolean"
-                },
-                "longitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "photo": {
-                  "type": "string"
-                },
-                "pictures": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "placeId": {
-                  "type": "string"
-                },
-                "placeName": {
-                  "type": "string"
-                },
-                "resourceLocation": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string"
-                },
-                "userId": {
-                  "type": "string"
-                },
-                "videos": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+            "example": "https://explore.mapmyindia.com/api/v2.1.0.0/places/review/2e7bb5c72d44a1a56018d1037ec9acb5"
           },
-          "pagination": {
-            "type": "object"
-          }
-        }
-      },
-      "GET-AllCheckinAtAPlace-Response": {
-        "type": "object",
-        "properties": {
-          "checkins": {
-            "type": "array",
-            "items": {
-              "properties": {
-                "createdOn": {
-                  "type": "integer"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "eventId": {
-                  "type": "string"
-                },
-                "flagCount": {
-                  "type": "integer"
-                },
-                "flagged": {
-                  "type": "boolean"
-                },
-                "latitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "likeCount": {
-                  "type": "integer"
-                },
-                "liked": {
-                  "type": "boolean"
-                },
-                "longitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "photo": {
-                  "type": "string"
-                },
-                "pictures": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "placeId": {
-                  "type": "string"
-                },
-                "placeName": {
-                  "type": "string"
-                },
-                "resourceLocation": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string"
-                },
-                "userId": {
-                  "type": "string"
-                },
-                "videos": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+          "origin": {
+            "type": "string",
+            "example": 1
           },
-          "pagination": {
-            "type": "object"
-          }
-        }
-      },
-      "POST-CreateCheckin-Request": {
-        "type": "object",
-        "properties": {
-          "alt": {
-            "type": "integer"
+          "picturesCount": {
+            "type": "integer",
+            "example": 0
           },
-          "altAcc": {
-            "type": "integer"
+          "audiosCount": {
+            "type": "integer",
+            "example": 0
           },
-          "broadcast": {
-            "type": "string"
+          "videosCount": {
+            "type": "integer",
+            "example": 0
           },
-          "description": {
-            "type": "string"
-          },
-          "eventId": {
-            "type": "string"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "latlngAcc": {
-            "type": "integer"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "placeName": {
-            "type": "string"
-          },
-          "platform": {
-            "type": "string"
-          }
-        }
-      },
-      "GET-CheckinDetail-Response": {
-        "type": "object",
-        "properties": {
-          "createdOn": {
-            "type": "integer"
-          },
-          "description": {
-            "type": "string"
-          },
-          "eventId": {
-            "type": "string"
-          },
-          "flagCount": {
-            "type": "integer"
-          },
-          "flagged": {
-            "type": "boolean"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "likeCount": {
-            "type": "integer"
-          },
-          "liked": {
-            "type": "boolean"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "name": {
-            "type": "string"
-          },
-          "photo": {
-            "type": "string"
-          },
-          "pictures": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "placeId": {
-            "type": "string"
-          },
-          "placeName": {
-            "type": "string"
-          },
-          "resourceLocation": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "userId": {
-            "type": "string"
-          },
-          "videos": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "thumbnail": {
+            "type": "string",
+            "example": "https://s3.ap-south-1.amazonaws.com/mmi-explore-images/pins/2e7bb5c72d44a1a56018d1037ec9acb5.png"
           }
         }
       },
@@ -9286,15 +7600,15 @@
               "properties": {
                 "placeName": {
                   "type": "string",
-                  "example": "India Gate, New Delhi, Delhi"
+                  "example": "Mapmyindia Head Office New Delhi"
                 },
                 "placeId": {
                   "type": "string",
-                  "example": "1T182A"
+                  "example": "MMI000"
                 },
                 "description": {
                   "type": "string",
-                  "example": "Nice place"
+                  "example": "Great place to work as a fresher"
                 },
                 "rating": {
                   "type": "integer",
@@ -9303,12 +7617,12 @@
                 "latitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 28.612964
+                  "example": 28.550716
                 },
                 "longitude": {
                   "type": "number",
                   "format": "double",
-                  "example": 77.229463
+                  "example": 77.268928
                 },
                 "status": {
                   "type": "string",
@@ -9316,19 +7630,27 @@
                 },
                 "createdOn": {
                   "type": "integer",
-                  "example": 1566557004
+                  "example": 1611129379
                 },
-                "name": {
+                "addedByName": {
                   "type": "string",
-                  "example": "prateek"
+                  "example": "Venom"
                 },
                 "photo": {
                   "type": "string",
-                  "example": "https://anchor.mapmyindia.com/api/users/gaurav123bzb/avatar"
+                  "example": "https://anchor.mapmyindia.com/api/users/venom_15882478/avatar"
+                },
+                "addedBy": {
+                  "type": "string",
+                  "example": "venom_15882478"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Venom"
                 },
                 "userName": {
                   "type": "string",
-                  "example": "prateek276"
+                  "example": "venom_15882478"
                 },
                 "liked": {
                   "type": "boolean",
@@ -9340,15 +7662,35 @@
                 },
                 "likeCount": {
                   "type": "integer",
-                  "example": 1
+                  "example": 0
                 },
                 "flagCount": {
                   "type": "integer",
-                  "example": 0
+                  "example": 1
                 },
                 "resourceLocation": {
                   "type": "string",
-                  "example": "http://explore-uat.mapmyindia.in/api/v2.0.0.21/place/review/8914e285babb853d1165f7abc59540a3"
+                  "example": "https://explore.mapmyindia.com/api/v2.1.0.0/place/review/80e7f7b1-5f29-45d6-a5ca-b2130906aae0"
+                },
+                "origin": {
+                  "type": "string",
+                  "example": 1
+                },
+                "picturesCount": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "audiosCount": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "videosCount": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "thumbnail": {
+                  "type": "string",
+                  "example": "https://s3.ap-south-1.amazonaws.com/mmi-explore-images/pins/80e7f7b1-5f29-45d6-a5ca-b2130906aae0.png"
                 }
               }
             }
@@ -9358,7 +7700,7 @@
             "properties": {
               "totalItem": {
                 "type": "integer",
-                "example": 9
+                "example": 103
               },
               "perPage": {
                 "type": "integer",
@@ -9366,7 +7708,7 @@
               },
               "totalPages": {
                 "type": "integer",
-                "example": 1
+                "example": 11
               },
               "currentPage": {
                 "type": "integer",
@@ -9638,7 +7980,7 @@
         "properties": {
           "routeId": {
             "type": "string",
-            "example": "67556c8a-af99-11ea-b47b-dd6c0a3c900e_1234"
+            "example": "54b67e5d-6c63-11eb-b8b2-330fe1e6ee23_a17890d8b799dc13"
           },
           "routes": {
             "type": "array",
@@ -9655,7 +7997,7 @@
                     "properties": {
                       "parentCategory": {
                         "type": "integer",
-                        "example": 5
+                        "example": 6
                       },
                       "reports": {
                         "type": "array",
@@ -9664,45 +8006,45 @@
                           "properties": {
                             "id": {
                               "type": "string",
-                              "example": "tpinN1018009131C37T1572620462"
+                              "example": "tpinN1164452207C48"
                             },
                             "childCategory": {
                               "type": "integer",
-                              "example": 37
+                              "example": 48
                             },
                             "placeName": {
                               "type": "string",
-                              "example": "Delhi Gurgaon Expressway"
+                              "example": "Ambadi Road"
+                            },
+                            "description": {
+                              "type": "string",
+                              "example": "Left Hand Curve"
                             },
                             "latitude": {
                               "type": "number",
                               "format": "double",
-                              "example": 28.519693
+                              "example": 19.396109
                             },
                             "longitude": {
                               "type": "number",
                               "format": "double",
-                              "example": 77.097061
+                              "example": 72.832792
                             },
                             "usersCount": {
                               "type": "integer",
                               "example": 1
                             },
-                            "updateTime": {
-                              "type": "integer",
-                              "example": 1579173243
-                            },
                             "expiry": {
                               "type": "integer",
-                              "example": 1887980461
+                              "example": 1614094896
                             },
                             "addedBy": {
                               "type": "string",
-                              "example": "prateek.mishra"
+                              "example": "mapmyindia_traffic_center"
                             },
                             "addedByName": {
                               "type": "string",
-                              "example": "Prateek"
+                              "example": "MapmyIndia Traffic Center"
                             },
                             "photo": {
                               "type": "string",
@@ -9717,152 +8059,6 @@
                       }
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      },
-      "GET-AllRoutesOfAUser-Response": {
-        "type": "object",
-        "properties": {
-          "routes": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "createdOn": {
-                  "type": "integer"
-                },
-                "resourceLocation": {
-                  "type": "string"
-                },
-                "routeName": {
-                  "type": "string"
-                },
-                "wayPoint": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "latitude": {
-                        "type": "number",
-                        "format": "double"
-                      },
-                      "longitude": {
-                        "type": "number",
-                        "format": "double"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "placId": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "POST-AddRoute-Request": {
-        "type": "object",
-        "properties": {
-          "platform": {
-            "type": "string"
-          },
-          "routeName": {
-            "type": "string"
-          },
-          "wayPoint": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "latitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "longitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "placId": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "GET-RouteDetails-Response": {
-        "type": "object",
-        "properties": {
-          "createdOn": {
-            "type": "integer"
-          },
-          "resourceLocation": {
-            "type": "string"
-          },
-          "routeName": {
-            "type": "string"
-          },
-          "wayPoint": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "latitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "longitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "placId": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "PATCH-UpdateRoute-Request": {
-        "type": "object",
-        "properties": {
-          "platform": {
-            "type": "string"
-          },
-          "routeName": {
-            "type": "string"
-          },
-          "wayPoint": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "latitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "longitude": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "placId": {
-                  "type": "string"
                 }
               }
             }
@@ -10314,46 +8510,50 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "example": "d04a32cd-dcda-44a1-b199-70fee9fa83b0"
+                  "example": "a54fd2bc-384a-4cd4-be8e-5f4b2e6e85a6"
                 },
                 "placeName": {
                   "type": "string",
-                  "example": "Testing Place"
+                  "example": "Okhla NSIC Metro Station Gate No 1"
+                },
+                "placeId": {
+                  "type": "string",
+                  "example": "AMLM06"
                 },
                 "description": {
                   "type": "string",
-                  "example": "Testing Checkin"
+                  "example": "Due to lockdown"
                 },
                 "rating": {
                   "type": "integer",
                   "format": "double",
-                  "example": "d04a32cd-dcda-44a1-b199-70fee9fa83b0"
+                  "example": null
                 },
                 "parentCategory": {
                   "type": "integer",
-                  "example": 1
+                  "example": 5
                 },
                 "childCategory": {
                   "type": "integer",
-                  "example": 10
+                  "example": 37
                 },
                 "subChildCategory": {
                   "type": "integer",
-                  "example": 2
+                  "example": null
                 },
                 "latitude": {
-                  "type": "integer",
+                  "type": "number",
                   "format": "double",
-                  "example": 28.7041
+                  "example": 28.555031059401458
                 },
                 "longitude": {
                   "type": "integer",
                   "format": "double",
-                  "example": 77.1025
+                  "example": 77.2654986355576
                 },
                 "type": {
                   "type": "string",
-                  "example": "atlas"
+                  "example": "report"
                 },
                 "status": {
                   "type": "string",
@@ -10362,35 +8562,27 @@
                 "createdOn": {
                   "type": "integer",
                   "format": "longer",
-                  "example": 1564544521
+                  "example": 1588866840
                 },
                 "addedBy": {
                   "type": "string",
-                  "example": "mustanish"
-                },
-                "statusDisplayTxt": {
-                  "type": "string",
-                  "example": "Submitted"
+                  "example": "ishar081"
                 },
                 "addedByName": {
                   "type": "string",
-                  "example": "Altamash mustanish"
+                  "example": "Isha"
                 },
                 "photo": {
                   "type": "string",
-                  "example": "5bbc405d52315.jpg"
+                  "example": "https://anchor.mapmyindia.com/api/users/ishar081/avatar"
                 },
                 "pictures": {
                   "type": "string",
-                  "example": [
-                    "<Base URL of resource>/45877a7815ee367d.jpg"
-                  ]
+                  "example": null
                 },
                 "videos": {
                   "type": "string",
-                  "example": [
-                    "<Base URL of resource>/45877a7815ee367d.mp4"
-                  ]
+                  "example": null
                 },
                 "liked": {
                   "type": "boolean",
@@ -10405,6 +8597,14 @@
                   "example": 0
                 },
                 "flagCount": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "picturesCount": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "audiosCount": {
                   "type": "integer",
                   "example": 0
                 }
@@ -10429,15 +8629,6 @@
               "currentPage": {
                 "type": "integer",
                 "example": 1
-              }
-            }
-          },
-          "baseURLObj": {
-            "type": "object",
-            "properties": {
-              "assets": {
-                "type": "string",
-                "example": "<Base URL of assets>"
               }
             }
           }
