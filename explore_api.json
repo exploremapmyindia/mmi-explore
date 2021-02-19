@@ -53,6 +53,116 @@
     }
   ],
   "paths": {
+    "/{version}/places/{eloc}/placedetails": {
+      "get": {
+        "tags": [
+          "Place",
+          "Claim a Business"
+        ],
+        "summary": "Detail of a place",
+        "description": "This API gives the general details of that particular place id (eLoc) with keyinfo.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "example": "2.1.0.0",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier.",
+            "required": true,
+            "example": "1T182A",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-PlaceDetail-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/claim": {
+      "post": {
+        "tags": [
+          "Claim a Business"
+        ],
+        "summary": "Create Claim",
+        "requestBody": {
+          "description": "Request Body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POST-CreateClaim-Request"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No COntent"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/{version}/places/{claimId}/claim": {
       "patch": {
         "tags": [
@@ -185,61 +295,6 @@
         }
       }
     },
-    "/{version}/places/{eloc}/claim": {
-      "post": {
-        "tags": [
-          "Claim a Business"
-        ],
-        "summary": "Create Claim",
-        "requestBody": {
-          "description": "Request Body",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/POST-CreateClaim-Request"
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No COntent"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
     "/{version}/places/{eloc}/enquiry": {
       "get": {
         "tags": [
@@ -351,6 +406,206 @@
         }
       }
     },
+    "/{version}/places/reportCatMaster": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Report Category Master",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "\",\"(Comma) separated id of Categories OR null in case of all categories requried.",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 6,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report-GET-reportCatMaster-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{reportId}/reports": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Single Report Details",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "Unique Report ID",
+            "required": true,
+            "allowEmptyValue": false,
+            "example": 6,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report-GET-SingleReportDetails-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/report/nearby": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Nearby Reports",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "zoom",
+            "in": "query",
+            "description": "zoom",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 11,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "parentCategory",
+            "in": "query",
+            "description": "Id of Parent Category",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "childCategory",
+            "in": "query",
+            "description": "Id of Child Category",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 6,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report-GET-NearbyReports-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/{version}/places/{eloc}/placeReport": {
       "get": {
         "tags": [
@@ -407,7 +662,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/get-AllReportResponse"
+                  "$ref": "#/components/schemas/Report-GET-AllReportsAtAPlace-Response"
                 }
               }
             }
@@ -424,20 +679,17 @@
         }
       }
     },
-    "/{version}/places/{eloc}/placedetails": {
+    "/{version}/places/categories": {
       "get": {
         "tags": [
-          "Place",
-          "Claim a Business"
+          "Place"
         ],
-        "summary": "Detail of a place",
-        "description": "This API gives the general details of that particular place id (eLoc) with keyinfo.",
+        "summary": "Place Categories",
         "parameters": [
           {
             "name": "version",
             "in": "path",
-            "description": "Current version of the API.",
-            "example": "2.1.0.0",
+            "description": "version of the API.",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
@@ -445,12 +697,11 @@
             }
           },
           {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier.",
-            "required": true,
-            "example": "1T182A",
-            "allowEmptyValue": false,
+            "name": "catCode",
+            "in": "query",
+            "description": "Id's of Categories.",
+            "required": false,
+            "allowEmptyValue": true,
             "schema": {
               "type": "string"
             }
@@ -462,13 +713,61 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GET-PlaceDetail-Response"
+                  "$ref": "#/components/schemas/Place-GET-PlaceCategories-Response"
                 }
               }
             }
           },
           "401": {
             "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/add": {
+      "post": {
+        "tags": [
+          "Place"
+        ],
+        "summary": "Add a Place",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "example": "2.1.0.0",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Place-POST-AddAPlace-Request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthtorized"
           },
           "403": {
             "description": "Forbidden"
@@ -803,50 +1102,6 @@
       }
     },
     "/{version}/places/{enquiryId}/enquiry": {
-      "delete": {
-        "tags": [
-          "Claim a Business"
-        ],
-        "summary": "Delete Enquiry",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "example": "2.1.0.0",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "enquiryId",
-            "in": "path",
-            "description": "Unique Enquiry ID.",
-            "example": "54d1bded-1302-4a72-98f6-0dc133fcdbe9",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      },
       "patch": {
         "tags": [
           "Claim a Business"
@@ -1220,6 +1475,52 @@
         }
       }
     },
+    "/{version}/places/<enquiryId>/enquiry": {
+      "delete": {
+        "tags": [
+          "Claim a Business"
+        ],
+        "summary": "Delete Enquiry",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Current version of the API.",
+            "example": "2.1.0.0",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "enquiryId",
+            "in": "path",
+            "description": "Unique Enquiry ID.",
+            "example": "54d1bded-1302-4a72-98f6-0dc133fcdbe9",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/{version}/places/image": {
       "post": {
         "tags": [
@@ -1366,6 +1667,223 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GET-ImagesAtAPlace-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/report": {
+      "post": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Create Report",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "example": "2.1.0.0"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "example": "6TB2B2"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Request Body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Report-POST-CreateReport-Request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/report/{reportId}": {
+      "patch": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Update Report",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "Unique ID of Report",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportRequest",
+            "in": "header",
+            "description": "Report Request Body",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "$ref": "#/components/schemas/Report-PATCH-UpdateReport-Request"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "platform"
+                ],
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "description": "Wow description"
+                  },
+                  "parentCategory": {
+                    "type": "integer",
+                    "description": "2"
+                  },
+                  "childCategory": {
+                    "type": "integer",
+                    "description": "13"
+                  },
+                  "platform": {
+                    "type": "integer",
+                    "description": "101"
+                  },
+                  "expiry": {
+                    "type": "number",
+                    "format": "long",
+                    "description": "10202021"
+                  },
+                  "broadcast": {
+                    "type": "string",
+                    "description": "public"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/{version}/users/report": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "All Reports of a User",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report-GET-AllReportsOfAUser-Response"
                 }
               }
             }
@@ -1795,162 +2313,6 @@
         }
       }
     },
-    "/{version}/places/add": {
-      "post": {
-        "tags": [
-          "Place"
-        ],
-        "summary": "Add a Place",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "example": "2.1.0.0",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Place-POST-AddAPlace-Request"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthtorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/places/{eloc}/edit": {
-      "patch": {
-        "tags": [
-          "Place"
-        ],
-        "summary": "Edit a Place",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "Current version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string",
-              "example": "2.1.0.0"
-            }
-          },
-          {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string",
-              "example": "MMI000"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "<b>Only update columns should be pass in request body",
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Place-PATCH-EditAPlace-Request"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/{version}/places/categories": {
-      "get": {
-        "tags": [
-          "Place"
-        ],
-        "summary": "Place Categories",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "catCode",
-            "in": "query",
-            "description": "Id's of Categories.",
-            "required": false,
-            "allowEmptyValue": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Place-GET-PlaceCategories-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
     "/{version}/places/userpoints": {
       "get": {
         "tags": [
@@ -2148,13 +2510,12 @@
         }
       }
     },
-    "/{version}/users/contribution": {
-      "get": {
+    "/{version}/user/list": {
+      "post": {
         "tags": [
-          "User"
+          "List"
         ],
-        "summary": "My Contribution",
-        "description": "This API allows you to get all contributions of a user.",
+        "summary": "Create List",
         "parameters": [
           {
             "name": "version",
@@ -2167,11 +2528,145 @@
             }
           },
           {
+            "name": "listRequest",
+            "in": "header",
+            "description": "List Request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/List-POST-CreateList-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{eloc}/listitem": {
+      "post": {
+        "tags": [
+          "List"
+        ],
+        "summary": "Add Item to List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eloc",
+            "in": "path",
+            "description": "6 character unique place identifier.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listItemRequest",
+            "in": "header",
+            "description": "List Item Request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/List-POST-AddItemToList-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/places/{userName}/listitem/{listId}": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "All Items of a List",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "User Name",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Unique ID of List",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "page",
             "in": "query",
-            "description": "userName of the user to be followed.",
+            "description": "page number",
             "required": false,
-            "allowEmptyValue": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
             "schema": {
               "type": "integer"
             }
@@ -2183,40 +2678,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Get-User-My-Contribution-Response"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Client Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client-Error-Response"
+                  "$ref": "#/components/schemas/GET-AllItemsOfAList-Response"
                 }
               }
             }
           },
           "401": {
-            "description": "Invalid Token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Invalid-Token-Response"
-                }
-              }
-            }
+            "description": "Unauthorized"
           },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
-                }
-              }
-            }
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -2294,6 +2768,79 @@
         }
       }
     },
+    "/{version}/users/{userName}/list": {
+      "get": {
+        "tags": [
+          "List"
+        ],
+        "summary": "All List of a User",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "User Name",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "number of results per page",
+            "required": false,
+            "allowEmptyValue": true,
+            "example": 10,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET-AllListOfAUser-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/{version}/places/listitem/{itemId}": {
       "delete": {
         "tags": [
@@ -2319,204 +2866,6 @@
             "allowEmptyValue": false,
             "schema": {
               "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/{version}/places/{eloc}/listitem": {
-      "post": {
-        "tags": [
-          "List"
-        ],
-        "summary": "Add Item to List",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "listItemRequest",
-            "in": "header",
-            "description": "List Item Request body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/List-POST-AddItemToList-Request"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/user/list": {
-      "post": {
-        "tags": [
-          "List"
-        ],
-        "summary": "Create List",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "listRequest",
-            "in": "header",
-            "description": "List Request body",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/List-POST-CreateList-Request"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/users/list/{listId}": {
-      "delete": {
-        "tags": [
-          "List"
-        ],
-        "summary": "Delete List",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "listId",
-            "in": "path",
-            "description": "Unique ID of List",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "List"
-        ],
-        "summary": "Update List",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "listId",
-            "in": "path",
-            "description": "Unique ID of List",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "placeRequest",
-            "in": "header",
-            "description": "Place Request Body",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "$ref": "#/components/schemas/List-PATCH-UpdateList-Request"
             }
           }
         ],
@@ -2626,27 +2975,17 @@
         }
       }
     },
-    "/{version}/places/{userName}/listitem/{listId}": {
-      "get": {
+    "/{version}/users/list/{listId}": {
+      "patch": {
         "tags": [
           "List"
         ],
-        "summary": "All Items of a List",
+        "summary": "Update List",
         "parameters": [
           {
             "name": "version",
             "in": "path",
             "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userName",
-            "in": "path",
-            "description": "User Name",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
@@ -2664,298 +3003,16 @@
             }
           },
           {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GET-AllItemsOfAList-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/users/{userName}/list": {
-      "get": {
-        "tags": [
-          "List"
-        ],
-        "summary": "All List of a User",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userName",
-            "in": "path",
-            "description": "User Name",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GET-AllListOfAUser-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/places/report/nearby": {
-      "get": {
-        "tags": [
-          "Report"
-        ],
-        "summary": "Nearby Reports",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "zoom",
-            "in": "query",
-            "description": "zoom",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 11,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "parentCategory",
-            "in": "query",
-            "description": "Id of Parent Category",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "childCategory",
-            "in": "query",
-            "description": "Id of Child Category",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 6,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report-GET-NearbyReports-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/places/report/{reportId}": {
-      "patch": {
-        "tags": [
-          "Report"
-        ],
-        "summary": "Update Report",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "reportId",
-            "in": "path",
-            "description": "Unique ID of Report",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "reportRequest",
+            "name": "placeRequest",
             "in": "header",
-            "description": "Report Request Body",
+            "description": "Place Request Body",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
-              "$ref": "#/components/schemas/Report-PATCH-UpdateReport-Request"
+              "$ref": "#/components/schemas/List-PATCH-UpdateList-Request"
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "platform"
-                ],
-                "properties": {
-                  "description": {
-                    "type": "string",
-                    "description": "Wow description"
-                  },
-                  "parentCategory": {
-                    "type": "integer",
-                    "description": "2"
-                  },
-                  "childCategory": {
-                    "type": "integer",
-                    "description": "13"
-                  },
-                  "platform": {
-                    "type": "integer",
-                    "description": "101"
-                  },
-                  "expiry": {
-                    "type": "number",
-                    "format": "long",
-                    "description": "10202021"
-                  },
-                  "broadcast": {
-                    "type": "string",
-                    "description": "public"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -2970,14 +3027,12 @@
             "description": "Forbidden"
           }
         }
-      }
-    },
-    "/{version}/places/reportCatMaster": {
-      "get": {
+      },
+      "delete": {
         "tags": [
-          "Report"
+          "List"
         ],
-        "summary": "Report Category Master",
+        "summary": "Delete List",
         "parameters": [
           {
             "name": "version",
@@ -2990,75 +3045,13 @@
             }
           },
           {
-            "name": "categories",
-            "in": "query",
-            "description": "\",\"(Comma) separated id of Categories OR null in case of all categories requried.",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 6,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report-GET-reportCatMaster-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/places/{eloc}/report": {
-      "post": {
-        "tags": [
-          "Report"
-        ],
-        "summary": "Create Report",
-        "parameters": [
-          {
-            "name": "version",
+            "name": "listId",
             "in": "path",
-            "description": "version of the API.",
+            "description": "Unique ID of List",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "eloc",
-            "in": "path",
-            "description": "6 character unique place identifier.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "reportRequest",
-            "in": "header",
-            "description": "Report Request Body",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "$ref": "#/components/schemas/Report-POST-CreateReport-Request"
             }
           }
         ],
@@ -3066,132 +3059,14 @@
           "200": {
             "description": "OK"
           },
-          "201": {
-            "description": "Created"
+          "204": {
+            "description": "No Content"
           },
           "401": {
             "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/places/{reportId}/reports": {
-      "get": {
-        "tags": [
-          "Report"
-        ],
-        "summary": "Single Report Details",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "reportId",
-            "in": "path",
-            "description": "Unique Report ID",
-            "required": true,
-            "allowEmptyValue": false,
-            "example": 6,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report-GET-SingleReportDetails-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{version}/users/report": {
-      "get": {
-        "tags": [
-          "Report"
-        ],
-        "summary": "All Reports of a User",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "page number",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 1,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "number of results per page",
-            "required": false,
-            "allowEmptyValue": true,
-            "example": 10,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Report-GET-AllReportsOfAUser-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -3406,575 +3281,6 @@
           },
           "404": {
             "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client-Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{version}/users/flag": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Flag",
-        "description": "This API allows to flag any pins.",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "pinId",
-                  "violationDesc",
-                  "violationType",
-                  "platform"
-                ],
-                "properties": {
-                  "pinId": {
-                    "type": "string",
-                    "description": "8b4119a328cf6685d5bf1c68abfb7023"
-                  },
-                  "platform": {
-                    "type": "integer",
-                    "description": "Platfrom from which request is being made. <br>Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
-                    "enum": [
-                      "101(Android)",
-                      "104(IOS)",
-                      "111(ExploreWeb)",
-                      "112(MapWeb)",
-                      "121(Traffic)"
-                    ]
-                  },
-                  "violationDesc": {
-                    "type": "string",
-                    "description": "testing...........................!"
-                  },
-                  "violationType": {
-                    "type": "integer",
-                    "description": "2"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client-Error-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Invalid-Token-Response"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{version}/users/follow": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Follow",
-        "description": "This API allows to follow any user.",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "followRequest",
-            "in": "header",
-            "description": "user can request follow the user name.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "followTo",
-                  "platform"
-                ],
-                "properties": {
-                  "followTo": {
-                    "type": "string",
-                    "description": "userName of the user to be followed",
-                    "example": "ankit1993"
-                  },
-                  "platform": {
-                    "type": "integer",
-                    "description": "Platfrom from which request is being made. <br>Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
-                    "enum": [
-                      "101(Android)",
-                      "104(IOS)",
-                      "111(ExploreWeb)",
-                      "112(MapWeb)",
-                      "121(Traffic)"
-                    ],
-                    "example": 101
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client-Error-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Invalid-Token-Response"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client-Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{version}/users/like": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Like OR Unlike",
-        "description": "This API allows to like/unlike any pins.",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "pinId",
-                  "status",
-                  "platform"
-                ],
-                "properties": {
-                  "pinId": {
-                    "type": "string",
-                    "description": "Id of the pin.",
-                    "example": "5e82b2c1-08b2-4d04-9391-630c184bb06c"
-                  },
-                  "status": {
-                    "type": "integer",
-                    "description": "Allowed values- 0(unlike), 1(like)",
-                    "enum": [
-                      "0(unlike)",
-                      "1(like)"
-                    ],
-                    "example": 0
-                  },
-                  "platform": {
-                    "type": "integer",
-                    "description": "Platfrom from which request is being made. <br>Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
-                    "enum": [
-                      "101(Android)",
-                      "104(IOS)",
-                      "111(ExploreWeb)",
-                      "112(MapWeb)",
-                      "121(Traffic)"
-                    ],
-                    "example": 101
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Client Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client-Error-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid Token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Invalid-Token-Response"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{version}/users/<userName>/myjourney": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "My Journey",
-        "description": "This API allows you to get all journey of a user.",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userName",
-            "in": "path",
-            "description": "Name of the user.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "description": "pinType(review, report)",
-            "required": false,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Current page number.",
-            "required": false,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "No of records per page.",
-            "required": false,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Get-User-My-Journey-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid Token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Invalid-Token-Response"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Client Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Client-Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{version}/users/myworld": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "My World",
-        "description": "This API allows you to get all activities happening within passed bound.",
-        "parameters": [
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version of the API.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "centreX",
-            "in": "query",
-            "description": "Center x coordinate.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "centreY",
-            "in": "query",
-            "description": "Center y coordinate.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "minX",
-            "in": "query",
-            "description": "Minimum x coordinate.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "minY",
-            "in": "query",
-            "description": "Minimum y coordinate.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "maxX",
-            "in": "query",
-            "description": "Maximum x coordinate.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "maxY",
-            "in": "query",
-            "description": "Maximum y coordinate.",
-            "required": true,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Current page number.",
-            "required": false,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "description": "No of records per page.",
-            "required": false,
-            "allowEmptyValue": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Get-User-My-World-Response"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid Token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Invalid-Token-Response"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Client Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -4237,6 +3543,749 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{version}/users/flag": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Flag",
+        "description": "This API allows to flag any pins.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "pinId",
+                  "violationDesc",
+                  "violationType",
+                  "platform"
+                ],
+                "properties": {
+                  "pinId": {
+                    "type": "string",
+                    "description": "8b4119a328cf6685d5bf1c68abfb7023"
+                  },
+                  "platform": {
+                    "type": "integer",
+                    "description": "Platfrom from which request is being made. <br>Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
+                    "enum": [
+                      "101(Android)",
+                      "104(IOS)",
+                      "111(ExploreWeb)",
+                      "112(MapWeb)",
+                      "121(Traffic)"
+                    ]
+                  },
+                  "violationDesc": {
+                    "type": "string",
+                    "description": "testing...........................!"
+                  },
+                  "violationType": {
+                    "type": "integer",
+                    "description": "2"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{version}/users/<userName>/myjourney": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "My Journey",
+        "description": "This API allows you to get all journey of a user.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "description": "Name of the user.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "pinType(review, report)",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page number.",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "No of records per page.",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Get-User-My-Journey-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Client Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{version}/users/myworld": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "My World",
+        "description": "This API allows you to get all activities happening within passed bound.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "centreX",
+            "in": "query",
+            "description": "Center x coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "centreY",
+            "in": "query",
+            "description": "Center y coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "minX",
+            "in": "query",
+            "description": "Minimum x coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "minY",
+            "in": "query",
+            "description": "Minimum y coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "maxX",
+            "in": "query",
+            "description": "Maximum x coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "maxY",
+            "in": "query",
+            "description": "Maximum y coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page number.",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "No of records per page.",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Get-User-My-World-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Client Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{version}/users/contribution": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "My Contribution",
+        "description": "This API allows you to get all contributions of a user.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "userName of the user to be followed.",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Get-User-My-Contribution-Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{version}/users/like": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Like OR Unlike",
+        "description": "This API allows to like/unlike any pins.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "pinId",
+                  "status",
+                  "platform"
+                ],
+                "properties": {
+                  "pinId": {
+                    "type": "string",
+                    "description": "Id of the pin.",
+                    "example": "5e82b2c1-08b2-4d04-9391-630c184bb06c"
+                  },
+                  "status": {
+                    "type": "integer",
+                    "description": "Allowed values- 0(unlike), 1(like)",
+                    "enum": [
+                      "0(unlike)",
+                      "1(like)"
+                    ],
+                    "example": 0
+                  },
+                  "platform": {
+                    "type": "integer",
+                    "description": "Platfrom from which request is being made. <br>Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
+                    "enum": [
+                      "101(Android)",
+                      "104(IOS)",
+                      "111(ExploreWeb)",
+                      "112(MapWeb)",
+                      "121(Traffic)"
+                    ],
+                    "example": 101
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Client Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internal-Server-Error-Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{version}/users/feedback": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Send feedbacks",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "description",
+                  "submittedBy",
+                  "platform",
+                  "file"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Allowed values (BUG, IOTBUG, TASK, STORY)",
+                    "enum": [
+                      "BUG",
+                      "IOTBUG",
+                      "TASK",
+                      "STORY"
+                    ]
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Feedback description"
+                  },
+                  "submittedBy": {
+                    "type": "string",
+                    "description": "A valid email id or phone number"
+                  },
+                  "appVersion": {
+                    "type": "string",
+                    "description": "Version of the app"
+                  },
+                  "osVersion": {
+                    "type": "string",
+                    "description": "Version of the os"
+                  },
+                  "deviceName": {
+                    "type": "string",
+                    "description": "Name of the device"
+                  },
+                  "platform": {
+                    "type": "string",
+                    "description": "Allowed values (MOVE_ANDROID, MOVE_IOS, MOVE_WEB, SCHOOL_BUS_ANDROID, SCHOOL_BUS_IOS, WORKMATE_ANDROID, WORKMATE_IOS, WORKMATE_WEB, INTOUCH_WEB)",
+                    "enum": [
+                      "MOVE_ANDROID",
+                      "MOVE_IOS",
+                      "MOVE_WEB",
+                      "SCHOOL_BUS_ANDROID",
+                      "SCHOOL_BUS_IOS",
+                      "WORKMATE_ANDROID",
+                      "WORKMATE_IOS",
+                      "WORKMATE_WEB",
+                      "INTOUCH_WEB"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/{version}/users/follow": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Follow",
+        "description": "This API allows to follow any user.",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version of the API.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "followRequest",
+            "in": "header",
+            "description": "user can request follow the user name.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "followTo",
+                  "platform"
+                ],
+                "properties": {
+                  "followTo": {
+                    "type": "string",
+                    "description": "userName of the user to be followed",
+                    "example": "ankit1993"
+                  },
+                  "platform": {
+                    "type": "integer",
+                    "description": "Platfrom from which request is being made. <br>Allowed values- 101(Android), 104(IOS), 111(ExploreWeb), 112(MapWeb), 121(Traffic)",
+                    "enum": [
+                      "101(Android)",
+                      "104(IOS)",
+                      "111(ExploreWeb)",
+                      "112(MapWeb)",
+                      "121(Traffic)"
+                    ],
+                    "example": 101
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error-Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invalid-Token-Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client-Error"
                 }
               }
             }
@@ -4638,83 +4687,43 @@
           "childCategory"
         ],
         "properties": {
-          "accuracy": {
-            "type": "integer"
-          },
-          "alt": {
-            "type": "integer"
-          },
-          "appVersion": {
-            "type": "string"
-          },
-          "attachPictures": {
-            "type": "boolean"
-          },
-          "attachVideos": {
-            "type": "boolean"
-          },
-          "bearing": {
-            "type": "integer"
-          },
-          "childCategory": {
-            "type": "integer"
-          },
-          "course": {
-            "type": "integer"
-          },
           "description": {
-            "type": "string"
+            "type": "string",
+            "example": "Community Electricity Failure report"
           },
-          "deviceName": {
-            "type": "string"
-          },
-          "eventId": {
-            "type": "string"
-          },
-          "expiry": {
-            "type": "integer",
-            "format": "long"
-          },
-          "flag": {
-            "type": "integer"
+          "placeName": {
+            "type": "string",
+            "example": "General Hospital Government Blood Bank"
           },
           "latitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "example": 13.041271
           },
           "longitude": {
             "type": "number",
-            "format": "double"
-          },
-          "osVersion": {
-            "type": "string"
+            "format": "double",
+            "example": 80.276905
           },
           "parentCategory": {
-            "type": "integer"
+            "type": "integer",
+            "example": 3
           },
-          "placeName": {
-            "type": "string"
+          "childCategory": {
+            "type": "integer",
+            "example": 19
+          },
+          "bearing": {
+            "type": "number",
+            "example": 1
+          },
+          "accuracy": {
+            "type": "integer",
+            "example": 1
           },
           "platform": {
-            "type": "integer"
-          },
-          "pushEvent": {
-            "type": "boolean"
-          },
-          "quality": {
-            "type": "integer"
-          },
-          "speed": {
-            "type": "integer"
-          },
-          "subChildCategory": {
-            "type": "integer"
-          },
-          "utc": {
-            "type": "integer"
-          },
-          "zeroId": {
-            "type": "string"
+            "type": "string",
+            "example": "104"
           }
         }
       },
