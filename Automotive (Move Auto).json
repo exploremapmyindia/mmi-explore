@@ -1,0 +1,3071 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MapmyIndia Auto APIs",
+    "description": "The document lists the set of APIs that the frontend application requires which'll allow a user to use MapmyIndia Auto App features on Android Auto and Apple Carplay. The given API signatures are only for reference purposes for the backend developers.",
+    "termsOfService": "https://www.mapmyindia.com/about/terms-conditions",
+    "contact": {
+      "email": "apisupport@mapmyindia.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "0.0.2"
+  },
+  "servers": [
+    {
+      "url": "https://explore.mapmyindia.com/api"
+    },
+    {
+      "url": "https://atlas.mapmyindia.com/api"
+    },
+    {
+      "url": "https://outpost.mapmyindia.com/api"
+    },
+    {
+      "url": "https://apis.mapmyindia.com/advancedmaps/v1"
+    }
+  ],
+  "security": [
+    {
+      "bearerToken": []
+    }
+  ],
+  "paths": {
+    "/O2O/action/list": {
+      "get": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "summary": "Get all the saved list of a user",
+        "description": "This API will provide the details of lists saved by a user such as favourite want to go point on map etc.",
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "query",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getSavedListResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not found."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL not found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "addCustomList",
+        "summary": "Add Custom List",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "listName",
+                  "privacy"
+                ],
+                "properties": {
+                  "listName": {
+                    "type": "string",
+                    "example": "test316515"
+                  },
+                  "privacy": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "placeName": {
+                    "type": "string",
+                    "example": "B71"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "New Delhi, 110020"
+                  },
+                  "eloc": {
+                    "type": "string",
+                    "example": "Q6KYGS"
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 23.199028
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 75.7897076
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/O2O/action/list/<listId>": {
+      "patch": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "updateCustomList",
+        "summary": "Update Custom List",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "listName",
+                  "privacy"
+                ],
+                "properties": {
+                  "listName": {
+                    "type": "string",
+                    "example": "test316515"
+                  },
+                  "privacy": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/O2O/action/list/listId": {
+      "delete": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "deleteCustomList",
+        "summary": "Delete Custom List",
+        "description": "Default list will not be deleted.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/O2O/action/list/listItem/<listId>": {
+      "get": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "getSavedPlace",
+        "summary": "Get all the saved places of a user",
+        "description": "This API will provide the details of places saved by a user such as home, work,  favourite and want to go.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getSavePlaceResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not found."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL not found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "addListItem",
+        "summary": "Add List Item",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placeName": {
+                    "type": "string",
+                    "example": "B71"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "New Delhi, 110020"
+                  },
+                  "eloc": {
+                    "type": "string",
+                    "example": "Q6KYGS"
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 23.199028
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 75.7897076
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/O2O/action/list/listItem/<listItemId>": {
+      "delete": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "deleteListItem",
+        "summary": "Delete List Item",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/O2O/action/list/listItem/nearby": {
+      "get": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "getNearbySavedPlaces",
+        "summary": "Get all nearby saved places of a user.",
+        "description": "This API will provide the details of nearby places saved by a user such as home, work,  favourite and want to go.",
+        "parameters": [
+          {
+            "name": "minX",
+            "in": "query",
+            "description": "Minimum longitude coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "minY",
+            "in": "query",
+            "description": "Minimum latitude coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "maxX",
+            "in": "query",
+            "description": "Maximum longitude coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "maxY",
+            "in": "query",
+            "description": "Maximum latitude coordinate.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getNearbySavePlaceResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not found."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL not found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/O2O/user/places/<locType>": {
+      "post": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "summary": "Set Home/Office",
+        "description": "locType will accept only two values <b>home/office</b>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eloc": {
+                    "type": "string",
+                    "example": "ONMAP"
+                  },
+                  "placeName": {
+                    "type": "string",
+                    "example": "Home MMI"
+                  },
+                  "e_lat": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 28.551044
+                  },
+                  "e_lng": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 77.268952
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 28.551044
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 77.268952
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "summary": "Update Home/Office",
+        "description": "locType will accept only two values <b>home/office</b>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eloc": {
+                    "type": "string",
+                    "example": "ONMAP"
+                  },
+                  "placeName": {
+                    "type": "string",
+                    "example": "Home MMI"
+                  },
+                  "e_lat": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 28.551044
+                  },
+                  "e_lng": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 77.268952
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 28.551044
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 77.268952
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/O2O/user/places": {
+      "get": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "getHome/Office",
+        "summary": "Get Home/Office of a user.",
+        "description": "This API will provide the Home/Office details saved by a user.",
+        "parameters": [
+          {
+            "name": "locType",
+            "in": "query",
+            "description": "locType take two values <b>home/office</b>",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getHome-OfficeResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not found."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL not found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/O2O/places/categories": {
+      "get": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "getPlaceCategories",
+        "summary": "Place Categories With Grouping",
+        "description": "Place Categories with grouping.",
+        "parameters": [
+          {
+            "name": "catCode",
+            "in": "query",
+            "description": "Id's of Categories.",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "catGroup",
+            "in": "query",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getPlaceCategoriesResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/O2O/places//categories": {
+      "get": {
+        "tags": [
+          "Explore APIs"
+        ],
+        "operationId": "getPlaceCategoriesWithoutGrouping",
+        "summary": "Place Categories Without Grouping",
+        "description": "Place Categories without grouping.",
+        "parameters": [
+          {
+            "name": "catCode",
+            "in": "query",
+            "description": "Id's of Categories.",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "catGroup",
+            "in": "query",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getPlaceCategoriesResponseWithoutGrouping"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/savePlace": {
+      "put": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "postSavedPlaces",
+        "summary": "Save user places",
+        "description": "This API will be used to save/update user's Home, Work, Favorite and wantToGo in the backend.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/saveObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/getETA": {
+      "get": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "getETA",
+        "summary": "Get ETA information for the places",
+        "description": "API to provide ETA and distance from the current location to multiple other locations. It will also provide traffic status for each of the above results. [“Severe”, “Moderate”, “Low”]",
+        "parameters": [
+          {
+            "name": "coordinates",
+            "in": "query",
+            "description": "The first pair of longitude & latitude (comma separated) is taken as the source and rest of the coordinate pairs as destination (s) whose distance & duration from source will be calculated",
+            "example": "77.8276812,28.9183792;78.9398237,27.9827493",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getETAResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/categoriesList": {
+      "get": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "getNearbyList",
+        "summary": "Get list of categories to be shown on Home screen",
+        "description": "API to provide the list of categories that can be further used to search nearby places. Such as Petrol Pumps, Hotels.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getNearbyCategoryListResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/textsearchResults": {
+      "get": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "textSearch",
+        "summary": "The API will show list of results when a user presses enter in the search box",
+        "description": "This API is a wrapper of Atlas textsearch and route_eta API. The API will provide the text search results along with ETA details.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "example": "coffee",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "example": "28.918379,77.8276812",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/textSearchResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/nearbyResults": {
+      "get": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "getMovementData",
+        "summary": "Get nearby results based on the category selected by a user",
+        "description": "This API is a wrapper of Atlas nearby and route_eta API. Get nearby places, sorted by distance, based on the category selected by the user along with eta, distance, traffic status and  rich info(Review, Ratings).",
+        "parameters": [
+          {
+            "name": "location",
+            "required": true,
+            "in": "query",
+            "description": "Location around which the search will be performed",
+            "example": "28.454,77.435",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": true,
+            "in": "query",
+            "example": "hotels",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nearbyResultResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/recentSearches": {
+      "get": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "getRecentSearch",
+        "summary": "Get the list of a user’s searched places",
+        "description": "It gives recent search history of a user, synced from different platforms such as Android, iOS or Web",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/recentSearchResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/saveRecentSearch": {
+      "post": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "postRecentSearch",
+        "summary": "Save user's recent places",
+        "description": "The API will be used to save the user's recent places in the MMI backend.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recentSearchResponse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created."
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "operationId": "autoSuggest",
+        "summary": "Get the autosuggest results",
+        "description": "The API will provide the results as user keeps keying in the search box.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "india gat"
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "28.550637053317985, 77.26765926208543"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/autosuggestResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/placeDetails": {
+      "get": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "getPlaceDetails",
+        "summary": "Get information of a place",
+        "description": "This api will get the details of a place when user selects it.",
+        "parameters": [
+          {
+            "name": "eloc",
+            "in": "path",
+            "example": "MMI000",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/placeDetailResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/settings": {
+      "get": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "getSettingDetails",
+        "summary": "Get app settings",
+        "description": "This API will provide settings that a user has synced previously.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/settingsObjectResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/saveSettings": {
+      "put": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "putSettingDetails",
+        "summary": "Save/Update the app settings",
+        "description": "The API can be used to Save/Update the app settings.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/settingsObjectResponse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/searchAlongTheRoute": {
+      "get": {
+        "tags": [
+          "Internal APIs"
+        ],
+        "operationId": "getSearchAlongARoute",
+        "summary": "Get POIs along the route",
+        "description": "This API is a wrapper of Atlas POI Along Route and Advanced route_eta APIs. The API will provide the POIs along a route while user is navigating based on the category selected by a user. This will also provide driving ETA, traffic status and driving distance.",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "example": null,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "example": null,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/searchAlongRouteResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/along_route": {
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "operationId": "getSearchAlongARouteExternal",
+        "summary": "Atlas API to get POIs along the route",
+        "description": "This API will be used by MapmyIndia Auto Backend along with Route ETA API to get the POIs and ETA details.",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "example": "HOTALL",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "example": "ijzeDirz{O`aDjbDpyGrU|mFl|PnwC~k@prDmzGn_DuMnjD|bJpsJlxH|hI}hBnpF~hDj`PguKj_Cg`^uuBciTnm@uol@feCacD~u[gnIdsCga^eq@}kJomF_lAzCc|HdvGjI|oOiaSx`EcZ`j@udPn~Ea}HbhFu}Aem@a}P~}CmsZzfEywKugAa_PiiUygOn}D}vG_bF}|MziBwsj@tcKe}_@{j@klMhyBgsAbiAcoMoTkdIk{Bya@tsBoeMyrCalKrm@_iDl~LgwByrOsq\\i{Cyai@xcHsjBbcDamGcZekQd`DkdVrbJedBzyEuqNdoa@bdIkvBoqN",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/alongRouteResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/route_eta": {
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "operationId": "etaExternal",
+        "summary": "Get the Driving ETA, distance and traffic status",
+        "description": "Advanced Map Route ETA API to be called by MMI Auto Backend to get the eta, time and traffic status. This API will also be used along with POI Along Route, Nearby and Textsearch APIs.",
+        "parameters": [
+          {
+            "name": "profile",
+            "in": "path",
+            "example": "driving",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coordinates",
+            "in": "query",
+            "example": "77.8276812,28.9183792;78.9398237,27.9827493",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "annotations",
+            "in": "query",
+            "example": "congestion",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/routeEtaResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/textsearch": {
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "operationId": "textSearhExt",
+        "summary": "Atlas Textsearch API to get results when a user presses enter",
+        "description": "API to be called by MMI Auto Backend to get place's info along with route ETA API.",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "richData",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nearbyResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "operationId": "login",
+        "summary": "Anchor API for user authentication",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "description": "User-Agent: \\<product\\> / \\<product-version\\> \\<comment\\>",
+            "example": "Move/1.0 (<system-information>) <platform> (<platform-details>)<extensions>",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/routeReportSummary": {
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "operationId": "routeReportSummary",
+        "summary": "Same as existing (for Explore 3.x)",
+        "parameters": [
+          {
+            "name": "plarform",
+            "in": "path",
+            "example": "android | ios",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "routeId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "screenDensity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isGroup",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/routeReportSummaryResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content Not available for the selected period."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    },
+    "/nearby": {
+      "get": {
+        "tags": [
+          "External APIs"
+        ],
+        "operationId": "externalNearby",
+        "summary": "Atlas Nearby API to get nearby places",
+        "description": "This API is will be used by MapmyIndia Auto Backend along with route ETA API to the nearby places and ETA details.",
+        "parameters": [
+          {
+            "name": "refLocation",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "keywords",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "richData",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/nearbyResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Content not available."
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameter or value provided."
+          },
+          "401": {
+            "description": "Unauthorized Request. Access to API is forbidden."
+          },
+          "403": {
+            "description": "User does not have access to the API."
+          },
+          "404": {
+            "description": "URL Not Found."
+          },
+          "406": {
+            "description": "userId does not belong to your account."
+          },
+          "5XX": {
+            "description": "System error."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "getSavedListResponse": {
+        "type": "object",
+        "properties": {
+          "lists": {
+            "example": [
+              {
+                "listName": "Want to Go",
+                "privacy": 1,
+                "createdOn": 1462857748,
+                "itemCount": 13,
+                "listId": "791c4990ae4a018535b933908f332f97",
+                "icons": {
+                  "mapIcon": "https://cdn.mapmyindia.com/auto/mapIcon/ic_list_wanttogo.png",
+                  "listIcon": "https://cdn.mapmyindia.com/auto/listIcon/ic_list_wanttogo.png",
+                  "largeIcone": "https://cdn.mapmyindia.com/auto/largeIcon/ic_list_wanttogo.png"
+                }
+              },
+              {
+                "listName": "Favourites",
+                "privacy": 1,
+                "createdOn": 1462857748,
+                "itemCount": 1,
+                "listId": "791c4990ae4a018535b933908f332f97",
+                "icons": {
+                  "mapIcon": "https://cdn.mapmyindia.com/auto/mapIcon/ic_list_favourites.png",
+                  "listIcon": "https://cdn.mapmyindia.com/auto/listIcon/ic_list_favourites.png",
+                  "largeIcone": "https://cdn.mapmyindia.com/auto/largeIcon/ic_list_favourites.png"
+                }
+              },
+              {
+                "listName": "Point on Map",
+                "privacy": 1,
+                "createdOn": 1462857748,
+                "itemCount": 2,
+                "listId": "ac707fda1c356b08d7a95380d8808248",
+                "icons": {
+                  "mapIcon": "https://cdn.mapmyindia.com/auto/mapIcon/ic_list_pointonmap.png",
+                  "listIcon": "https://cdn.mapmyindia.com/auto/listIcon/ic_list_pointonmap.png",
+                  "largeIcone": "https://cdn.mapmyindia.com/auto/largeIcon/ic_list_pointonmap.png"
+                }
+              },
+              {
+                "listName": "New List Test",
+                "privacy": 0,
+                "createdOn": 1610099465,
+                "itemCount": 2,
+                "listId": "LIST::936f3797-eaf1-4283-bbea-0531990541d8",
+                "icons": {
+                  "mapIcon": "https://cdn.mapmyindia.com/auto/mapIcon/ic_list_custom.png",
+                  "listIcon": "https://cdn.mapmyindia.com/auto/listIcon/ic_list_custom.png",
+                  "largeIcone": "https://cdn.mapmyindia.com/auto/largeIcon/ic_list_custom.png"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "getSavePlaceResponse": {
+        "type": "object",
+        "properties": {
+          "listItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "placeName": {
+                  "type": "string",
+                  "example": "B71"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "New Delhi, 110020"
+                },
+                "eloc": {
+                  "type": "string",
+                  "example": "Q6KYGS"
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 23.199028
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 75.7897076
+                },
+                "itemId": {
+                  "type": "string",
+                  "example": "5a4d35da5026d24a3e540ad3a578d5e8"
+                },
+                "createdOn": {
+                  "type": "integer",
+                  "example": 1585294212
+                },
+                "icons": {
+                  "type": "object",
+                  "properties": {
+                    "mapIcon": {
+                      "type": "string",
+                      "example": "https://cdn.mapmyindia.com/auto/mapIcon/ic_list_wanttogo.png"
+                    },
+                    "listIcon": {
+                      "type": "string",
+                      "example": "https://cdn.mapmyindia.com/auto/listIcon/ic_list_wanttogo.png"
+                    },
+                    "largeIcon": {
+                      "type": "string",
+                      "example": "https://cdn.mapmyindia.com/auto/largeIcon/ic_list_wanttogo.png"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItems": {
+                "type": "integer",
+                "example": 13
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 2
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "getNearbySavePlaceResponse": {
+        "type": "object",
+        "properties": {
+          "listItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "placeName": {
+                  "type": "string",
+                  "example": "B71"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "New Delhi, 110020"
+                },
+                "eloc": {
+                  "type": "string",
+                  "example": "Q6KYGS"
+                },
+                "latitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 23.199028
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 75.7897076
+                },
+                "itemId": {
+                  "type": "string",
+                  "example": "5a4d35da5026d24a3e540ad3a578d5e8"
+                },
+                "createdOn": {
+                  "type": "integer",
+                  "example": 1585294212
+                },
+                "listId": {
+                  "type": "string",
+                  "example": "791c4990ae4a018535b933908f332f97"
+                },
+                "icons": {
+                  "type": "object",
+                  "properties": {
+                    "mapIcon": {
+                      "type": "string",
+                      "example": "https://cdn.mapmyindia.com/auto/mapIcon/ic_list_wanttogo.png"
+                    },
+                    "listIcon": {
+                      "type": "string",
+                      "example": "https://cdn.mapmyindia.com/auto/listIcon/ic_list_wanttogo.png"
+                    },
+                    "largeIcon": {
+                      "type": "string",
+                      "example": "https://cdn.mapmyindia.com/auto/largeIcon/ic_list_wanttogo.png"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "totalItems": {
+                "type": "integer",
+                "example": 13
+              },
+              "perPage": {
+                "type": "integer",
+                "example": 10
+              },
+              "totalPages": {
+                "type": "integer",
+                "example": 2
+              },
+              "currentPage": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "getHome-OfficeResponse": {
+        "type": "object",
+        "properties": {
+          "home": {
+            "type": "object",
+            "properties": {
+              "placeName": {
+                "type": "string",
+                "description": "Title",
+                "example": "Starbucks"
+              },
+              "address": {
+                "type": "string",
+                "description": "Place Name for home address",
+                "example": "Raj Niwas, Block D, Kalkaji, New Delhi, Delhi, 110019"
+              },
+              "eloc": {
+                "type": "string",
+                "description": "digital address of the place (eloc)",
+                "example": "W7R5DF"
+              },
+              "e_lat": {
+                "type": "number",
+                "format": "double",
+                "example": 28.3923
+              },
+              "e_lng": {
+                "type": "number",
+                "format": "double",
+                "description": "longitude of the place",
+                "example": 78.3223
+              },
+              "latitude": {
+                "type": "number",
+                "description": "Latitude of the place",
+                "example": 28.3923
+              },
+              "longitude": {
+                "type": "number",
+                "description": "longitude of the place",
+                "example": 78.3223
+              },
+              "createdOn": {
+                "type": "integer",
+                "example": 1585294212
+              },
+              "icons": {
+                "type": "object",
+                "properties": {
+                  "mapIcon": {
+                    "type": "string",
+                    "example": "https://cdn.mapmyindia.com/auto/mapIcon/ic_list_home.png"
+                  },
+                  "listIcon": {
+                    "type": "string",
+                    "example": "https://cdn.mapmyindia.com/auto/listIcon/ic_list_home.png"
+                  },
+                  "largeIcon": {
+                    "type": "string",
+                    "example": "https://cdn.mapmyindia.com/auto/largeIcon/ic_list_home.png"
+                  }
+                }
+              }
+            }
+          },
+          "office": {
+            "type": "object",
+            "properties": {
+              "placeName": {
+                "type": "string",
+                "description": "Place Name",
+                "example": "Mapmyindia HQ"
+              },
+              "placeAddress": {
+                "type": "string",
+                "description": "Place Name for office address",
+                "example": "237, Okhla Phase III, New Delhi, 110020."
+              },
+              "eloc": {
+                "type": "string",
+                "description": "digital address of the place (eloc)",
+                "example": "MMI000"
+              },
+              "latitude": {
+                "type": "number",
+                "description": "Latitude of the place",
+                "example": 28.3923
+              },
+              "longitude": {
+                "type": "number",
+                "description": "longitude of the place",
+                "example": 78.3223
+              },
+              "createdOn": {
+                "type": "integer",
+                "example": 1585294212
+              },
+              "icons": {
+                "type": "object",
+                "properties": {
+                  "mapIcon": {
+                    "type": "string",
+                    "example": "https://cdn.mapmyindia.com/auto/mapIcon/ic_list_office.png"
+                  },
+                  "listIcon": {
+                    "type": "string",
+                    "example": "https://cdn.mapmyindia.com/auto/listIcon/ic_list_office.png"
+                  },
+                  "largeIcon": {
+                    "type": "string",
+                    "example": "https://cdn.mapmyindia.com/auto/largeIcon/ic_list_office.png"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "savedPlacesObjectResponse": {
+        "properties": {
+          "home": {
+            "$ref": "#/components/schemas/homeDetailsObjectResponse"
+          },
+          "office": {
+            "$ref": "#/components/schemas/officeDetailsObjectResponse"
+          }
+        }
+      },
+      "homeDetailsObjectResponse": {
+        "properties": {
+          "lat": {
+            "type": "number",
+            "description": "Latitude of the place",
+            "example": 28.3923
+          },
+          "lng": {
+            "type": "number",
+            "description": "longitude of the place",
+            "example": 78.3223
+          },
+          "name": {
+            "type": "string",
+            "description": "Title",
+            "example": "Starbucks"
+          },
+          "address": {
+            "type": "string",
+            "description": "Place Name for home address",
+            "example": "Raj Niwas, Block D, Kalkaji, New Delhi, Delhi, 110019"
+          },
+          "place_id": {
+            "type": "string",
+            "description": "digital address of the place (eloc)",
+            "example": "W7R5DF"
+          }
+        }
+      },
+      "officeDetailsObjectResponse": {
+        "properties": {
+          "lat": {
+            "type": "number",
+            "description": "Latitude of the place",
+            "example": 28.3923
+          },
+          "lng": {
+            "type": "number",
+            "description": "longitude of the place",
+            "example": 78.3223
+          },
+          "name": {
+            "type": "string",
+            "description": "Place Name",
+            "example": "Mapmyindia HQ"
+          },
+          "address": {
+            "type": "string",
+            "description": "Place Name for office address",
+            "example": "237, Okhla Phase III, New Delhi, 110020."
+          },
+          "place_id": {
+            "type": "string",
+            "description": "digital address of the place (eloc)",
+            "example": "MMI000"
+          }
+        }
+      },
+      "favouriteObjectResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string",
+              "description": "Place Name",
+              "example": "Mapmyindia HQ"
+            },
+            "address": {
+              "type": "string",
+              "description": "Place Name for office address",
+              "example": "237, Okhla Phase III, New Delhi, 110020."
+            }
+          }
+        }
+      },
+      "wantToGoObjectResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string",
+              "description": "Place Name",
+              "example": "Mapmyindia HQ"
+            },
+            "address": {
+              "type": "string",
+              "description": "Place Name for office address",
+              "example": "237, Okhla Phase III, New Delhi, 110020."
+            }
+          }
+        }
+      },
+      "searchAlongRouteResponse": {
+        "properties": {
+          "placeId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "richData": {
+            "type": "object"
+          },
+          "totalDistance": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalDuration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "addedDistance": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "addedDuration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "trafficStatus": {
+            "type": "string"
+          }
+        }
+      },
+      "userLocationObjectResponse": {
+        "properties": {
+          "home": {
+            "$ref": "#/components/schemas/homeObjectResponse"
+          },
+          "work": {
+            "$ref": "#/components/schemas/workObjectResponse"
+          }
+        }
+      },
+      "homeObjectResponse": {
+        "type": "object"
+      },
+      "workObjectResponse": {
+        "type": "object"
+      },
+      "saveObject": {
+        "type": "object",
+        "properties": {
+          "userLocation": {
+            "$ref": "#/components/schemas/userLocationObjectResponse"
+          },
+          "favourites": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "latitude": {
+                  "type": "number"
+                },
+                "longitude": {
+                  "type": "number"
+                },
+                "placeName": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "wantToGo": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "latitude": {
+                  "type": "number"
+                },
+                "longitude": {
+                  "type": "number"
+                },
+                "placeName": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "coordinateObjectResponse": {
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "description": "Latitude of the place",
+            "example": 27.12345
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Longitude of the place",
+            "example": 78.12345
+          }
+        }
+      },
+      "getETAResponse": {
+        "type": "object",
+        "properties": {
+          "etaInfo": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "coordinate": {
+                  "$ref": "#/components/schemas/coordinateObjectResponse"
+                },
+                "etaInSeconds": {
+                  "type": "number",
+                  "example": 36000
+                },
+                "distanceInMeters": {
+                  "type": "number",
+                  "example": 5000
+                },
+                "trafficStatus": {
+                  "type": "string",
+                  "example": "moderate"
+                }
+              }
+            }
+          }
+        }
+      },
+      "nearbyResultResponse": {
+        "type": "object",
+        "properties": {
+          "suggestedLocations": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "drivingDistance": {
+                  "type": "integer",
+                  "format": "double",
+                  "example": 4521
+                },
+                "eta": {
+                  "type": "integer",
+                  "format": "double",
+                  "example": 300
+                },
+                "trafficStatus": {
+                  "type": "string",
+                  "example": "Low"
+                },
+                "avgRating": {
+                  "type": "number",
+                  "example": 0
+                },
+                "eLoc": {
+                  "type": "string",
+                  "example": "9VLKDJ"
+                },
+                "entryLatitude": {
+                  "type": "number",
+                  "example": 28.551879
+                },
+                "entryLongitude": {
+                  "type": "number",
+                  "example": 77.2679620000001
+                },
+                "hourOfOperation": {
+                  "type": "number",
+                  "format": "string"
+                },
+                "keywords": {
+                  "type": "array",
+                  "items": {
+                    "example": "HOTALL"
+                  }
+                },
+                "latitude": {
+                  "type": "number",
+                  "example": 28.551879
+                },
+                "longitude": {
+                  "type": "number",
+                  "example": 77.2679620000001
+                },
+                "placeAddress": {
+                  "type": "string",
+                  "example": "261, Okhla Industrial Area Phase 3, New Delhi, Delhi, 110020"
+                },
+                "placeName": {
+                  "type": "string",
+                  "example": "The Acacia Villas"
+                },
+                "similarImage": {
+                  "type": "string",
+                  "example": ""
+                },
+                "totalReviews": {
+                  "type": "number",
+                  "example": 0
+                },
+                "type": {
+                  "type": "string",
+                  "example": "POI"
+                }
+              }
+            }
+          }
+        }
+      },
+      "recentSearchResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Place name",
+              "example": "MapmyIndia"
+            },
+            "address": {
+              "type": "string",
+              "description": "Physical address of the place",
+              "example": "237, Okhla Phase 3"
+            },
+            "placeId": {
+              "type": "string",
+              "description": "Digital address of the place",
+              "example": "MMI000"
+            },
+            "coordinate": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number",
+                  "description": "Latitude of the place",
+                  "example": 28.12345
+                },
+                "longitude": {
+                  "type": "number",
+                  "description": "Longitude of the place",
+                  "example": 77.12345
+                }
+              }
+            }
+          }
+        }
+      },
+      "settingsObjectResponse": {
+        "type": "object",
+        "properties": {
+          "3d": {
+            "type": "boolean",
+            "description": "3D map layer",
+            "example": true
+          },
+          "traffic": {
+            "type": "boolean",
+            "description": "visual traffic on map",
+            "example": true
+          },
+          "northUp": {
+            "type": "boolean",
+            "description": "north up orientation of the map",
+            "example": false
+          },
+          "guidance": {
+            "type": "object",
+            "properties": {
+              "trafficAlerts": {
+                "type": "boolean",
+                "description": "visual and audio traffic alerts on navigation",
+                "example": true
+              },
+              "roadConditions": {
+                "type": "boolean",
+                "description": "visual and audio road condition alerts on navigation",
+                "example": true
+              },
+              "safetyAlerts": {
+                "type": "boolean",
+                "description": "visual and audio safety alerts on navigation",
+                "example": false
+              }
+            }
+          },
+          "routeOptions": {
+            "type": "object",
+            "properties": {
+              "tolls": {
+                "type": "boolean",
+                "example": true
+              },
+              "ferries": {
+                "type": "boolean",
+                "example": false
+              },
+              "motorways": {
+                "type": "boolean",
+                "example": false
+              }
+            }
+          }
+        }
+      },
+      "placeDetailResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the place",
+            "example": "MapmyIndia"
+          },
+          "address": {
+            "type": "string",
+            "description": "Physical address of the place",
+            "example": "237, Okhla Phase 3"
+          },
+          "placeId": {
+            "type": "string",
+            "description": "Digital address of the place",
+            "example": "MMI000"
+          },
+          "placeTag": {
+            "type": "string",
+            "example": "office"
+          },
+          "ratings": {
+            "type": "number",
+            "format": "float",
+            "example": 3.8
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "description": "latitude of the place",
+                "example": 28.12345
+              },
+              "longitude": {
+                "type": "string",
+                "description": "longitude of the place",
+                "example": 77.12345
+              }
+            }
+          },
+          "entryCoordinates": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "description": "entry latitude of the place",
+                "example": 28.12345
+              },
+              "longitude": {
+                "type": "string",
+                "description": "entry longitude of the place",
+                "example": 77.12345
+              }
+            }
+          },
+          "contactInfo": {
+            "type": "object",
+            "properties": {
+              "phone": {
+                "type": "string",
+                "description": "contact number of the place",
+                "example": 9876543211
+              },
+              "email": {
+                "type": "string",
+                "description": "contact email of the place",
+                "example": "info@place.com"
+              },
+              "website": {
+                "type": "string",
+                "description": "website of the place",
+                "example": "https://place.com"
+              }
+            }
+          },
+          "timings": {
+            "type": "object",
+            "properties": {
+              "openTiming": {
+                "type": "integer",
+                "format": "int64",
+                "description": "todays opening timing of the place in epoch UTC",
+                "example": 10101010
+              },
+              "closeTiming": {
+                "type": "integer",
+                "format": "int64",
+                "description": "todays closing timing of the place in epoch UTC",
+                "example": 10101010
+              }
+            }
+          },
+          "amenities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "PayTm accepted here"
+            }
+          }
+        }
+      },
+      "apiResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status Code Name",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "description": "Describes the type of error based on the type of response code.",
+            "example": "Missing parameter name."
+          }
+        }
+      },
+      "badRequest": {
+        "type": "string",
+        "description": "Bad Request - Invalid parameter or value provided."
+      },
+      "getNearbyCategoryListResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Coffee"
+            },
+            "mstrCode": {
+              "type": "string",
+              "example": "FODCOF"
+            },
+            "url": {
+              "type": "string",
+              "example": "https://cdn.mmi.com/icons/abc.png"
+            }
+          }
+        }
+      },
+      "textSearchResponse": {
+        "type": "object",
+        "properties": {
+          "avgRating": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "eLoc": {
+            "type": "string"
+          },
+          "entryLatitude": {
+            "type": "number"
+          },
+          "entryLongitude": {
+            "type": "number"
+          },
+          "hourOfOperation": {
+            "type": "string"
+          },
+          "drivingDistance": {
+            "type": "number"
+          },
+          "eta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "trafficStatus": {
+            "type": "string"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "placeAddress": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "similarImage": {
+            "type": "string"
+          },
+          "totalReviews": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "nearbyResponse": {
+        "type": "object",
+        "properties": {
+          "avgRating": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "eLoc": {
+            "type": "string"
+          },
+          "entryLatitude": {
+            "type": "number"
+          },
+          "entryLongitude": {
+            "type": "number"
+          },
+          "hourOfOperation": {
+            "type": "string"
+          },
+          "drivingDistance": {
+            "type": "number"
+          },
+          "eta": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "trafficStatus": {
+            "type": "string"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "placeAddress": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "similarImage": {
+            "type": "string"
+          },
+          "totalReviews": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "routeReportSummaryResponse": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "index": {
+              "type": "integer",
+              "example": 0
+            }
+          }
+        }
+      },
+      "routeEtaResponse": {
+        "type": "string",
+        "example": "https://mmi-api-team.s3.ap-south-1.amazonaws.com/Traffic-n-Direction/Routing-n-Traffic-Services/index.html#/Routing/getRouteAdvanceETAUsingGET"
+      },
+      "alongRouteResponse": {
+        "type": "object",
+        "properties": {
+          "entryLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "entryLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "placeAddress": {
+            "type": "string"
+          },
+          "placeName": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "eLoc": {
+            "type": "string"
+          }
+        }
+      },
+      "autosuggestResponse": {
+        "type": "object",
+        "properties": {
+          "suggestedLocations": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "POI"
+                },
+                "typeX": {
+                  "type": "integer",
+                  "example": 7
+                },
+                "placeAddress": {
+                  "type": "string",
+                  "example": "Rajpath Marg, New Delhi, Delhi, 110001"
+                },
+                "latitude": {
+                  "type": "integer",
+                  "example": 28.612964
+                },
+                "longitude": {
+                  "type": "integer",
+                  "example": 77.229463
+                },
+                "eLoc": {
+                  "type": "string",
+                  "example": "1T182A"
+                },
+                "placeName": {
+                  "type": "string",
+                  "example": "India Gate"
+                },
+                "entryLatitude": {
+                  "type": "integer",
+                  "example": 28.613058
+                },
+                "entryLongitude": {
+                  "type": "integer",
+                  "example": 77.227738
+                },
+                "p": {
+                  "type": "integer",
+                  "example": 3
+                },
+                "alternateName": {
+                  "type": "string",
+                  "example": ""
+                },
+                "suggester": {
+                  "type": "string",
+                  "example": "placeName"
+                }
+              }
+            }
+          }
+        }
+      },
+      "getPlaceCategoriesResponse": {
+        "type": "object",
+        "properties": {
+          "parentCatCode": {
+            "type": "string",
+            "example": "SHPAUT"
+          },
+          "parentCatName": {
+            "type": "string",
+            "example": "Automotive Dealers"
+          },
+          "parentDisplayName": {
+            "type": "string",
+            "example": "Automotive Dealers"
+          },
+          "parentCatGroup": {
+            "type": "string",
+            "example": "Master"
+          },
+          "childCategories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "childCatCode": {
+                  "type": "string"
+                },
+                "childCatName": {
+                  "type": "string"
+                },
+                "childDisplayName": {
+                  "type": "string"
+                },
+                "updatedOn": {
+                  "type": "string"
+                },
+                "childCatGroup": {
+                  "type": "string"
+                }
+              }
+            },
+            "example": [
+              {
+                "childCatCode": "AUT2WL",
+                "childCatName": "2 Wheeler Dealers",
+                "childDisplayName": "2 Wheeler Dealers",
+                "updatedOn": "<EPOCH_IN_SEC>",
+                "childCatGroup": "RTR"
+              },
+              {
+                "childCatCode": "AUT3WL",
+                "childCatName": "3 Wheeler Dealers",
+                "childDisplayName": "3 Wheeler Dealers",
+                "updatedOn": "<EPOCH_IN_SEC>",
+                "childCatGroup": "master"
+              }
+            ]
+          }
+        }
+      },
+      "getPlaceCategoriesResponseWithoutGrouping": {
+        "type": "object",
+        "properties": {
+          "parentCatCode": {
+            "type": "string",
+            "example": "SHPAUT"
+          },
+          "parentCatName": {
+            "type": "string",
+            "example": "Automotive Dealers"
+          },
+          "parentDisplayName": {
+            "type": "string",
+            "example": "Automotive Dealers"
+          },
+          "parentCatGroup": {
+            "type": "string",
+            "example": "Master"
+          },
+          "childCatCode": {
+            "type": "string",
+            "example": "AUT2WL"
+          },
+          "childCatName": {
+            "type": "string",
+            "example": "2 Wheeler Dealers"
+          },
+          "childDisplayName": {
+            "type": "string",
+            "example": "2 Wheeler Dealers"
+          },
+          "updatedOn": {
+            "type": "string",
+            "example": "<EPOCH_IN_SEC>"
+          },
+          "childCatGroup": {
+            "type": "string",
+            "example": null
+          }
+        }
+      },
+      "icons": {
+        "type": "object",
+        "properties": {
+          "mapicons": {
+            "type": "string",
+            "example": null
+          },
+          "listIcon": {
+            "type": "string",
+            "example": null
+          },
+          "largeIcon": {
+            "type": "string",
+            "example": null
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
