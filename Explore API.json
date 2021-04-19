@@ -6061,7 +6061,6 @@
         "type": "object",
         "required": [
           "placeType",
-          "eloc",
           "placeCatCode",
           "placeName",
           "address",
@@ -6074,11 +6073,6 @@
             "type": "string",
             "example": "Lal Qila",
             "description": "Name of the place."
-          },
-          "eloc": {
-            "type": "string",
-            "example": "T5SC76",
-            "description": "6 character unique place identifier."
           },
           "placeType": {
             "type": "integer",
