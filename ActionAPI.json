@@ -1,0 +1,276 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MapmyIndia Explore APIs",
+    "description": "<h2>Security Type</h2> <p>This APIs follow OAuth2 based security. <b>To know more on how to create your authorization tokens, please click the `Authorize` button below. More details available <a href=https://www.mapmyindia.com/api/advanced-maps/doc/authentication-api.php>here</a></b> </br><li><a href=https://www.mapmyindia.com/api/login>Login/Sing Up</a> for API key and other access.<p></br>",
+    "termsOfService": "https://www.mapmyindia.com/api/terms-&-conditions",
+    "contact": {
+      "name": "MapmyIndia API Support",
+      "url": "https://www.mapmyindia.com/api/#f_cont",
+      "email": "apisupport@mapmyindia.com"
+    },
+    "version": "v2.1.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about MapmyIndia APIs",
+    "url": "https://www.mapmyindia.com/api/advanced-maps/doc/interactive-map-api"
+  },
+  "servers": [
+    {
+      "url": "https://explore.mapmyindia.com/apis",
+      "description": "Prod"
+    }
+  ],
+  "paths": {
+    "/o2o/{webhookId}/{actionId}": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "summary": "",
+        "requestBody": {
+          "description": "Request Body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/POST-webhook-Request"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "webhookId",
+            "in": "path",
+            "description": "Unique assigned webhook Id.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "actionId",
+            "in": "path",
+            "description": "unique identifier for every action.",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking-Successful"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Retry Booking",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Retry-Booking"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Booking Slot not available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Booking-Slot-not-available"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internet Connection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Internet-Connection"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "POST-webhook-Request": {
+        "type": "object",
+        "required": [
+          "eloc",
+          "subjectId",
+          "timestamp",
+          "currentLocation"
+        ],
+        "properties": {
+          "eloc": {
+            "type": "string",
+            "description": "Unique Identifier",
+            "example": "N0GX2M"
+          },
+          "subjectId": {
+            "type": "string",
+            "description": "Devide Id",
+            "example": "khdsf7078"
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "User Current Location",
+            "example": 1625821326
+          },
+          "currentLocation": {
+            "type": "string",
+            "description": "Start coordinate of the route",
+            "example": "28.551880401,77.26859089"
+          },
+          "routeStartLocation": {
+            "type": "string",
+            "description": "Destination coordinate of the route",
+            "example": "28.5426399880,77.279790376"
+          },
+          "routeEndLocation": {
+            "type": "string",
+            "description": "Estimated time of arrival in epoch timestamp format",
+            "example": "28.62088115,77.24683777"
+          },
+          "eta": {
+            "type": "integer",
+            "example": 1625907726
+          }
+        }
+      },
+      "Booking-Successful": {
+        "type": "object",
+        "properties": {
+          "responseCode": {
+            "type": "integer",
+            "example": 200
+          },
+          "responseMsg": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reasonPhrase": {
+                  "type": "string",
+                  "example": "Booking Successful"
+                },
+                "displayMessage": {
+                  "type": "string",
+                  "example": "Your parking request has been booked acknowledged."
+                }
+              }
+            }
+          }
+        }
+      },
+      "Retry-Booking": {
+        "type": "object",
+        "properties": {
+          "responseCode": {
+            "type": "integer",
+            "example": 400
+          },
+          "responseMsg": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reasonPhrase": {
+                  "type": "string",
+                  "example": "Retry Booking"
+                },
+                "displayMessage": {
+                  "type": "string",
+                  "example": "Booking not successful. Kindly retry."
+                }
+              }
+            }
+          }
+        }
+      },
+      "Booking-Slot-not-available": {
+        "type": "object",
+        "properties": {
+          "responseCode": {
+            "type": "integer",
+            "example": 406
+          },
+          "responseMsg": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reasonPhrase": {
+                  "type": "string",
+                  "example": "Booking Slot not available"
+                },
+                "displayMessage": {
+                  "type": "string",
+                  "example": "Unable to reach services. Please try again after sometime."
+                }
+              }
+            }
+          }
+        }
+      },
+      "Internet-Connection": {
+        "type": "object",
+        "properties": {
+          "responseCode": {
+            "type": "integer",
+            "example": 502
+          },
+          "responseMsg": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reasonPhrase": {
+                  "type": "string",
+                  "example": "Internet Connection"
+                },
+                "displayMessage": {
+                  "type": "string",
+                  "example": "Unable to reach services. Please try again after sometime."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "mmi_auth": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://outpost.mapmyindia.com/api/security/oauth/token",
+            "scopes": {
+              "Read": "read authorization for API"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
